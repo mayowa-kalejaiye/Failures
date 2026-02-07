@@ -1,26 +1,63 @@
 # Backend Failure Simulations 🔥
 
-**Learn by building!** Write code yourself to understand real-world backend problems.
+**Learn by building!** Write code yourself to understand real-world backend problems, then build production-ready systems.
 
 ## 🎯 Start Here
 
-### 👉 **[START_HERE.md](START_HERE.md)** 👈
+### 👉 **[docs/START_HERE.md](docs/START_HERE.md)** 👈
 
 New to this project? Read START_HERE.md for your complete getting started guide!
 
+## 📁 Project Structure
+
+```
+Failures/
+├── 📖 docs/              # All documentation & guides
+│   ├── START_HERE.md           # Your first step
+│   ├── ROADMAP.md              # Complete learning path
+│   ├── QUICKSTART.md           # Get running in 5 min
+│   └── ...                     # More guides
+│
+├── 🎓 exercises/         # Phase 1: Learn failure patterns (TODOs)
+│   ├── ex1_db_starter.py       # Connection pools
+│   ├── ex2_network_starter.py  # Retry logic
+│   └── ex3_ratelimit_starter.py # Rate limiting
+│
+├── 🏗️ components/        # Phase 2: Build production systems
+│   ├── common/                 # Reusable code
+│   ├── auth_system/            # Authentication (starter)
+│   └── ...                     # More components coming
+│
+├── 🔧 reference/         # Complete working examples
+│   ├── db_failures.py          # Database patterns
+│   ├── network_failures.py     # Network patterns
+│   └── ...                     # More examples
+│
+└── 🛠️ tools/            # Utilities & test scripts
+    ├── launcher.py             # Interactive launcher
+    └── test_scenarios.py       # Automated tests
+```
+
 ## 🎓 Learning Approach
 
-This is a **hands-on learning project** where YOU implement the code.
+This is a **two-phase hands-on learning project**:
 
-### Your Learning Path:
-1. **Read** [START_HERE.md](START_HERE.md) - Your roadmap
+### Phase 1: Learn Failure Patterns (Exercises)
+1. **Read** [docs/START_HERE.md](docs/START_HERE.md) - Your roadmap
 2. **Code** [exercises/ex1_db_starter.py](exercises/ex1_db_starter.py) - Build connection pools
 3. **Test** `python exercises/test_ex1.py` - Verify your work
-4. **Learn** by doing, debugging, and iterating!
+4. **Repeat** for network retries and rate limiting
+
+### Phase 2: Build Production Systems (Components)
+1. **Read** [docs/BUILDING_SYSTEMS.md](docs/BUILDING_SYSTEMS.md) - System building guide
+2. **Build** [components/auth_system/](components/auth_system/) - Complete auth system
+3. **Apply** all failure patterns you learned
+4. **Deploy** production-ready code
 
 ### Quick Reference:
-- 📖 [LEARNING_GUIDE.md](LEARNING_GUIDE.md) - Philosophy & approach
-- 📝 [STUDENT_GUIDE.md](STUDENT_GUIDE.md) - Patterns & cheat sheet  
+- 📖 [docs/LEARNING_GUIDE.md](docs/LEARNING_GUIDE.md) - Philosophy & approach
+- 📝 [docs/CHEATSHEET.md](docs/CHEATSHEET.md) - Quick pattern reference  
+- 🗺️ [docs/ROADMAP.md](docs/ROADMAP.md) - Complete learning journey
 - ✅ [exercises/SOLUTIONS.md](exercises/SOLUTIONS.md) - Hints when stuck
 
 ## 🚀 Quick Start
@@ -32,7 +69,7 @@ pip install -r requirements.txt
 
 ### 2. Choose Your Path
 
-**Path A - Learning Mode:**
+**Path A - Learning Mode (Phase 1):**
 ```bash
 # Open your first exercise
 code exercises/ex1_db_starter.py
@@ -41,15 +78,17 @@ code exercises/ex1_db_starter.py
 uvicorn exercises.ex1_db_starter:app --reload --port 8000
 ```
 
-**Path B - Demo Mode:**
+**Path B - Building Systems (Phase 2):**
 ```bash
-# Run completed examples
-python launcher.py  # Interactive menu
-```
+# After completing exercises, build real systems
+code components/auth_system/README.md
 
-## 📚 Scenarios
+# Implement production-ready components
+code cReference Examples
 
-### 1. Database Failures (`db_failures.py`)
+Complete working implementations in `reference/` folder:
+
+### 1. Database Failures ([reference/db_failures.py](reference/db_failures.py))
 **Port 8000** - Learn how databases fail in production
 
 - **Connection Pool Exhaustion**: Too many concurrent requests
@@ -61,6 +100,15 @@ python launcher.py  # Interactive menu
 **Try This:**
 ```bash
 # Start server
+uvicorn reference.db_failures:app --reload --port 8000
+
+# Hit these endpoints
+curl http://localhost:8000/query/slow
+curl http://localhost:8000/query/deadlock
+curl http://localhost:8000/stats
+```
+
+### 2. Network Issues ([reference/network_failures.py](reference/network_failures.py)
 uvicorn db_failures:app --reload --port 8000
 
 # Hit these endpoints
@@ -80,7 +128,7 @@ curl http://localhost:8000/stats
 
 **Try This:**
 ```bash
-uvicorn network_failures:app --reload --port 8001
+uvicorn reference.network_failures:app --reload --port 8001
 
 # Test retry logic
 curl http://localhost:8001/api/retry
@@ -89,7 +137,7 @@ curl http://localhost:8001/api/retry
 curl http://localhost:8001/api/cascade
 ```
 
-### 3. Rate Limiting (`rate_limiting.py`)
+### 3. Rate Limiting ([reference/rate_limiting.py](reference/rate_limiting.py))
 **Port 8002** - Protect your API from overload
 
 - **Token Bucket**: Allows bursts, smooth rate limiting
@@ -99,7 +147,7 @@ curl http://localhost:8001/api/cascade
 
 **Try This:**
 ```bash
-uvicorn rate_limiting:app --reload --port 8002
+uvicorn reference.rate_limiting:app --reload --port 8002
 
 # Hit endpoint 15 times quickly to trigger rate limit
 for i in {1..15}; do curl http://localhost:8002/api/token-bucket; echo ""; done
@@ -108,7 +156,7 @@ for i in {1..15}; do curl http://localhost:8002/api/token-bucket; echo ""; done
 curl http://localhost:8002/rate-limit/status
 ```
 
-### 4. Circuit Breaker (`circuit_breaker.py`)
+### 4. Circuit Breaker ([reference/circuit_breaker.py](reference/circuit_breaker.py))
 **Port 8003** - Prevent cascading failures
 
 - **Closed State**: Normal operation
@@ -118,7 +166,7 @@ curl http://localhost:8002/rate-limit/status
 
 **Try This:**
 ```bash
-uvicorn circuit_breaker:app --reload --port 8003
+uvicorn reference.circuit_breaker:app --reload --port 8003
 
 # Call unreliable service until circuit opens
 for i in {1..10}; do curl http://localhost:8003/api/unreliable; echo ""; sleep 1; done
@@ -127,7 +175,7 @@ for i in {1..10}; do curl http://localhost:8003/api/unreliable; echo ""; sleep 1
 curl http://localhost:8003/circuit-breaker/status
 ```
 
-### 5. Resource Issues (`resource_failures.py`)
+### 5. Resource Issues ([reference/resource_failures.py](reference/resource_failures.py))
 **Port 8004** - Memory leaks and resource exhaustion
 
 - **Memory Leaks**: Memory not released
@@ -137,7 +185,7 @@ curl http://localhost:8003/circuit-breaker/status
 
 **Try This:**
 ```bash
-uvicorn resource_failures:app --reload --port 8004
+uvicorn reference.resource_failures:app --reload --port 8004
 
 # Simulate memory leak
 curl http://localhost:8004/resource/memory-leak?size_mb=50
@@ -151,7 +199,7 @@ curl http://localhost:8004/resource/system
 Run the test script to see all scenarios in action:
 
 ```bash
-python test_scenarios.py
+python tools/test_scenarios.py
 ```
 
 ## 💡 Key Concepts Explained
@@ -225,11 +273,23 @@ CLOSED → [failures] → OPEN → [timeout] → HALF_OPEN
 
 ## 🎓 Learning Path
 
-1. **Start with Database Failures** - Most common in production
-2. **Then Network Issues** - Learn timeouts and retries
-3. **Add Rate Limiting** - Protect your services
-4. **Implement Circuit Breaker** - Prevent cascades
-5. **Monitor Resources** - Keep system healthy
+### Phase 1: Learn Failure Patterns (Exercises)
+1. **Database Failures** - Connection pools ([exercises/ex1_db_starter.py](exercises/ex1_db_starter.py))
+2. **Network Issues** - Retries and timeouts ([exercises/ex2_network_starter.py](exercises/ex2_network_starter.py))
+3. **Rate Limiting** - Token bucket algorithm ([exercises/ex3_ratelimit_starter.py](exercises/ex3_ratelimit_starter.py))
+
+**Time:** ~6-8 hours total
+
+### Phase 2: Build Production Systems (Components)
+1. **Authentication System** - Login, JWT, security ([components/auth_system/](components/auth_system/))
+2. **Payment Processing** - Transactions, idempotency (coming soon)
+3. **File Upload Service** - Streaming, resumable uploads (coming soon)
+4. **Notification System** - Queues, retries (coming soon)
+5. **API Gateway** - Routing, load balancing (coming soon)
+
+**Time:** ~40-50 hours total
+
+See [docs/ROADMAP.md](docs/ROADMAP.md) for the complete learning journey!
 
 ## 📝 Best Practices
 
@@ -241,22 +301,20 @@ CLOSED → [failures] → OPEN → [timeout] → HALF_OPEN
 6. **Pool connections** - But monitor pool health
 7. **Fail fast** - Don't let errors cascade
 
-## 🛠️ Advanced Exercises
+## � Documentation
 
-1. Add logging to track failure patterns
-2. Implement metrics collection (Prometheus format)
-3. Add health check endpoints
-4. Create a monitoring dashboard
-5. Implement graceful degradation
-6. Add distributed tracing
+All guides are in the [docs/](docs/) folder:
 
-## 📖 Further Reading
+- **Getting Started**: [START_HERE.md](docs/START_HERE.md), [QUICKSTART.md](docs/QUICKSTART.md)
+- **Learning**: [LEARNING_GUIDE.md](docs/LEARNING_GUIDE.md), [STUDENT_GUIDE.md](docs/STUDENT_GUIDE.md)
+- **Building Systems**: [BUILDING_SYSTEMS.md](docs/BUILDING_SYSTEMS.md), [SYSTEMS_QUICKSTART.md](docs/SYSTEMS_QUICKSTART.md)
+- **Reference**: [CHEATSHEET.md](docs/CHEATSHEET.md), [ROADMAP.md](docs/ROADMAP.md)
+- **Track Progress**: [MY_PROGRESS.md](docs/MY_PROGRESS.md)
 
-- **Retry Pattern**: Handling transient failures
-- **Bulkhead Pattern**: Isolating resources
-- **Timeout Pattern**: Setting time limits
-- **Fallback Pattern**: Alternative responses
-- **Health Check Pattern**: Monitoring service health
+## 🛠️ Tools
+
+- **[tools/launcher.py](tools/launcher.py)** - Interactive menu to run any scenario
+- **[tools/test_scenarios.py](tools/test_scenarios.py)** - Automated tests for all patterns
 
 ## 🤝 Contributing
 
@@ -268,12 +326,26 @@ These simulations can affect system performance. Don't run all scenarios simulta
 
 ## 📞 Quick Reference
 
-| Scenario | Port | Key Endpoint |
-|----------|------|--------------|
-| Database | 8000 | `/stats` |
-| Network | 8001 | `/api/retry` |
-| Rate Limit | 8002 | `/rate-limit/status` |
-| Circuit Breaker | 8003 | `/circuit-breaker/status` |
-| Resources | 8004 | `/resource/system` |
+| What | Where | Command |
+|------|-------|---------|
+| **Phase 1 Exercises** | [exercises/](exercises/) | `code exercises/ex1_db_starter.py` |
+| **Phase 2 Components** | [components/](components/) | `code components/auth_system/` |
+| **Reference Code** | [reference/](reference/) | `uvicorn reference.db_failures:app --port 8000` |
+| **Documentation** | [docs/](docs/) | `code docs/START_HERE.md` |
+| **Tools** | [tools/](tools/) | `python tools/launcher.py` |
+
+### Reference Scenarios by Port
+
+| Scenario | Port | File | Key Endpoint |
+|----------|------|------|--------------|
+| Database | 8000 | [reference/db_failures.py](reference/db_failures.py) | `/stats` |
+| Network | 8001 | [reference/network_failures.py](reference/network_failures.py) | `/api/retry` |
+| Rate Limit | 8002 | [reference/rate_limiting.py](reference/rate_limiting.py) | `/rate-limit/status` |
+| Circuit Breaker | 8003 | [reference/circuit_breaker.py](reference/circuit_breaker.py) | `/circuit-breaker/status` |
+| Resources | 8004 | [reference/resource_failures.py](reference/resource_failures.py) | `/resource/system` |
+
+---
+
+**Ready to start?** → [docs/START_HERE.md](docs/START_HERE.md)
 
 Happy Learning! 🚀
