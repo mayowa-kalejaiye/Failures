@@ -1,6 +1,6 @@
-# 🎓 Backend Failure Patterns - Student Cheat Sheet
+# Backend Failure Patterns - Student Cheat Sheet
 
-## 🏃 Quick Start (Your First 5 Minutes)
+## Quick Start (Your First 5 Minutes)
 
 ```bash
 # 1. Open your first exercise
@@ -13,7 +13,7 @@ uvicorn exercises.ex1_db_starter:app --reload --port 8000
 curl http://localhost:8000/slow-query
 ```
 
-## 📚 Exercise Roadmap
+## Exercise Roadmap
 
 | Week | Exercise | File | What You'll Build |
 |------|----------|------|------------------|
@@ -21,9 +21,10 @@ curl http://localhost:8000/slow-query
 | 2 | Network Issues | `ex2_network_starter.py` | Retry logic & timeouts |
 | 3 | Rate Limiting | `ex3_ratelimit_starter.py` | Token bucket algorithm |
 
-## 🔥 Patterns You'll Implement
+## Patterns You'll Implement
 
 ### Pattern 1: Resource Pool
+
 ```python
 class ConnectionPool:
     def __init__(self, max_connections):
@@ -39,11 +40,13 @@ class ConnectionPool:
     def release(self):
         self.available = min(self.available + 1, self.max)
 ```
+
 **Used for:** Databases, HTTP connections, thread pools
 
 ---
 
 ### Pattern 2: Exponential Backoff
+
 ```python
 async def retry_with_backoff(max_attempts=3):
     for attempt in range(1, max_attempts + 1):
@@ -56,11 +59,13 @@ async def retry_with_backoff(max_attempts=3):
             print(f"Attempt {attempt} failed, waiting {wait_time}s")
             await asyncio.sleep(wait_time)
 ```
+
 **Used for:** API calls, network operations, retry logic
 
 ---
 
 ### Pattern 3: Token Bucket
+
 ```python
 class TokenBucket:
     def __init__(self, capacity, refill_rate):
@@ -83,13 +88,15 @@ class TokenBucket:
             return True
         return False
 ```
+
 **Used for:** Rate limiting, throttling, quota management
 
 ---
 
-## 🛠️ FastAPI Essentials
+## FastAPI Essentials
 
 ### Create Endpoint
+
 ```python
 from fastapi import FastAPI, HTTPException
 import asyncio
@@ -102,6 +109,7 @@ async def home():
 ```
 
 ### Handle Errors
+
 ```python
 @app.get("/risky")
 async def risky_endpoint():
@@ -116,6 +124,7 @@ async def risky_endpoint():
 ```
 
 ### Async Sleep (Non-blocking!)
+
 ```python
 @app.get("/slow")
 async def slow_query():
@@ -125,14 +134,16 @@ async def slow_query():
 
 ---
 
-## 🧪 Testing Your Code
+## Testing Your Code
 
 ### Test Single Request
+
 ```bash
 curl http://localhost:8000/endpoint
 ```
 
 ### Test Concurrent Requests (Windows PowerShell)
+
 ```powershell
 # Send 10 requests at once
 1..10 | ForEach-Object {
@@ -141,6 +152,7 @@ curl http://localhost:8000/endpoint
 ```
 
 ### Python Test Script
+
 ```python
 import requests
 import time
@@ -155,7 +167,7 @@ for i in range(20):
 
 ---
 
-## 📊 HTTP Status Codes
+## HTTP Status Codes
 
 | Code | Name | When You'll Use It |
 |------|------|-------------------|
@@ -168,9 +180,10 @@ for i in range(20):
 
 ---
 
-## 🐍 Python Async Quick Reference
+## Python Async Quick Reference
 
 ### Define Async Function
+
 ```python
 async def fetch_data():
     await asyncio.sleep(1)
@@ -178,12 +191,14 @@ async def fetch_data():
 ```
 
 ### Call Async Function (Must use await!)
+
 ```python
-result = await fetch_data()  # ✅ Correct
-result = fetch_data()        # ❌ Wrong! Returns coroutine object
+result = await fetch_data()  #  Correct
+result = fetch_data()        #  Wrong! Returns coroutine object
 ```
 
 ### Run Multiple Async Operations
+
 ```python
 # Sequential (slow)
 data1 = await fetch_data()
@@ -198,9 +213,10 @@ data1, data2 = await asyncio.gather(
 
 ---
 
-## 💾 Managing State
+## Managing State
 
 ### Global Variable (Simple)
+
 ```python
 request_count = 0
 
@@ -212,6 +228,7 @@ async def count():
 ```
 
 ### Class Instance (Better)
+
 ```python
 class RateLimiter:
     def __init__(self):
@@ -233,15 +250,17 @@ async def protected():
 
 ---
 
-## 🔍 Debugging Techniques
+## Debugging Techniques
 
 ### Print Debugging (Your Best Friend)
+
 ```python
 print(f"DEBUG: tokens={self.tokens}, capacity={self.capacity}")
 print(f"DEBUG: available connections: {self.available}")
 ```
 
 ### Check Timing
+
 ```python
 import time
 
@@ -252,6 +271,7 @@ print(f"Operation took {elapsed:.2f} seconds")
 ```
 
 ### Inspect Variables
+
 ```python
 try:
     result = risky_function()
@@ -264,37 +284,40 @@ except Exception as e:
 
 ---
 
-## 🆘 When You Get Stuck
+## When You Get Stuck
 
 ### Error: "coroutine was never awaited"
+
 ```python
-# ❌ Wrong
+#  Wrong
 result = async_function()
 
-# ✅ Correct  
+#  Correct  
 result = await async_function()
 ```
 
 ### Error: "RuntimeError: no running event loop"
+
 ```python
-# ❌ Don't call async functions from sync code
+#  Don't call async functions from sync code
 def sync_function():
     result = await async_function()  # Won't work!
 
-# ✅ Make the function async
+#  Make the function async
 async def async_function():
     result = await other_async_function()  # Works!
 ```
 
 ### Pool Never Releases Connections
+
 ```python
-# ❌ Forgot to release
+#  Forgot to release
 async def query():
     await pool.acquire()
     await asyncio.sleep(5)
     return "done"  # Connection leaked!
 
-# ✅ Always release
+#  Always release
 async def query():
     await pool.acquire()
     try:
@@ -306,7 +329,7 @@ async def query():
 
 ---
 
-## 📖 Google These When Stuck
+## Google These When Stuck
 
 | Problem | Search Term |
 |---------|-------------|
@@ -318,9 +341,10 @@ async def query():
 
 ---
 
-## ✅ Completion Checklist
+## Completion Checklist
 
 ### Exercise 1: Database Pools
+
 - [ ] Implement `ConnectionPool.__init__()`
 - [ ] Implement `acquire_connection()`
 - [ ] Implement `release_connection()`
@@ -330,6 +354,7 @@ async def query():
 - [ ] Add `/health` endpoint
 
 ### Exercise 2: Network Failures
+
 - [ ] Create flaky API simulator
 - [ ] Implement `/flaky-api` endpoint
 - [ ] Add retry logic with exponential backoff
@@ -337,6 +362,7 @@ async def query():
 - [ ] Create cascade failure demo
 
 ### Exercise 3: Rate Limiting
+
 - [ ] Implement `TokenBucket.__init__()`
 - [ ] Implement `_refill()` method
 - [ ] Implement `consume()` method
@@ -346,7 +372,7 @@ async def query():
 
 ---
 
-## 💡 Pro Tips
+## Pro Tips
 
 1. **Start small** - Get one method working before moving on
 2. **Test constantly** - Run your server after each change
@@ -356,7 +382,7 @@ async def query():
 
 ---
 
-## 🎯 Your First Steps (Right Now!)
+## Your First Steps (Right Now!)
 
 ```bash
 # 1. Open exercise 1
@@ -378,8 +404,8 @@ db_pool = ConnectionPool(5)
 # uvicorn exercises.ex1_db_starter:app --reload --port 8000
 ```
 
-That's it! One small step at a time. 🚀
+That's it! One small step at a time.
 
 ---
 
-**Remember:** The struggle is where the learning happens! Keep coding! 💪
+**Remember:** The struggle is where the learning happens! Keep coding!

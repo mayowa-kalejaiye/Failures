@@ -1,35 +1,42 @@
-# ✅ Exercise Solutions
+# Exercise Solutions
 
 ## When To Look At Solutions
 
 **Only look at these when:**
-1. ✅ You've spent 20-30 minutes trying yourself
-2. ✅ You've Googled the concepts
-3. ✅ You're truly stuck on a specific part
+
+1. You've spent 20-30 minutes trying yourself
+2. You've Googled the concepts
+3. You're truly stuck on a specific part
 
 **Never:**
-- ❌ Copy-paste entire solutions
-- ❌ Look before attempting
-- ❌ Skip understanding the code
+
+- Copy-paste entire solutions
+- Look before attempting
+- Skip understanding the code
 
 ## The Right Way To Use Solutions
 
 ### Step 1: Try It Yourself
+
 Write your implementation based on the TODOs and hints.
 
 ### Step 2: Test It
+
 Run your code, see what breaks, fix it.
 
 ### Step 3: When Stuck
+
 Look at JUST the part you're stuck on. For example, if you can't figure out the token refill logic, look at just that method.
 
 ### Step 4: Understand, Don't Copy
+
 Read the solution code. Understand WHY it works. Then close the file.
 
 ### Step 5: Rewrite From Memory
+
 Delete your attempt and write it again from scratch using what you learned.
 
-## 📍 Where Are The Solutions?
+## Where Are The Solutions?
 
 The completed implementations are in the root directory:
 
@@ -41,11 +48,12 @@ The completed implementations are in the root directory:
 | Exercise 4: Circuit Breaker | [circuit_breaker.py](../circuit_breaker.py) |
 | Exercise 5: Resource Issues | [resource_failures.py](../resource_failures.py) |
 
-## 💡 Hints Before Looking
+## Hints Before Looking
 
 ### Exercise 1: Connection Pool
 
 **Stuck on acquire?**
+
 ```python
 # Hint: Check if connections available
 if self.available_connections > 0:
@@ -55,6 +63,7 @@ return False
 ```
 
 **Stuck on release?**
+
 ```python
 # Hint: Add connection back, but don't go over max
 if self.available_connections < self.max_connections:
@@ -64,6 +73,7 @@ if self.available_connections < self.max_connections:
 ### Exercise 2: Retry Logic
 
 **Stuck on exponential backoff?**
+
 ```python
 # Hint: Wait time doubles each attempt
 for attempt in range(1, 4):  # 3 attempts
@@ -79,6 +89,7 @@ for attempt in range(1, 4):  # 3 attempts
 ### Exercise 3: Token Bucket
 
 **Stuck on refill logic?**
+
 ```python
 # Hint: Add tokens based on time elapsed
 now = time.time()
@@ -88,7 +99,7 @@ self.tokens = min(self.tokens + new_tokens, self.capacity)
 self.last_refill = now
 ```
 
-## 🎓 Learning From Solutions
+## Learning From Solutions
 
 When you do look at a solution, ask yourself:
 
@@ -105,7 +116,7 @@ When you do look at a solution, ask yourself:
    - Draw a diagram
    - Explain it out loud
 
-## 📝 Code Review Checklist
+## Code Review Checklist
 
 Before looking at solutions, review your own code:
 
@@ -115,9 +126,10 @@ Before looking at solutions, review your own code:
 - [ ] Is the logic clear?
 - [ ] Did I test it?
 
-## 🏆 Challenge Yourself
+## Challenge Yourself
 
 After comparing with the solution:
+
 1. Close the solution file
 2. Delete your code
 3. Rewrite it from memory
@@ -125,6 +137,6 @@ After comparing with the solution:
 
 ## Remember
 
-> "The code you write yourself, even if imperfect, teaches you more than the perfect code you copy." 
+> "The code you write yourself, even if imperfect, teaches you more than the perfect code you copy."
 
-Struggle = Learning. Keep coding! 💪
+Struggle = Learning. Keep coding!

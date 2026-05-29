@@ -1,8 +1,9 @@
-# Backend Failures Cheat Sheet 📝
+# Backend Failures Cheat Sheet
 
 ## Quick Commands
 
 ### Start Servers
+
 ```powershell
 # Database failures
 uvicorn db_failures:app --reload --port 8000
@@ -23,33 +24,39 @@ uvicorn resource_failures:app --reload --port 8004
 ## Key Concepts
 
 ### 1. Connection Pool
+
 ```
 Max Connections: 5
-Active: 5 → NEW REQUEST → Timeout!
+Active: 5  NEW REQUEST  Timeout!
 ```
+
 **Fix**: Scale pool size, add caching, use read replicas
 
 ### 2. Retry Logic
+
 ```
-Attempt 1: Fail → Wait 1s
-Attempt 2: Fail → Wait 2s  
-Attempt 3: Fail → Wait 4s
+Attempt 1: Fail  Wait 1s
+Attempt 2: Fail  Wait 2s  
+Attempt 3: Fail  Wait 4s
 Attempt 4: Success!
 ```
+
 **Pattern**: Exponential backoff with jitter
 
 ### 3. Circuit Breaker
+
 ```
 CLOSED (normal) 
-  → 5 failures 
-  → OPEN (reject all)
-  → wait 30s
-  → HALF_OPEN (test)
-  → 2 successes
-  → CLOSED
+   5 failures 
+   OPEN (reject all)
+   wait 30s
+   HALF_OPEN (test)
+   2 successes
+   CLOSED
 ```
 
 ### 4. Rate Limiting
+
 ```
 Token Bucket:
   - Capacity: 10 tokens
@@ -91,12 +98,14 @@ Sliding Window:
 ## Testing Commands
 
 ### PowerShell - Rapid Fire
+
 ```powershell
 # Hit endpoint 10 times
 1..10 | ForEach-Object { Invoke-WebRequest http://localhost:8000/query/pool-test }
 ```
 
 ### PowerShell - With Delay
+
 ```powershell
 1..10 | ForEach-Object { 
     Invoke-WebRequest http://localhost:8003/api/unreliable
@@ -105,6 +114,7 @@ Sliding Window:
 ```
 
 ### PowerShell - Check Response
+
 ```powershell
 $response = Invoke-WebRequest http://localhost:8000/stats
 $response.Content | ConvertFrom-Json | ConvertTo-Json -Depth 10
@@ -132,6 +142,7 @@ Invoke-WebRequest -Method POST http://localhost:8003/reset
 ## Real-World Scenarios
 
 ### Scenario 1: Database Down
+
 ```
 Problem: Database unreachable
 Response: Connection timeout
@@ -145,6 +156,7 @@ Solution:
 ```
 
 ### Scenario 2: External API Slow
+
 ```
 Problem: Payment gateway takes 20s
 Response: User's checkout hangs
@@ -158,6 +170,7 @@ Solution:
 ```
 
 ### Scenario 3: Sudden Traffic Spike
+
 ```
 Problem: 10x normal traffic
 Response: Server overloaded
@@ -201,6 +214,7 @@ Solution:
 ## Emergency Procedures
 
 ### Service is Down
+
 1. Check health endpoint
 2. Check logs
 3. Restart service
@@ -208,6 +222,7 @@ Solution:
 5. Scale up if needed
 
 ### Database Overloaded
+
 1. Check slow query log
 2. Check connection pool
 3. Add read replicas
@@ -215,6 +230,7 @@ Solution:
 5. Optimize queries
 
 ### Memory Leak
+
 1. Check memory usage trend
 2. Restart service (temporary)
 3. Profile memory usage
@@ -232,4 +248,4 @@ Week 6: Build a resilient system!
 
 ---
 
-**Remember**: Every production system fails. The goal is to fail gracefully! 💪
+**Remember**: Every production system fails. The goal is to fail gracefully!

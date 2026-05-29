@@ -1,10 +1,11 @@
-# 🎓 Hands-On Exercises
+# Hands-On Exercises
 
 This is where **YOU** write the code!
 
-## 📝 Available Exercises
+## Available Exercises
 
 ### Exercise 1: Database Connection Pools
+
 **File:** [ex1_db_starter.py](ex1_db_starter.py)  
 **Port:** 8000  
 **Time:** 2-3 hours
@@ -18,6 +19,7 @@ uvicorn exercises.ex1_db_starter:app --reload --port 8000
 ---
 
 ### Exercise 2: Network Failures & Retries
+
 **File:** [ex2_network_starter.py](ex2_network_starter.py)  
 **Port:** 8001  
 **Time:** 2-3 hours
@@ -31,6 +33,7 @@ uvicorn exercises.ex2_network_starter:app --reload --port 8001
 ---
 
 ### Exercise 3: Rate Limiting
+
 **File:** [ex3_ratelimit_starter.py](ex3_ratelimit_starter.py)  
 **Port:** 8002  
 **Time:** 2-3 hours
@@ -43,7 +46,7 @@ uvicorn exercises.ex3_ratelimit_starter:app --reload --port 8002
 
 ---
 
-## 🚀 How To Start
+## How To Start
 
 1. **Pick Exercise 1** - Always start with database patterns
 2. **Open the file** - Read all the TODOs
@@ -51,14 +54,14 @@ uvicorn exercises.ex3_ratelimit_starter:app --reload --port 8002
 4. **Test frequently** - Run the server after each change
 5. **Debug actively** - Print statements are your friend
 
-## 📚 Resources
+## Resources
 
 - [LEARNING_GUIDE.md](../LEARNING_GUIDE.md) - Full learning philosophy
 - [STUDENT_GUIDE.md](../STUDENT_GUIDE.md) - Quick reference & patterns
 - [SOLUTIONS.md](SOLUTIONS.md) - Hints and where to find solutions
 
-## 💪 Remember
+## Remember
 
 **You learn by DOING, not by reading!**
 
-Good luck! 🚀
+Good luck!

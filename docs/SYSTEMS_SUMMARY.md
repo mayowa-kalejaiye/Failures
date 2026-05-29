@@ -1,24 +1,24 @@
-# 📋 Quick Reference: Systems Phase
+# Quick Reference: Systems Phase
 
 ## The Evolution
 
 ```
 Phase 1: Learn Patterns          Phase 2: Build Systems
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
                                        
-Connection Pools     ──────►    Auth System
+Connection Pools         Auth System
                                 (uses pools for DB)
                                        
-Rate Limiting       ──────►    Auth System  
+Rate Limiting           Auth System  
                                 (prevents brute force)
                                        
-Circuit Breaker     ──────►    Auth System
+Circuit Breaker         Auth System
                                 (email service failures)
                                        
-Retry Logic         ──────►    Auth System
+Retry Logic             Auth System
                                 (email delivery retries)
                                        
-All Patterns        ──────►    Payment Processor
+All Patterns            Payment Processor
                                 File Upload
                                 Notifications
                                 API Gateway
@@ -28,15 +28,16 @@ All Patterns        ──────►    Payment Processor
 
 | Component | Complexity | Time | Key Patterns |
 |-----------|-----------|------|--------------|
-| **Auth System** | ⭐⭐ Beginner | 6-8h | Pools, Rate Limit, Circuit Breaker |
-| **Payment Processing** | ⭐⭐⭐⭐ Advanced | 10-12h | Idempotency, Transactions, Retry |
-| **File Upload** | ⭐⭐⭐ Intermediate | 8-10h | Streaming, Timeouts, Resource Limits |
-| **Notifications** | ⭐⭐⭐ Intermediate | 8-10h | Queues, Async, Multi-Channel |
-| **API Gateway** | ⭐⭐⭐⭐⭐ Expert | 12-15h | Routing, Load Balancing, Bulkhead |
+| **Auth System** |  Beginner | 6-8h | Pools, Rate Limit, Circuit Breaker |
+| **Payment Processing** |  Advanced | 10-12h | Idempotency, Transactions, Retry |
+| **File Upload** |  Intermediate | 8-10h | Streaming, Timeouts, Resource Limits |
+| **Notifications** |  Intermediate | 8-10h | Queues, Async, Multi-Channel |
+| **API Gateway** |  Expert | 12-15h | Routing, Load Balancing, Bulkhead |
 
 ## How Each Component Uses Failures
 
 ### Authentication System
+
 ```python
 class AuthService:
     def __init__(self):
@@ -63,6 +64,7 @@ class AuthService:
 ```
 
 ### Payment Processing
+
 ```python
 class PaymentService:
     async def charge(self, idempotency_key, amount):
@@ -86,6 +88,7 @@ class PaymentService:
 ```
 
 ### File Upload
+
 ```python
 class UploadService:
     async def upload_chunked(self, file_stream):
@@ -111,22 +114,22 @@ class UploadService:
 
 ```
 components/
-├── common/                    # ← Your reusable code goes here
-│   ├── connection_pool.py    #   Copy from exercises
-│   ├── rate_limiter.py       #   Copy from exercises  
-│   ├── circuit_breaker.py    #   Copy from project root
-│   └── retry.py              #   Copy from exercises
-│
-├── auth_system/              # ← First system to build
-│   ├── README.md            #   Complete guide
-│   ├── config.py            #   Configuration
-│   ├── api.py               #   Endpoints (has TODOs)
-│   └── tests/               #   Test files
-│
-├── payment_processing/       # ← Coming soon
-├── file_upload/             # ← Coming soon  
-├── notifications/           # ← Coming soon
-└── api_gateway/             # ← Coming soon
+ common/                    #  Your reusable code goes here
+    connection_pool.py    #   Copy from exercises
+    rate_limiter.py       #   Copy from exercises  
+    circuit_breaker.py    #   Copy from project root
+    retry.py              #   Copy from exercises
+
+ auth_system/              #  First system to build
+    README.md            #   Complete guide
+    config.py            #   Configuration
+    api.py               #   Endpoints (has TODOs)
+    tests/               #   Test files
+
+ payment_processing/       #  Coming soon
+ file_upload/             #  Coming soon  
+ notifications/           #  Coming soon
+ api_gateway/             #  Coming soon
 ```
 
 ## Quick Commands
@@ -154,45 +157,48 @@ curl -X POST http://localhost:8001/auth/register \
 
 ```
 1. Design (30 min)
-   ↓
+   
 2. Core Implementation (2 hours)
-   • Basic features working
-   • No failure handling yet
-   ↓
+    Basic features working
+    No failure handling yet
+   
 3. Add Failure Handling (2 hours)
-   • Connection pools
-   • Rate limiting
-   • Circuit breakers
-   • Retries
-   ↓
+    Connection pools
+    Rate limiting
+    Circuit breakers
+    Retries
+   
 4. Testing (1.5 hours)
-   • Happy path
-   • Failure scenarios
-   • Recovery
-   ↓
+    Happy path
+    Failure scenarios
+    Recovery
+   
 5. Production Ready (1 hour)
-   • Logging
-   • Monitoring
-   • Health checks
-   • Documentation
+    Logging
+    Monitoring
+    Health checks
+    Documentation
 ```
 
 ## Success Metrics
 
 After building each component, you should have:
 
-✅ **Functionality**
+ **Functionality**
+
 - All endpoints work
 - Data persists correctly
 - Business logic is correct
 
-✅ **Resilience**  
+ **Resilience**  
+
 - Handles DB failures
 - Handles external service failures
 - Prevents resource exhaustion
 - Rate limiting works
 
-✅ **Production Ready**
+ **Production Ready**
+
 - Comprehensive tests
 - Logging and monitoring
 - Health check endpoint
@@ -218,6 +224,6 @@ After building each component, you should have:
 
 ---
 
-**You're ready! Start with the Auth System.** 🚀
+**You're ready! Start with the Auth System.**
 
 Read: [SYSTEMS_QUICKSTART.md](SYSTEMS_QUICKSTART.md)

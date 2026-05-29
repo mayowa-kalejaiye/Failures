@@ -1,4 +1,4 @@
-# 🛠️ Tools & Utilities
+#  Tools & Utilities
 
 Helper scripts for testing and running the project.
 
@@ -50,11 +50,11 @@ python tools/test_scenarios.py
 - Generates test report
 
 **What it tests:**
-- ✅ Database connection pool exhaustion
-- ✅ Network retry logic
-- ✅ Rate limiting enforcement
-- ✅ Circuit breaker state transitions
-- ✅ Resource limit handling
+-  Database connection pool exhaustion
+-  Network retry logic
+-  Rate limiting enforcement
+-  Circuit breaker state transitions
+-  Resource limit handling
 
 **Example Output:**
 ```
@@ -62,13 +62,13 @@ Running Automated Tests...
 ==========================
 
 Testing Database Failures...
-  ✓ Slow query works
-  ✓ Pool exhaustion returns 503
-  ✓ Pool recovers correctly
+   Slow query works
+   Pool exhaustion returns 503
+   Pool recovers correctly
 
 Testing Network Failures...
-  ✓ Retry logic succeeds eventually
-  ✓ Timeout prevents hanging
+   Retry logic succeeds eventually
+   Timeout prevents hanging
   
 ...
 
@@ -82,11 +82,11 @@ As you build more components, add utility scripts here:
 ```bash
 # Example: Health check script
 tools/
-├── launcher.py
-├── test_scenarios.py
-├── health_check.py          # Check all services
-├── load_test.py             # Load testing
-└── chaos_test.py            # Chaos engineering
+ launcher.py
+ test_scenarios.py
+ health_check.py          # Check all services
+ load_test.py             # Load testing
+ chaos_test.py            # Chaos engineering
 ```
 
 ## Tips
@@ -116,4 +116,5 @@ from reference.circuit_breaker import CircuitBreaker
 
 ---
 
-💡 **Pro Tip:** Use these tools to quickly validate your implementations work correctly!
+ **Pro Tip:** Use these tools to quickly validate your implementations work correctly!
+

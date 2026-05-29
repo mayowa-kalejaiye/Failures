@@ -1,4 +1,4 @@
-# Quick Start Guide 🚀
+# Quick Start Guide
 
 ## Step 1: Install Dependencies
 
@@ -15,6 +15,7 @@ uvicorn db_failures:app --reload --port 8000
 ```
 
 You should see:
+
 ```
 INFO:     Uvicorn running on http://127.0.0.1:8000
 INFO:     Application startup complete.
@@ -22,18 +23,20 @@ INFO:     Application startup complete.
 
 ## Step 3: Open in Browser
 
-Go to: http://localhost:8000
+Go to: <http://localhost:8000>
 
 You'll see all available endpoints!
 
 ## Step 4: Try Some Endpoints
 
-### Using Browser:
-- http://localhost:8000/health
-- http://localhost:8000/query/slow
-- http://localhost:8000/stats
+### Using Browser
 
-### Using PowerShell:
+- <http://localhost:8000/health>
+- <http://localhost:8000/query/slow>
+- <http://localhost:8000/stats>
+
+### Using PowerShell
+
 ```powershell
 # Test slow query
 Invoke-WebRequest http://localhost:8000/query/slow
@@ -63,6 +66,7 @@ uvicorn circuit_breaker:app --reload --port 8003
 ## What to Try
 
 ### Database Failures (Port 8000)
+
 ```powershell
 # Slow query
 Invoke-WebRequest http://localhost:8000/query/slow
@@ -72,6 +76,7 @@ Invoke-WebRequest http://localhost:8000/query/slow
 ```
 
 ### Rate Limiting (Port 8002)
+
 ```powershell
 # Hit endpoint rapidly to trigger rate limit
 1..15 | ForEach-Object { 
@@ -81,6 +86,7 @@ Invoke-WebRequest http://localhost:8000/query/slow
 ```
 
 ### Circuit Breaker (Port 8003)
+
 ```powershell
 # Keep calling unreliable service
 1..10 | ForEach-Object { 
@@ -104,17 +110,21 @@ Invoke-WebRequest http://localhost:8000/query/slow
 ## Common Issues
 
 ### "Module not found"
+
 ```powershell
 pip install -r requirements.txt
 ```
 
 ### "Port already in use"
+
 Change the port number:
+
 ```powershell
 uvicorn db_failures:app --reload --port 8005
 ```
 
 ### "Address already in use"
+
 Stop the previous server (Ctrl+C) or use a different port
 
 ## Next Steps
@@ -128,12 +138,14 @@ Stop the previous server (Ctrl+C) or use a different port
 ## Need Help?
 
 Each endpoint returns helpful error messages explaining:
+
 - What went wrong
 - Why it happened
 - How to fix it
 - Prevention strategies
 
 Example error response:
+
 ```json
 {
   "error": "Rate limit exceeded",
@@ -143,4 +155,4 @@ Example error response:
 }
 ```
 
-Enjoy learning! 🎓
+Enjoy learning!

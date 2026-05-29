@@ -28,8 +28,8 @@ from jose import JWTError, jwt
 import secrets
 
 # TODO: Import your failure handling components
-# from circuit_breaker import CircuitBreaker
-# from rate_limiting import TokenBucket
+from reference.circuit_breaker import CircuitBreaker
+from reference.rate_limiting import TokenBucket
 
 from config import AppConfig
 

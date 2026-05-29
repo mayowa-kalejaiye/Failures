@@ -1,86 +1,70 @@
-# 🧩 Production-Ready System Components
+# Production-Ready System Components
 
-This directory contains complete, production-ready system components that demonstrate proper failure handling.
+This folder is the second stage of the project. It is for learners who want to go beyond the exercises and build a small but real backend component.
 
-## 📁 Structure
+## How to use this folder
 
-Each component follows the same structure:
+Start with the authentication system. It is the easiest component to begin with and it reuses the basics from the exercises.
 
-```
+## Folder structure
+
+Each component should stay small and easy to understand:
+
+```text
 component_name/
-├── README.md                 # Component documentation
-├── config.py                 # Configuration
-├── core.py                   # Business logic  
-├── failures.py              # Failure handling
-├── api.py                   # FastAPI endpoints
-├── tests/
-│   ├── test_happy_path.py   # Normal operation tests
-│   ├── test_failures.py     # Failure scenario tests
-│   └── test_recovery.py     # Recovery tests
-└── docker-compose.yml       # Local development setup
+README.md
+config.py
+core.py
+api.py
+tests/
 ```
 
-## 🎯 Available Components
+## Current components
 
-### 1. Authentication System
-**Status:** 📝 Template Available  
-**Complexity:** ⭐⭐ Beginner-friendly  
-**Time:** 6-8 hours  
-**Learns:** Connection pools, rate limiting, JWT
+### Authentication system
 
-A complete authentication system with user registration, login, session management, and password reset.
+Status: template available
 
-### 2. Payment Processing
-**Status:** 🚧 Coming Soon  
-**Complexity:** ⭐⭐⭐⭐ Advanced  
-**Time:** 10-12 hours  
-**Learns:** Idempotency, transactions, reconciliation
+This is the best place to begin. It covers login, sessions, password reset, and basic failure handling.
 
-Process payments with proper failure handling and transaction safety.
+### Payment processing
 
-### 3. File Upload Service
-**Status:** 🚧 Coming Soon  
-**Complexity:** ⭐⭐⭐ Intermediate  
-**Time:** 8-10 hours  
-**Learns:** Streaming, resource limits, resumable uploads
+Status: coming soon
 
-Handle large file uploads with progress tracking and resumability.
+This will focus on safe retries, transactions, and idempotency.
 
-### 4. Notification System  
-**Status:** 🚧 Coming Soon  
-**Complexity:** ⭐⭐⭐ Intermediate  
-**Time:** 8-10 hours  
-**Learns:** Queues, async processing, multi-channel
+### File upload service
 
-Send emails, SMS, and push notifications with retry logic.
+Status: coming soon
 
-### 5. API Gateway
-**Status:** 🚧 Coming Soon  
-**Complexity:** ⭐⭐⭐⭐⭐ Expert  
-**Time:** 12-15 hours  
-**Learns:** Routing, load balancing, service mesh
+This will focus on streaming, file size limits, and resumable uploads.
 
-Route requests with circuit breakers and load balancing.
+### Notification system
 
-## 🚀 Getting Started
+Status: coming soon
 
-1. **Pick a component** - Start with Authentication System
-2. **Read the README** - Understand what you're building
-3. **Follow the template** - Use COMPONENT_CHECKLIST.md
-4. **Build incrementally** - One phase at a time
-5. **Test thoroughly** - Both happy and failure paths
+This will focus on queues, retries, and delivery tracking.
 
-## 📖 Documentation
+### API gateway
 
-- [Building Systems Guide](../BUILDING_SYSTEMS.md) - Complete guide
-- [Component Checklist](../COMPONENT_CHECKLIST.md) - Track your progress
-- [Failure Patterns](../README.md) - Reference the patterns
+Status: coming soon
 
-## 💡 Tips
+This will focus on routing, load balancing, and isolating failures.
 
-- **Reuse code**: Build a `common/` folder with shared utilities
-- **Start simple**: Get one endpoint working first
-- **Test early**: Don't wait until the end to test
-- **Think production**: What if this ran at scale?
+## Suggested learning order
 
-Happy building! 🛠️
+1. Read the authentication README.
+2. Complete one method in `api.py`.
+3. Run the code and test the happy path.
+4. Add one failure case.
+5. Repeat until the component feels solid.
+
+## Helpful references
+
+- [Building Systems Guide](../BUILDING_SYSTEMS.md)
+- [Component Checklist](../COMPONENT_CHECKLIST.md)
+- [Project README](../README.md)
+
+## A good rule for this stage
+
+Make it work in the simplest possible way first. After that, add safety, testing, and better error handling.

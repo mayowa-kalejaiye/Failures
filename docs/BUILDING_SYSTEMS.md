@@ -1,185 +1,108 @@
-# 🏗️ Building Production-Ready Systems
+# Building Systems Guide
 
-## From Failures to Features
+This is the second stage of the project.
 
-You've learned how systems fail. Now let's build systems that **handle** those failures gracefully.
+The exercises teach the basics. This guide helps you take those basics and use them in a small real system.
 
----
+## The goal of this stage
 
-## 🎯 The New Phase: System Building
+Do not try to build everything at once. Start with one component, make it understandable, and keep the code small enough to read.
 
-### What We're Building
-Real-world system components that incorporate ALL the failure handling patterns you've learned:
-- **Authentication System** (login, sessions, security)
-- **Payment Processing** (transactions, retries, idempotency)
-- **File Upload Service** (streaming, timeouts, storage)
-- **Notification System** (queues, retries, rate limiting)
-- **API Gateway** (routing, circuit breakers, load balancing)
+## What to build first
 
-### The Difference
-- **Before**: Learn how connection pools fail
-- **Now**: Build a login system that uses connection pools correctly
-- **Before**: Learn about rate limiting
-- **Now**: Build an API that enforces rate limits
+Start with the authentication system.
 
----
+It is a good first component because it uses the same ideas as the exercises:
 
-## 🧩 Component Architecture
+- connection pooling
+- retries
+- timeouts
+- rate limiting
+- careful error handling
 
-Each system component you build will follow this pattern:
+## How the component should feel
 
+Each component should be:
+
+- simple to understand
+- easy to run locally
+- small enough to test
+- written in steps
+- documented for a beginner
+
+## Common structure
+
+```text
+component_name/
+README.md
+config.py
+api.py
+core.py
+tests/
 ```
-Component/
-├── core.py                 # Core business logic
-├── failures.py            # Failure handling (pools, retries, circuit breakers)
-├── api.py                 # HTTP endpoints
-├── config.py              # Configuration & settings
-├── tests/
-│   ├── test_happy_path.py     # Normal operation
-│   ├── test_failures.py       # Failure scenarios
-│   └── test_recovery.py       # Recovery behavior
-└── README.md              # Component documentation
-```
 
----
+## Beginner-friendly build plan
 
-## 📚 System Component Guides
+### Step 1: Read the purpose
 
-## 1️⃣ Authentication System
+Write down what the component is for in one or two sentences.
 
-### What You'll Build
-A production-ready auth system with:
-- User registration (with DB connection pooling)
-- Login with JWT tokens (with rate limiting)
-- Session management (with Redis/cache)
-- Password reset (with retry logic for emails)
+### Step 2: Build the happy path
 
-### Failure Patterns Applied
-✅ **Database Connection Pool** - Handle user lookup queries
-✅ **Rate Limiting** - Prevent brute force attacks
-✅ **Circuit Breaker** - Email service might be down
-✅ **Timeout Handling** - External OAuth providers
-✅ **Retry Logic** - Email delivery failures
+Make the simplest version work first.
 
-### Learning Outcomes
-- When to use connection pools vs single connections
-- How to rate limit per user vs per IP
-- Why authentication needs circuit breakers
-- Handling third-party auth failures (Google, GitHub)
+### Step 3: Add one safety feature
 
----
+Add one thing that protects the system when something goes wrong.
 
-## 2️⃣ Payment Processing System
+### Step 4: Test the failure
 
-### What You'll Build
-A payment processor that handles:
-- Charge credit cards
-- Refunds and cancellations
-- Idempotent requests (retry-safe)
-- Transaction reconciliation
+Make sure the safety feature really works.
 
-### Failure Patterns Applied
-✅ **Idempotency Keys** - Safe retries for payment operations
-✅ **Database Transactions** - ACID guarantees
-✅ **Circuit Breaker** - Payment gateway failures
-✅ **Exponential Backoff** - Temporary gateway issues
-✅ **Dead Letter Queue** - Failed payments for manual review
+### Step 5: Add the next piece
 
-### Learning Outcomes
-- Why payments MUST be idempotent
-- How to handle "charged but response lost" scenarios
-- Building audit logs for money
-- Reconciling with external payment providers
+Repeat with the next feature.
 
----
+## Suggested component order
 
-## 3️⃣ File Upload Service
+1. Authentication system
+2. Payment processing
+3. File upload service
+4. Notification system
+5. API gateway
 
-### What You'll Build
-A scalable file upload system:
-- Chunked upload support
-- Progress tracking
-- Virus scanning integration
-- Cloud storage (S3, Azure Blob)
+You do not need to finish all of them. One well-built component is enough to learn a lot.
 
-### Failure Patterns Applied
-✅ **Streaming** - Handle large files without memory exhaustion
-✅ **Timeout Handling** - Long-running uploads
-✅ **Retry with Resume** - Continue from where upload failed
-✅ **Resource Limits** - Memory and disk quotas
-✅ **Circuit Breaker** - Virus scanner or storage failures
+## What to focus on
 
-### Learning Outcomes
-- Streaming vs buffering for large files
-- Implementing resumable uploads
-- Resource cleanup on failures
-- Testing with large files
+When building a component, ask these questions:
 
----
+1. What is the smallest useful version of this feature?
+2. What can fail first?
+3. What should happen if it fails?
+4. How can I test that behavior?
 
-## 4️⃣ Notification System
+## What not to do
 
-### What You'll Build
-A multi-channel notification sender:
-- Email, SMS, Push notifications
-- Priority queues
-- Delivery tracking
-- Retry with backoff
+- Do not start with advanced architecture.
+- Do not add many features before one works.
+- Do not hide the code behind too many layers.
+- Do not copy patterns that you do not yet understand.
 
-### Failure Patterns Applied
-✅ **Queue-Based Processing** - Async notification delivery
-✅ **Rate Limiting** - Respect provider limits (SendGrid, Twilio)
-✅ **Circuit Breaker** - Handle provider outages
-✅ **Exponential Backoff** - Retry failed deliveries
-✅ **Dead Letter Queue** - Undeliverable messages
+## A good learning rhythm
 
-### Learning Outcomes
-- When to use queues vs direct calls
-- Multi-provider failover strategies
-- Tracking delivery status
-- Cost control with rate limiting
+1. Read a small part.
+2. Write a small part.
+3. Run it.
+4. Fix it.
+5. Move on.
 
----
+## Next step
 
-## 5️⃣ API Gateway
-
-### What You'll Build
-A gateway that routes requests to services:
-- Request routing
-- Load balancing
-- Authentication/Authorization
-- Request/Response transformation
-
-### Failure Patterns Applied
-✅ **Circuit Breaker** - Per-service health tracking
-✅ **Load Balancing** - Distribute across healthy instances
-✅ **Timeout Management** - Prevent cascade failures
-✅ **Rate Limiting** - Per-client quotas
-✅ **Bulkhead Pattern** - Isolate service failures
-
-### Learning Outcomes
-- Preventing cascade failures
-- Service mesh concepts
-- Health checking strategies
-- Request shadowing and canary routing
-
----
-
-## 🛠️ How to Build Each Component
-
-### Phase 1: Design (30 minutes)
-1. **List the features** - What does this component do?
-2. **Identify failure points** - What can go wrong?
-3. **Choose patterns** - Which failure patterns apply?
-4. **Define interfaces** - API contracts, DB schemas
-
-### Phase 2: Core Implementation (2-4 hours)
-1. **Set up project structure** - Create folders and files
-2. **Implement happy path** - Make it work without failures
-3. **Write tests** - Test normal operation
-4. **Validate** - Run and verify basic functionality
+Open [components/auth_system/README.md](../components/auth_system/README.md) and start with the first small feature there.
 
 ### Phase 3: Failure Handling (2-3 hours)
+
 1. **Add connection pools** - For DB access
 2. **Add rate limiting** - Protect endpoints
 3. **Add circuit breakers** - For external services
@@ -187,12 +110,14 @@ A gateway that routes requests to services:
 5. **Add timeouts** - Prevent hanging requests
 
 ### Phase 4: Testing Failures (1-2 hours)
+
 1. **Write failure tests** - Simulate each failure mode
 2. **Verify recovery** - System returns to normal
 3. **Load testing** - Behavior under load
 4. **Chaos testing** - Random failures
 
 ### Phase 5: Production Readiness (1-2 hours)
+
 1. **Add monitoring** - Metrics and logging
 2. **Add health checks** - /health endpoint
 3. **Document** - API docs, runbooks
@@ -200,7 +125,7 @@ A gateway that routes requests to services:
 
 ---
 
-## 📋 Component Template
+## Component Template
 
 Use this template to start each new component:
 
@@ -368,33 +293,38 @@ if __name__ == "__main__":
 
 ---
 
-## 🎓 Learning Path
+## Learning Path
 
 ### Week 1: Authentication System
+
 - Understand user flows
 - Design DB schema
 - Implement with failure handling
 - Test and deploy
 
 ### Week 2: Payment Processing
+
 - Learn payment concepts
 - Implement idempotency
 - Test edge cases
 - Add audit logging
 
 ### Week 3: File Upload Service
+
 - Understand streaming
 - Implement chunked uploads
 - Add virus scanning
 - Test with large files
 
 ### Week 4: Notification System
+
 - Design queue architecture
 - Implement multi-provider
 - Add retry logic
 - Test delivery tracking
 
 ### Week 5: API Gateway
+
 - Learn routing patterns
 - Implement load balancing
 - Add circuit breakers
@@ -402,30 +332,33 @@ if __name__ == "__main__":
 
 ---
 
-## 📊 Success Metrics
+## Success Metrics
 
 For each component you build, measure:
 
 ### Functionality
-- ✅ All happy path features work
-- ✅ All endpoints return correct responses
-- ✅ Data is persisted correctly
+
+- All happy path features work
+- All endpoints return correct responses
+- Data is persisted correctly
 
 ### Resilience
-- ✅ Gracefully handles DB failures
-- ✅ Recovers from external service outages
-- ✅ Prevents resource exhaustion
-- ✅ Rate limiting works correctly
+
+- Gracefully handles DB failures
+- Recovers from external service outages
+- Prevents resource exhaustion
+- Rate limiting works correctly
 
 ### Production Readiness
-- ✅ Has comprehensive tests
-- ✅ Has monitoring and logging
-- ✅ Has health check endpoint
-- ✅ Has documentation
+
+- Has comprehensive tests
+- Has monitoring and logging
+- Has health check endpoint
+- Has documentation
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 1. **Choose a component** - Start with Authentication (it's the simplest)
 2. **Create the folder structure**
@@ -436,10 +369,12 @@ For each component you build, measure:
 
 ---
 
-## 💡 Pro Tips
+## Pro Tips
 
 ### Start Simple
+
 Don't build everything at once. Start with:
+
 1. One endpoint
 2. One failure pattern
 3. One test
@@ -447,14 +382,18 @@ Don't build everything at once. Start with:
 Then iterate.
 
 ### Think Production
+
 Ask yourself:
+
 - What happens if the DB is down?
 - What if this endpoint gets 1000 requests/second?
 - How do I debug this in production?
 - What metrics do I need?
 
 ### Reuse Your Code
+
 Build a `common/` folder with:
+
 - Connection pool implementations
 - Rate limiter implementations
 - Circuit breaker implementations
@@ -464,7 +403,7 @@ Then import them in each component.
 
 ---
 
-## 📖 Next Steps
+## Next Steps
 
 1. Read through this entire guide
 2. Look at the component templates in `/components/` folder
@@ -474,4 +413,4 @@ Then import them in each component.
 
 ---
 
-**Remember**: You're not just learning to code. You're learning to build systems that DON'T break in production! 🛡️
+**Remember**: You're not just learning to code. You're learning to build systems that DON'T break in production!

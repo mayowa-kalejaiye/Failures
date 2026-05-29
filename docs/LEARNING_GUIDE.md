@@ -1,267 +1,128 @@
-# 🎓 Backend Engineering - Learn By Building
+# Learning Guide
 
-Welcome! This is a **hands-on** learning project. No copy-paste solutions - you'll build everything yourself.
+This project is meant to help you learn by building small things first. It is fine to be a beginner or to feel rusty. You do not need to know everything before you start.
 
-## 📖 Philosophy
+## How to use the project
 
-> "I hear and I forget. I see and I remember. I do and I understand." - Confucius
+Work through the material in this order:
 
-Reading code ≠ understanding code. You need to **write it yourself** to truly learn.
+1. Read [START_HERE.md](START_HERE.md).
+2. Open the first exercise file.
+3. Read the TODO comments.
+4. Implement one small method.
+5. Test that method before moving on.
 
-## 🗺️ Learning Path
+## Learning path
 
-### Week 1: Database Failures
-**File:** `exercises/ex1_db_starter.py`
+### Exercise 1: Database connection pools
 
-What you'll build from scratch:
-- [ ] Connection pool class
-- [ ] Acquire/release connection logic
-- [ ] Slow query simulator  
-- [ ] Pool exhaustion detection
-- [ ] Health check endpoint
+File: `exercises/ex1_db_starter.py`
 
-**Time:** 2-3 hours
+What you will build:
 
-**You'll learn:**
-- Why databases have connection limits
-- What happens when pools fill up
-- How to monitor resource usage
-- Common production database issues
+- a simple connection pool class
+- acquire and release methods
+- a way to see when the pool is full
+- a health check endpoint
 
-### Week 2: Network Failures  
-**File:** `exercises/ex2_network_starter.py`
+What you will learn:
 
-What you'll build:
-- [ ] Flaky API simulator
-- [ ] Retry logic with exponential backoff
-- [ ] Timeout handling
-- [ ] Cascading failure demonstration
+- why databases have limits
+- what pool exhaustion looks like
+- how to think about resource cleanup
 
-**Time:** 2-3 hours
+### Exercise 2: Network retries and timeouts
 
-**You'll learn:**
-- Why services fail randomly
-- How to make systems resilient
-- Exponential backoff algorithm
-- When to stop retrying
+File: `exercises/ex2_network_starter.py`
 
-### Week 3: Rate Limiting
-**File:** `exercises/ex3_ratelimit_starter.py`
+What you will build:
 
-What you'll build:
-- [ ] Token bucket algorithm
-- [ ] Token refill logic
-- [ ] Protected API endpoint
-- [ ] Rate limit headers
+- a flaky API simulator
+- retry logic with backoff
+- timeout handling
+- a small example of cascading failure
 
-**Time:** 2-3 hours
+What you will learn:
 
-**You'll learn:**
-- How APIs prevent abuse
-- Token bucket algorithm
-- HTTP 429 status code
-- Rate limit strategies
+- why retries are useful
+- when not to retry
+- how timeouts protect a service
 
-### Week 4-5: Advanced Patterns
-Build from scratch:
-- Circuit breaker pattern
-- Resource monitoring
-- Memory leak detection
-- Graceful degradation
+### Exercise 3: Rate limiting
 
-## 🎯 How To Use This Project
+File: `exercises/ex3_ratelimit_starter.py`
 
-### 1. Start With Exercise 1
+What you will build:
 
-```bash
-cd c:\Users\kalej\Documents\Failures
-code exercises/ex1_db_starter.py
-```
+- a token bucket limiter
+- token refill logic
+- a protected endpoint
+- a response for too many requests
 
-### 2. Read The Comments
+What you will learn:
 
-Every file has:
-- ✅ What you need to build
-- 💡 Hints to guide you
-- 🧪 Testing instructions
-- 🏆 Bonus challenges
+- how rate limits protect services
+- how to think about bursts of traffic
+- why HTTP 429 matters
 
-### 3. Don't Look At Solutions (Yet!)
+## How to work
 
-The `db_failures.py`, `network_failures.py` etc are REFERENCE solutions.
-- Try solving it yourself first
-- Get stuck? That's good - Google it, debug it
-- Still stuck after 30 minutes? Then peek at the solution
-- Understand it, then delete your code and write it again from memory
+Keep the process small and calm.
 
-### 4. Test Everything
+1. Change one method at a time.
+2. Run the code often.
+3. Read error messages carefully.
+4. Keep notes about what you tried.
+5. Use the solution files only when you need a hint.
 
-Run your server and break it! Learn by seeing failures.
+## Good habits
 
-```bash
-# Run your exercise
-uvicorn exercises.ex1_db_starter:app --reload --port 8000
+- Start with the simplest method.
+- Test the happy path first.
+- Add failure cases after the basics work.
+- Take breaks when you feel stuck.
 
-# In another terminal, test it
-curl http://localhost:8000/slow-query
-```
+## What success looks like
 
-### 5. Debug Like A Pro
-
-When something doesn't work:
-1. **Read the error** - it tells you what's wrong
-2. **Add print statements** - see what's happening
-3. **Test small pieces** - don't write everything at once
-4. **Google the error** - you're not the first to see it
+You are making progress when you can:
 
-## 📚 Learning Resources
+- explain what the code is doing
+- predict what might fail
+- fix a bug without guessing blindly
+- finish a small exercise on your own
 
-### Connection Pools
-- Google: "database connection pool explained"
-- Think of it like: Restaurant tables (limited seats)
-
-### Rate Limiting  
-- Google: "token bucket algorithm"
-- Watch: YouTube "rate limiting explained"
-
-### Retries & Backoff
-- Google: "exponential backoff algorithm"
-- Real example: Your phone retrying to send a text
-
-### Circuit Breaker
-- Google: "circuit breaker pattern martin fowler"
-- Real example: Electrical circuit breaker in your house
-
-## 🎓 Backend Engineering Skills You'll Learn
-
-### 1. Resource Management
-- Pools, quotas, limits
-- When to acquire, when to release
-- Preventing resource leaks
+## When you get stuck
 
-### 2. Error Handling
-- Try/except patterns
-- Graceful failures
-- Error propagation
-
-### 3. Async Programming
-- async/await syntax
-- Concurrent requests
-- Non-blocking operations
-
-### 4. System Design Patterns
-- Circuit breaker
-- Rate limiting
-- Retry with backoff
-- Bulkhead pattern
-
-### 5. API Design
-- HTTP status codes
-- Response headers
-- Error messages
-
-### 6. Testing
-- Load testing
-- Failure scenarios
-- Edge cases
-
-## ✅ Success Metrics
-
-You know you're learning when:
-- ✅ You can explain WHY something works, not just that it works
-- ✅ You can predict what will break before running it
-- ✅ You modify code and understand the consequences
-- ✅ You can solve similar problems without looking at examples
-
-## 🚫 Common Mistakes To Avoid
-
-### Mistake #1: Copy-Pasting Solutions
-❌ Copy code → It works → Move on
-✅ Understand logic → Write from scratch → Debug issues
-
-### Mistake #2: Not Testing
-❌ Write all code → Run once → Hope it works
-✅ Write small piece → Test it → Write next piece
-
-### Mistake #3: Skipping Fundamentals
-❌ Jump to advanced patterns
-✅ Master basics first (pooling, timeouts, retries)
-
-### Mistake #4: Not Breaking Things
-❌ Make it work once → Done
-✅ Make it work → Break it → Fix it → Understand limits
-
-## 🏆 Challenge Yourself
-
-After each exercise, try:
-
-### Make it break
-- What happens with 100 concurrent requests?
-- What if timeout is 0.1 seconds?
-- What if the pool has 1 connection?
-
-### Make it better  
-- Add logging
-- Add metrics
-- Add better error messages
-
-### Make it real
-- Use actual database (SQLite)
-- Call real APIs
-- Add authentication
-
-## 📊 Track Your Progress
-
-Create a learning journal:
-
-```markdown
-# Day 1 - Connection Pools
-- Built ConnectionPool class
-- Struggled with: async/await syntax
-- Learned: Why databases limit connections
-- Tomorrow: Add connection timeout
-
-# Day 2 - Pool Exhaustion  
-- Simulated pool exhaustion
-- Discovered: Slow queries break everything
-- Tested: 6 concurrent requests
-- Next: Automatic connection cleanup
-```
-
-## 🤝 When To Ask For Help
-
-1. **Try yourself first** - 15-30 minutes of struggle
-2. **Google it** - Someone else had this problem
-3. **Check reference solution** - Understand, don't copy
-4. **Ask specific questions** - "Why does X happen?" not "Fix my code"
-
-## 🎯 Your First Session (Start Here!)
-
-**Time: 30 minutes**
-
-1. Open `exercises/ex1_db_starter.py`
-2. Read all the TODOs
-3. Implement the `ConnectionPool.__init__` method
-4. Test it with print statements
-5. Move to next TODO
+Use this order:
+
+1. Read the error message.
+2. Check the TODOs again.
+3. Compare with the hints in the exercise.
+4. Try a smaller change.
+5. Ask for help if you still need it.
+
+## First session example
+
+Start with the connection pool constructor:
 
 ```python
-# Your first code - just this!
 class ConnectionPool:
     def __init__(self, max_connections: int = 5):
         self.max_connections = max_connections
         self.available_connections = max_connections
-        print(f"Pool created with {max_connections} connections")
+```
 
-# Test it
+Test it with a short script:
+
+```python
 pool = ConnectionPool(3)
-print(f"Available: {pool.available_connections}")
+print(pool.available_connections)
 ```
 
 That's it! Small steps. Build up.
 
-## 🚀 Ready?
+## Ready?
 
 Open [exercises/ex1_db_starter.py](exercises/ex1_db_starter.py) and start coding!
 
-Remember: **Struggle = Learning**. Embrace it! 💪
+Remember: **Struggle = Learning**. Embrace it!
