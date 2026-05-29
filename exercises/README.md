@@ -18,7 +18,6 @@ uvicorn exercises.ex0_api_basics_starter:app --reload --port 8000
 
 Complete the TODOs in `ex0_api_basics_starter.py` and run `exercises/test_ex0.py` to check your work.
 
-
 ### Exercise 1: Database Connection Pools
 
 **File:** [ex1_db_starter.py](ex1_db_starter.py)  
@@ -65,15 +64,15 @@ uvicorn exercises.ex3_ratelimit_starter:app --reload --port 8002
 
 1. **Pick Exercise 1** - Always start with database patterns
 2. If you are new to APIs, start with **Exercise 0** and follow `docs/FOUNDATIONS.md` first.
-2. **Open the file** - Read all the TODOs
-3. **Start coding** - Implement one method at a time
-4. **Test frequently** - Run the server after each change
-5. **Debug actively** - Print statements are your friend
+3. **Open the file** - Read all the TODOs
+4. **Start coding** - Implement one method at a time
+5. **Test frequently** - Run the server after each change
+6. **Debug actively** - Print statements are your friend
 
 ## Resources
 
-- [LEARNING_GUIDE.md](../LEARNING_GUIDE.md) - Full learning philosophy
-- [STUDENT_GUIDE.md](../STUDENT_GUIDE.md) - Quick reference & patterns
+- [LEARNING_GUIDE.md](../docs/LEARNING_GUIDE.md) - Full learning philosophy
+- [STUDENT_GUIDE.md](../docs/STUDENT_GUIDE.md) - Quick reference & patterns
 - [SOLUTIONS.md](SOLUTIONS.md) - Hints and where to find solutions
 
 ## Remember

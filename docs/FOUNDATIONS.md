@@ -11,11 +11,12 @@ Read this first if you are new to APIs, HTTP, or running small Python services.
 
 2. HTTP methods (very short)
 
-- `GET` — read data (safe, idempotent)
-- `POST` — create or send data (may change server state)
-- `PUT` — replace a resource
-- `PATCH` — change part of a resource
-- `DELETE` — remove a resource
+- `GET` - read data (safe, idempotent)
+- `POST` - create or send data (may change server state)
+- `PUT` - replace a resource
+- `PATCH` - change part of a resource
+- `DELETE` - remove a resource
+@- `DELETE` - remove a resource
 
 3. JSON basics
 
@@ -144,10 +145,6 @@ curl http://localhost:9000/items
 
 ---
 
-9. Troubleshooting (quick)
-
-8. Troubleshooting (quick)
-
 - If `curl` says connection refused, check the server is running and the port matches.
 - If you get a JSON error, ensure your data is valid JSON (use double quotes).
 - If you see a 4xx or 5xx error, read the response body for details.
@@ -156,4 +153,4 @@ curl http://localhost:9000/items
 
 - After this short primer, return to `docs/START_HERE.md` and the exercises. Foundations gives you the minimal comfort to follow the exercises that introduce retries and backoff.
 
-Good luck — take small steps and test often.
+Good luck - take small steps and test often.

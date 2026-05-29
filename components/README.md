@@ -61,8 +61,8 @@ This will focus on routing, load balancing, and isolating failures.
 
 ## Helpful references
 
-- [Building Systems Guide](../BUILDING_SYSTEMS.md)
-- [Component Checklist](../COMPONENT_CHECKLIST.md)
+- [Building Systems Guide](../docs/BUILDING_SYSTEMS.md)
+- [Component Checklist](../docs/COMPONENT_CHECKLIST.md)
 - [Project README](../README.md)
 
 ## A good rule for this stage

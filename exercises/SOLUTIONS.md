@@ -42,11 +42,11 @@ The completed implementations are in the root directory:
 
 | Exercise | Solution File |
 |----------|--------------|
-| Exercise 1: Database Pool | [db_failures.py](../db_failures.py) |
-| Exercise 2: Network Failures | [network_failures.py](../network_failures.py) |
-| Exercise 3: Rate Limiting | [rate_limiting.py](../rate_limiting.py) |
-| Exercise 4: Circuit Breaker | [circuit_breaker.py](../circuit_breaker.py) |
-| Exercise 5: Resource Issues | [resource_failures.py](../resource_failures.py) |
+| Exercise 1: Database Pool | [db_failures.py](../reference/db_failures.py) |
+| Exercise 2: Network Failures | [network_failures.py](../reference/network_failures.py) |
+| Exercise 3: Rate Limiting | [rate_limiting.py](../reference/rate_limiting.py) |
+| Exercise 4: Circuit Breaker | [circuit_breaker.py](../reference/circuit_breaker.py) |
+| Exercise 5: Resource Issues | [resource_failures.py](../reference/resource_failures.py) |
 
 ## Hints Before Looking
 

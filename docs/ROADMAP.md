@@ -62,7 +62,7 @@ START
 
 ### Phase 1: Learning Patterns
 
-4. **[LEARNING_GUIDE.md](LEARNING_GUIDE.md)** - How to approach the exercises
+1. **[LEARNING_GUIDE.md](LEARNING_GUIDE.md)** - How to approach the exercises
 2. **[STUDENT_GUIDE.md](STUDENT_GUIDE.md)** - Additional guidance
 3. **[exercises/README.md](exercises/README.md)** - Exercise details
 4. **[exercises/SOLUTIONS.md](exercises/SOLUTIONS.md)** - Solution hints
@@ -70,19 +70,19 @@ START
 
 ### Phase 2: Building Systems  YOU ARE HERE
 
-9. **[BUILDING_SYSTEMS.md](BUILDING_SYSTEMS.md)** - Complete guide to building components
+1. **[BUILDING_SYSTEMS.md](BUILDING_SYSTEMS.md)** - Complete guide to building components
 2. **[SYSTEMS_QUICKSTART.md](SYSTEMS_QUICKSTART.md)** - Get started building in 5 min
 3. **[SYSTEMS_SUMMARY.md](SYSTEMS_SUMMARY.md)** - Quick reference
 4. **[COMPONENT_CHECKLIST.md](COMPONENT_CHECKLIST.md)** - Track your progress
 
 ### Component Documentation
 
-13. **[components/README.md](components/README.md)** - Components overview
+1. **[components/README.md](components/README.md)** - Components overview
 2. **[components/auth_system/README.md](components/auth_system/README.md)** - Auth system guide
 
 ### Progress Tracking
 
-15. **[MY_PROGRESS.md](MY_PROGRESS.md)** - Your personal tracker
+1. **[MY_PROGRESS.md](MY_PROGRESS.md)** - Your personal tracker
 2. **[PROJECT_SUMMARY.md](PROJECT_SUMMARY.md)** - What's in this project
 
 ---

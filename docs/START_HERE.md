@@ -82,4 +82,3 @@ python exercises/test_ex1.py
 ## Final reminder
 
 You do not need to know everything before starting. You only need to take the next small step.
-
