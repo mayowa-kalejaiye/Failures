@@ -4,6 +4,8 @@ This component is the first real system in the project.
 
 It is designed to be approachable. You do not need to build a full production auth platform right away. Start with the simplest useful version and grow from there.
 
+If you are new to APIs or running services locally, read [docs/FOUNDATIONS.md](../docs/FOUNDATIONS.md) before working here. It shows `curl` examples and how to run the starter app with `uvicorn`.
+
 ## What this component is for
 
 The goal is to show how a small backend service can use the basics you learned earlier:

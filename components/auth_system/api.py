@@ -488,7 +488,7 @@ if __name__ == "__main__":
     import uvicorn
     
     print("=" * 60)
-    print("🔐 Authentication System - Starter Template")
+    print("Authentication System - Starter Template")
     print("=" * 60)
     print()
     print("TODO: Complete the implementation!")

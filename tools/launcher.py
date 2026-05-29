@@ -64,9 +64,9 @@ def launch_scenario(scenario_key):
     
     scenario = SCENARIOS[scenario_key]
     
-    print(f"\n🚀 Launching {scenario['name']}...")
-    print(f"📍 URL: http://localhost:{scenario['port']}")
-    print(f"📝 Description: {scenario['description']}")
+    print(f"\nLaunching {scenario['name']}...")
+    print(f"URL: http://localhost:{scenario['port']}")
+    print(f"Description: {scenario['description']}")
     print("\nPress Ctrl+C to stop the server\n")
     print("="*60 + "\n")
     
@@ -81,11 +81,11 @@ def launch_scenario(scenario_key):
             "--port", str(scenario['port'])
         ])
     except KeyboardInterrupt:
-        print("\n\n✋ Server stopped by user")
+        print("\n\nServer stopped by user")
     except FileNotFoundError:
-        print("\n❌ Error: uvicorn not found. Please run: pip install -r requirements.txt")
+        print("\nError: uvicorn not found. Please run: pip install -r requirements.txt")
     except Exception as e:
-        print(f"\n❌ Error: {str(e)}")
+        print(f"\nError: {str(e)}")
 
 
 def main():
@@ -96,20 +96,20 @@ def main():
             choice = input("Enter your choice (0-5): ").strip()
             
             if choice == "0":
-                print("\n👋 Goodbye! Happy learning!")
+                print("\nGoodbye! Happy learning!")
                 sys.exit(0)
             
             if choice in SCENARIOS:
                 launch_scenario(choice)
             else:
-                print("\n❌ Invalid choice. Please select 0-5")
+                print("\nInvalid choice. Please select 0-5")
                 input("\nPress Enter to continue...")
         
         except KeyboardInterrupt:
-            print("\n\n👋 Goodbye!")
+            print("\n\nGoodbye!")
             sys.exit(0)
         except Exception as e:
-            print(f"\n❌ Error: {str(e)}")
+            print(f"\nError: {str(e)}")
             input("\nPress Enter to continue...")
 
 

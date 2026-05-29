@@ -4,6 +4,21 @@ This is where **YOU** write the code!
 
 ## Available Exercises
 
+### Exercise 0: API Basics (new)
+
+**File:** [ex0_api_basics_starter.py](ex0_api_basics_starter.py)  
+**Port:** 8000  
+**Time:** 30-90 minutes
+
+Learn how to design and run a small API: endpoints, request/response models, validation, and basic error handling. Start here if you are new to APIs.
+
+```bash
+uvicorn exercises.ex0_api_basics_starter:app --reload --port 8000
+```
+
+Complete the TODOs in `ex0_api_basics_starter.py` and run `exercises/test_ex0.py` to check your work.
+
+
 ### Exercise 1: Database Connection Pools
 
 **File:** [ex1_db_starter.py](ex1_db_starter.py)  
@@ -49,6 +64,7 @@ uvicorn exercises.ex3_ratelimit_starter:app --reload --port 8002
 ## How To Start
 
 1. **Pick Exercise 1** - Always start with database patterns
+2. If you are new to APIs, start with **Exercise 0** and follow `docs/FOUNDATIONS.md` first.
 2. **Open the file** - Read all the TODOs
 3. **Start coding** - Implement one method at a time
 4. **Test frequently** - Run the server after each change

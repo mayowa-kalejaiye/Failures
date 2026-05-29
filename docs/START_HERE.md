@@ -2,6 +2,17 @@
 
 If this project feels like too much at first, start here and take it one step at a time. The exercises are meant to help beginners and rusty developers rebuild confidence.
 
+## Before you start (Foundations)
+
+If you are new to APIs, HTTP, or running a local Python service, read the short primer in [FOUNDATIONS.md](FOUNDATIONS.md) first. It covers:
+
+- what an API is
+- basic HTTP methods
+- JSON examples and `curl` commands
+- how to run a FastAPI app locally with `uvicorn`
+
+Completing Foundations will make the exercises and later system-building guides much easier to follow.
+
 ## What changed
 
 This project used to be more of a read-and-run demo. It is now meant to be a learning path where you write the code yourself.

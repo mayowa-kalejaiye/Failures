@@ -18,46 +18,46 @@ BASE_URL = "http://localhost:8000"
 
 def test_health():
     """Test 1: Health endpoint should return pool stats"""
-    print("\n🧪 Test 1: Health Check")
+    print("\nTest 1: Health Check")
     try:
         r = requests.get(f"{BASE_URL}/health")
         if r.status_code == 200:
             data = r.json()
-            print(f"   ✅ Health endpoint works!")
-            print(f"   📊 Pool stats: {data}")
+            print(f"   Health endpoint works!")
+            print(f"   Pool stats: {data}")
             return True
         else:
-            print(f"   ❌ Health endpoint returned {r.status_code}")
+            print(f"   Health endpoint returned {r.status_code}")
             return False
     except Exception as e:
-        print(f"   ❌ Error: {e}")
-        print(f"   💡 Is your server running? Check implementation of /health")
+        print(f"   Error: {e}")
+        print(f"   Is your server running? Check implementation of /health")
         return False
 
 
 def test_slow_query():
     """Test 2: Slow query should work"""
-    print("\n🧪 Test 2: Single Slow Query")
+    print("\nTest 2: Single Slow Query")
     try:
         start = time.time()
         r = requests.get(f"{BASE_URL}/slow-query")
         elapsed = time.time() - start
         
         if r.status_code == 200:
-            print(f"   ✅ Slow query completed in {elapsed:.2f}s")
+            print(f"   Slow query completed in {elapsed:.2f}s")
             return True
         else:
-            print(f"   ❌ Query failed with status {r.status_code}")
+            print(f"   Query failed with status {r.status_code}")
             return False
     except Exception as e:
-        print(f"   ❌ Error: {e}")
+        print(f"   Error: {e}")
         return False
 
 
 def test_concurrent_queries(num_queries=6):
     """Test 3: Pool exhaustion with concurrent queries"""
-    print(f"\n🧪 Test 3: {num_queries} Concurrent Queries (Pool Size: 5)")
-    print("   💡 Expected: 5 should succeed, 1 should fail with 503")
+    print(f"\nTest 3: {num_queries} Concurrent Queries (Pool Size: 5)")
+    print("   Expected: 5 should succeed, 1 should fail with 503")
     
     def make_request(i):
         try:
@@ -75,30 +75,30 @@ def test_concurrent_queries(num_queries=6):
         for future in as_completed(futures):
             i, status, result = future.result()
             if status == 200:
-                print(f"   ✅ Request {i}: Success")
+                print(f"   Request {i}: Success")
                 successes += 1
             elif status == 503:
-                print(f"   ⚠️  Request {i}: Pool exhausted (expected!)")
+                print(f"   Request {i}: Pool exhausted (expected!)")
                 failures += 1
             else:
-                print(f"   ❌ Request {i}: Unexpected - {status} {result}")
+                print(f"   Request {i}: Unexpected - {status} {result}")
         
-        print(f"\n   📊 Results: {successes} succeeded, {failures} failed")
+        print(f"\n   Results: {successes} succeeded, {failures} failed")
         
         if successes == 5 and failures == 1:
-            print("   🎉 Perfect! Your pool is working correctly!")
+            print("   Perfect! Your pool is working correctly!")
             return True
         elif successes > 0:
-            print("   ⚠️  Partial success - check your acquire/release logic")
+            print("   Partial success - check your acquire/release logic")
             return False
         else:
-            print("   ❌ No requests succeeded - check your implementation")
+            print("   No requests succeeded - check your implementation")
             return False
 
 
 def test_pool_recovery():
     """Test 4: Pool should recover after queries complete"""
-    print("\n🧪 Test 4: Pool Recovery")
+    print("\nTest 4: Pool Recovery")
     print("   Waiting for pool to recover...")
     time.sleep(6)  # Wait for slow queries to complete
     
@@ -109,17 +109,17 @@ def test_pool_recovery():
         # Check if we have full capacity again
         if "available_connections" in data:
             if data["available_connections"] == data.get("total_connections", 5):
-                print(f"   ✅ Pool recovered! {data['available_connections']}/{data['total_connections']} available")
+                print(f"   Pool recovered! {data['available_connections']}/{data['total_connections']} available")
                 return True
             else:
-                print(f"   ⚠️  Pool not fully recovered: {data}")
-                print("   💡 Check if you're releasing connections properly")
+                print(f"   Pool not fully recovered: {data}")
+                print("   Check if you're releasing connections properly")
                 return False
         else:
-            print(f"   ❌ Health endpoint doesn't return connection info")
+            print(f"   Health endpoint doesn't return connection info")
             return False
     except Exception as e:
-        print(f"   ❌ Error: {e}")
+        print(f"   Error: {e}")
         return False
 
 
@@ -132,8 +132,8 @@ def main():
     try:
         requests.get(BASE_URL, timeout=2)
     except:
-        print("\n❌ Server not responding!")
-        print("\n💡 Start your server first:")
+        print("\nServer not responding!")
+        print("\nStart your server first:")
         print("   uvicorn exercises.ex1_db_starter:app --reload --port 8000")
         return
     
@@ -154,20 +154,20 @@ def main():
     total = len(results)
     
     for test_name, result in results:
-        status = "✅ PASS" if result else "❌ FAIL"
+        status = "PASS" if result else "FAIL"
         print(f"  {status}: {test_name}")
     
     print(f"\n  Score: {passed}/{total} tests passed")
     
     if passed == total:
-        print("\n  🎉 Excellent! All tests passed!")
-        print("  🚀 Ready to move to Exercise 2!")
+        print("\n  Excellent! All tests passed!")
+        print("  Ready to move to Exercise 2!")
     elif passed >= total * 0.5:
-        print("\n  👍 Good progress! Fix remaining issues.")
-        print("  💡 Check SOLUTIONS.md if you're stuck")
+        print("\n  Good progress! Fix remaining issues.")
+        print("  Check SOLUTIONS.md if you're stuck")
     else:
-        print("\n  💪 Keep working! You're learning!")
-        print("  💡 Review the exercise file and try again")
+        print("\n  Keep working! You're learning!")
+        print("  Review the exercise file and try again")
     
     print("="*60)
 
