@@ -1,0 +1,19 @@
+{
+  "scenario": "payment",
+  "prompt": "Build a course payment and enrollment system using FastAPI, PostgreSQL and Paystack. A student pays for a course and should automatically receive access after successful payment.",
+  "invariants": [
+    "A student must never be enrolled without a successful payment",
+    "A payment must never be charged twice"
+  ],
+  "baseline_expect": {
+    "min_critical": 2,
+    "typically_missing": ["idempotency_key", "pending_before_provider", "timeout", "webhook dedup", "reconciliation"]
+  },
+  "failures_enabled_expect": {
+    "max_critical": 0,
+    "must_have": ["pending record before Paystack", "idempotency_key UNIQUE", "timeout=5", "webhook event_id UNIQUE", "enrollment gated on verified payment", "reconciliation"],
+    "state_machine": "pending -> Paystack -> ambiguous -> reconciliation -> verified -> enrollment",
+    "must_handle": ["duplicate webhook", "retry after timeout", "server crash after Paystack", "concurrent enrollment"]
+  },
+  "evaluation": "Measure via review_code + check_invariant + review_plan. Count improvement on at least one criterion. See run_evaluation.py."
+}

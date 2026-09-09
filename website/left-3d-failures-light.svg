@@ -1,0 +1,15 @@
+<svg width="518" height="667" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Failures left: 3D transactional outbox - pending -> confirmed -->
+  <ellipse cx="50" cy="78" rx="28" ry="10" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1" stroke-opacity="1"/>
+  <path d="M22 30 L22 68 Q22 78 50 85 Q78 78 78 68 L78 30 Q78 22 50 15 Q22 22 22 30" fill="currentColor" fill-opacity="0.22" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="50" cy="30" rx="28" ry="12" fill="currentColor" fill-opacity="0.24" stroke="currentColor" stroke-width="1.6"/>
+  <ellipse cx="50" cy="30" rx="22" ry="8" fill="none" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.95"/>
+  <!-- WAL lines -->
+  <g stroke="currentColor" stroke-opacity="0.95" stroke-width="1" stroke-linecap="round">
+    <line x1="32" y1="42" x2="68" y2="42"/><line x1="32" y1="48" x2="68" y2="48"/><line x1="32" y1="54" x2="58" y2="54"/>
+  </g>
+  <!-- status: pending -> confirmed -->
+  <g font-family="Geist Mono, monospace" font-size="5.5" fill="currentColor" opacity="1">
+    <text x="50" y="64" text-anchor="middle">pending → confirmed</text>
+  </g>
+</svg>

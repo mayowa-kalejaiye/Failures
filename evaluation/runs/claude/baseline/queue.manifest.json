@@ -1,0 +1,12 @@
+{
+  "agent": "claude",
+  "scenario": "queue",
+  "mode": "baseline",
+  "model": "claude",
+  "timestamp": "2026-08-29T16:27:51.905853Z",
+  "prompt_hash": "0176ff6de044",
+  "prompt_source": "evaluation/scenarios/queue.md",
+  "failures_mcp_enabled": false,
+  "commit": "ab18bb4870e9",
+  "output_path": "evaluation/runs/claude/baseline/queue.py"
+}

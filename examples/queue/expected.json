@@ -1,0 +1,4 @@
+{
+  "naive": {"expected_findings": ["queue_no_ack_handling"], "min_high": 1},
+  "improved": {"notes": "Improved uses dedup + ack after success + DLQ. db_writes_not_transactional may remain due to heuristic counting ON CONFLICT inserts — acceptable. Key is queue_no_ack_handling absent or reduced."}
+}

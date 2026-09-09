@@ -1,0 +1,59 @@
+{
+  "ack-before-processing": {
+    "ids": [
+      "queue_no_ack_handling"
+    ],
+    "critical": 0,
+    "should_flag": false,
+    "note": " captured\n\n- Ack present, so naive heuristic `has_ack` would pass\n- But ordering wrong: ack must be AFTER success\n\n## Engine must detect\n\nCurrent `queue_no_ack_handling` checks `has_ack and has_idempotency` \u2014 this case has ack but wrong order, so should still be flagged by deeper check.\nFor Phase 3 "
+  },
+  "idempotency-not-persisted": {
+    "ids": [
+      "charge_then_db_update",
+      "db_writes_not_transactional",
+      "no_timeout"
+    ],
+    "critical": 1,
+    "should_flag": true,
+    "note": " it looks safe\n\n- Idempotency key exists\n- Provider is told about it\n\n"
+  },
+  "lock-wrong-section": {
+    "ids": [
+      "db_writes_not_transactional",
+      "race_condition_read_modify_write"
+    ],
+    "critical": 0,
+    "should_flag": true,
+    "note": ""
+  },
+  "retry-non-idempotent": {
+    "ids": [
+      "external_call_without_idempotency",
+      "no_timeout"
+    ],
+    "critical": 1,
+    "should_flag": false,
+    "note": ""
+  },
+  "transaction-wrong-boundary": {
+    "ids": [
+      "external_call_without_idempotency",
+      "no_timeout"
+    ],
+    "critical": 1,
+    "should_flag": true,
+    "note": " it looks safe\n\n- Transactions are present\n\n"
+  },
+  "webhook-memory-dedup": {
+    "ids": [
+      "external_call_without_idempotency",
+      "charge_then_db_update",
+      "db_writes_not_transactional",
+      "no_timeout",
+      "no_rate_limit"
+    ],
+    "critical": 2,
+    "should_flag": false,
+    "note": ""
+  }
+}

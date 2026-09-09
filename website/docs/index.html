@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction | Failures Docs</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Critical nav overrides must load after Tailwind CDN utilities */
+    #mobile-nav-drawer {
+      display: none !important;
+    }
+    #mobile-nav-drawer.open {
+      display: flex !important;
+      flex-direction: column;
+    }
+    .ba-desktop-tabs {
+      display: none !important;
+    }
+    @media (min-width: 1024px) {
+      #mobile-nav-drawer,
+      #mobile-nav-drawer.open {
+        display: none !important;
+      }
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {
+        display: none !important;
+      }
+      .ba-desktop-tabs {
+        display: flex !important;
+      }
+    }
+    @media (max-width: 1023px) {
+      .ba-desktop-tabs {
+        display: none !important;
+      }
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {
+        display: flex !important;
+      }
+    }
+    .ba-landing .lg\:w-\[60\%] {
+      scroll-margin-top: 80px;
+    }
+    @media (min-width: 1024px) {
+      .ba-landing .lg\:w-\[60\%] {
+        padding-top: 40px;
+      }
+    }
+    .ba-readme-header {
+      padding-top: 32px;
+      scroll-margin-top: 80px;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(var(--background-hsl, 0 0% 100%) / <alpha-value>)',
+            foreground: 'hsl(var(--foreground-hsl, 240 10% 3.9%) / <alpha-value>)',
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      const t = localStorage.getItem('failures-theme') || 'system';
+      const isDark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    })();
+  </script>
+</head>
+<body>
+  <header class="fixed top-0 left-0 right-0 z-50 flex items-stretch gap-0 h-[45px] bg-background/95 backdrop-blur-sm">
+  <!-- Left brand (40%) — logo + search + theme + mobile toggle -->
+  <div class="w-full lg:w-[40%] flex items-center justify-between px-5 sm:px-6 lg:px-7 lg:border-r border-foreground/[0.06] shrink-0">
+    <a href="../index.html" class="flex items-center gap-2.5 text-foreground hover:opacity-85 transition-opacity">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="7" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M10 8 H22 M10 15 H18 M10 8 V24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
+  <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+      <span class="font-semibold text-[14px] tracking-tight" style="font-family: var(--font-geist-sans); letter-spacing: -0.02em;">Failures</span>
+    </a>
+    <div class="flex items-center gap-0.5">
+      <!-- Hamburger — mobile ONLY, hidden on lg+ via CSS -->
+      <button type="button" class="ba-mobile-nav-btn lg:hidden flex items-center justify-center size-8 text-foreground/60 hover:text-foreground transition-colors" data-mobile-toggle aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Right navigation tabs (60%) — desktop only, shown via CSS ba-desktop-tabs -->
+  <div class="ba-desktop-tabs hidden lg:flex flex-1 items-stretch min-w-0">
+    <nav class="flex-1 flex items-stretch">
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../index.html">readme</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap border-b-2 border-b-foreground text-foreground font-semibold bg-foreground/[0.02]" href="../docs/index.html">docs</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/tools.html">tools</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/patterns.html">patterns</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/examples.html">benchmark</a>
+    </nav>
+    <!-- Rightmost GitHub CTA -->
+    <a href="https://github.com/mayowa-kalejaiye/Failures" target="_blank" class="flex items-center gap-2 px-5 bg-foreground text-background hover:opacity-90 transition-opacity shrink-0">
+      <span class="font-mono text-xs uppercase tracking-wider font-semibold">GitHub</span>
+      <svg class="h-2.5 w-2.5 opacity-60" viewBox="0 0 10 10" fill="none"><path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.3"></path></svg>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Navigation Slideout — CSS controls display via #mobile-nav-drawer / #mobile-nav-drawer.open -->
+<div id="mobile-nav-drawer" class="fixed inset-0 z-[100] bg-background/95 backdrop-blur-md flex-col p-6 pointer-events-auto">
+  <div class="flex items-center justify-between pb-4 border-b border-foreground/[0.08]">
+    <div class="flex items-center gap-2 font-mono font-bold text-sm">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="7" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M10 8 H22 M10 15 H18 M10 8 V24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
+  <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+      <span>Failures</span>
+    </div>
+    <button type="button" data-mobile-close class="flex items-center justify-center size-8 text-foreground/60 hover:text-foreground" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-4 py-6 font-mono text-sm uppercase tracking-wider">
+    <a href="../index.html" class="py-2 border-b border-foreground/[0.04]">readme</a>
+    <a href="../docs/index.html" class="py-2 border-b border-foreground/[0.04]">docs</a>
+    <a href="../docs/tools.html" class="py-2 border-b border-foreground/[0.04]">tools</a>
+    <a href="../docs/patterns.html" class="py-2 border-b border-foreground/[0.04]">patterns</a>
+    <a href="../docs/examples.html" class="py-2 border-b border-foreground/[0.04]">benchmark</a>
+  </nav>
+  <a href="https://github.com/mayowa-kalejaiye/Failures" target="_blank" class="mt-auto flex items-center justify-center gap-2 py-3 bg-foreground text-background font-mono text-xs uppercase tracking-wider font-semibold">
+    <span>GitHub</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+  <div class="ba-docs-layout" style="padding-top:45px;">
+    <aside class="ba-docs-sidebar">
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Getting Started</div>
+    <a href="../docs/index.html" class="ba-sidebar-link active">
+      <span>Introduction</span>
+    </a>
+  </div>
+
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Principles (11)</div>
+      <a href="../docs/principles/atomicity.html" class="ba-sidebar-link">
+        <span>Atomicity</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/idempotency.html" class="ba-sidebar-link">
+        <span>Idempotency</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/timeout.html" class="ba-sidebar-link">
+        <span>Timeout / Ambiguous Outcome</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/concurrency.html" class="ba-sidebar-link">
+        <span>Concurrency</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/retry-safety.html" class="ba-sidebar-link">
+        <span>Retry Safety</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/availability.html" class="ba-sidebar-link">
+        <span>Availability</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/ordering.html" class="ba-sidebar-link">
+        <span>Ordering</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/consistency.html" class="ba-sidebar-link">
+        <span>Consistency</span>
+        <span class="ba-dot medium"></span>
+      </a>
+      <a href="../docs/principles/resource-exhaustion.html" class="ba-sidebar-link">
+        <span>Resource Exhaustion</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/recovery.html" class="ba-sidebar-link">
+        <span>Recovery</span>
+        <span class="ba-dot medium"></span>
+      </a>
+      <a href="../docs/principles/observability.html" class="ba-sidebar-link">
+        <span>Observability</span>
+        <span class="ba-dot medium"></span>
+      </a>
+  </div>
+
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Reference</div>
+    <a href="../docs/tools.html" class="ba-sidebar-link">
+      <span>Tools Reference</span>
+    </a>
+    <a href="../docs/patterns.html" class="ba-sidebar-link">
+      <span>Patterns Catalog</span>
+    </a>
+    <a href="../docs/examples.html" class="ba-sidebar-link">
+      <span>Benchmark &amp; Examples</span>
+    </a>
+  </div>
+</aside>
+
+    <main class="ba-docs-content ba-prose">
+      <div class="ba-doc-meta-row">
+        <div class="ba-breadcrumb">
+          <a href="../index.html">Home</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span>Docs</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span>Introduction</span>
+        </div>
+        <div class="ba-doc-actions">
+          <button class="ba-pill-btn copy-btn" data-copy="doc-body"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy MD</button>
+        </div>
+      </div>
+
+      <div id="doc-body">
+        <h1>Introduction</h1>
+        <p class="ba-lead">A field manual for the part most tutorials skip: what happens when the network drops, the database crashes between two writes, or the same request arrives twice. Each of the 11 principles is a self-contained walkthrough — why the failure exists, how the machinery works underneath, and runnable Python and Go you can paste and run.</p>
+
+        <div class="ba-callout ba-callout-danger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <strong>The network will fail. The question is what your code does next.</strong> Not if, but when — a timeout hides whether the charge succeeded, a retry arrives twice, a crash lands between two writes. A good system does not pretend these do not happen; it makes them predictable.
+          </div>
+        </div>
+
+        <h2 id="what-is-failures">What is Failures?</h2>
+        <p>Failures is a reference, not a framework. It documents 11 invariants — atomicity, idempotency, timeout, and so on — as the machinery underneath, the way <em>Backend from First Principles</em> does for HTTP or TCP. Each invariant is a short field manual: why the failure exists in the first place, how the database or the queue actually behaves underneath, and the pattern that makes it safe. The same chapter runs in Python and Go, grounded in how Postgres, Redis, and Stripe actually work.</p>
+        <p>For coding agents, Failures ships as an MCP server. Your agent does not get a longer prompt; it gets a tool that parses code to an AST and checks the invariant against it. Not “does this look good?” but “if the client retries this exact request, do we have a <code>UNIQUE(key)</code> to catch it and a cached response to return?” The answer is a line number, a confidence, and the test that would have caught it — no hallucination.</p>
+
+        <h2 id="the-problem">The Problem with Happy-Path Code</h2>
+        <p>Most backend examples end at the happy path: the 200 OK that returns while the network is stable. In production, the happy path is the exception. A model trained on those examples will generate an endpoint that:</p>
+        <ul>
+          <li>Charges an external payment provider before writing to the database.</li>
+          <li>Retries non-idempotent endpoints upon network timeouts, causing double charges.</li>
+          <li>Performs read-modify-write queries without locks, creating race conditions.</li>
+          <li>Leaves workers hanging without timeouts, exhausting connection pools.</li>
+        </ul>
+
+        <h2 id="deterministic-guarantees">How a Check Works</h2>
+        <p>Every check is a static rule, not a guess. Give the MCP a function, it builds the AST, finds <code>await stripe.charge</code> without a preceding <code>SELECT ... WHERE key = ?</code> and <code>UNIQUE</code>, and returns the exact lines with a calibrated confidence (<code>0.91 [CRITICAL]</code>). It also returns the control that would make it safe — a pending row, an idempotency table, a reconciliation sweep — and the test that proves it, like <code>retry_after_provider_success</code>. The cost is the parse, <code>0.0 ms</code> of tokens, because there is no model call.</p>
+
+        <div class="ba-code-block">
+          <div class="ba-code-header">
+            <span class="ba-code-title">review_code() Sample Output</span>
+            <button class="ba-pill-btn copy-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+          </div>
+          <pre><code>STATIC FAILURE CHECK — Code Review
+
+[CRITICAL] External side-effect without idempotency key (idempotency) Confidence: 0.91 [STATIC FAILURE CHECK]
+  Why: Network boundary creates ambiguous outcome; retry may duplicate charge.
+  Evidence: await stripe.charge(p.amount)
+  Risk: Retry after timeout duplicates charge
+  Required: persist idempotency key BEFORE external call, dedup check on retry
+  Tests: retry_after_provider_success, duplicate_idempotency_key</code></pre>
+        </div>
+
+        <h2 id="principles-overview">The 11 Principles</h2>
+        <p>Every engineering failure mode falls under 11 formal dimensions:</p>
+        <div class="ba-table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Principle</th>
+                <th>Guiding Question</th>
+                <th>Severity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td><a href="principles/atomicity.html">Atomicity</a></td><td>Can operations partially succeed?</td><td><span class="ba-dot critical" style="display:inline-block; margin-right:4px;"></span>CRITICAL</td></tr>
+              <tr><td><a href="principles/idempotency.html">Idempotency</a></td><td>What happens if executed twice?</td><td><span class="ba-dot critical" style="display:inline-block; margin-right:4px;"></span>CRITICAL</td></tr>
+              <tr><td><a href="principles/timeout.html">Timeout</a></td><td>Did it succeed or fail?</td><td><span class="ba-dot critical" style="display:inline-block; margin-right:4px;"></span>CRITICAL</td></tr>
+              <tr><td><a href="principles/concurrency.html">Concurrency</a></td><td>What if 2 actors edit same state?</td><td><span class="ba-dot high" style="display:inline-block; margin-right:4px;"></span>HIGH</td></tr>
+              <tr><td><a href="principles/retry-safety.html">Retry Safety</a></td><td>Is it safe to retry?</td><td><span class="ba-dot high" style="display:inline-block; margin-right:4px;"></span>HIGH</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <aside class="ba-docs-toc">
+      <div class="ba-toc-title">On this page</div>
+      <a href="#what-is-failures" class="ba-toc-link">What is Failures?</a>
+<a href="#the-problem" class="ba-toc-link">The Problem with AI Code</a>
+<a href="#deterministic-guarantees" class="ba-toc-link">Deterministic Guarantees</a>
+<a href="#principles-overview" class="ba-toc-link">Principles Overview</a>
+    </aside>
+  </div>
+
+  <div id="search-overlay" class="ba-search-overlay" role="dialog" aria-modal="true">
+  <div class="ba-search-dialog">
+    <div class="ba-search-input-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="search-input" class="ba-search-input" placeholder="Search principles, tools, patterns..." autocomplete="off">
+    </div>
+    <div id="search-results" class="ba-search-results"></div>
+    <div class="ba-search-footer">
+      <span><kbd>Esc</kbd> to close</span>
+      <span><kbd>↵</kbd> to navigate</span>
+    </div>
+  </div>
+</div>
+  <script src="../js/main.js"></script>
+</body>
+</html>

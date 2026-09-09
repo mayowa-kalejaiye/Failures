@@ -1,0 +1,14 @@
+[project]
+name = "failures-mcp"
+version = "0.1.0"
+description = "Failures MCP — Engineering constraints for AI-built software"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["mcp>=1.0", "pydantic>=2"]
+
+[project.scripts]
+failures-mcp = "server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,4 @@
+{
+  "naive": {"expected_findings": ["race_condition_read_modify_write"]},
+  "improved": {"notes": "Improved adds dedup + optimistic locking with version check; race condition should be absent even if db_writes heuristic remains."}
+}

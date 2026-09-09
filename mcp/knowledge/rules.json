@@ -1,0 +1,102 @@
+[
+  {
+    "id": "external_call_without_idempotency",
+    "dimension": "idempotency",
+    "severity": "CRITICAL",
+    "title": "External side-effect without idempotency key",
+    "detects": "code contains external/payment/stripe/charge/http call without idempotency",
+    "why": "Network boundary creates ambiguous outcome; retry may duplicate side effect.",
+    "required": ["idempotency key persisted before external call", "dedup check on retry"],
+    "tests": ["retry after provider success", "duplicate idempotency key"]
+  },
+  {
+    "id": "db_writes_not_transactional",
+    "dimension": "atomicity",
+    "severity": "CRITICAL",
+    "title": "Multiple DB writes without transaction",
+    "detects": "multiple execute/update/insert without BEGIN/COMMIT or atomic block",
+    "why": "Crash between writes leaves partial state.",
+    "required": ["wrap in transaction", "or transactional outbox"],
+    "tests": ["crash between writes", "DB failure after first write"]
+  },
+  {
+    "id": "charge_then_db_update",
+    "dimension": "atomicity",
+    "severity": "CRITICAL",
+    "title": "External charge before DB transaction",
+    "detects": "stripe.charge or payment before db transaction",
+    "why": "External effect cannot be rolled back; DB failure leaves charged but not recorded.",
+    "required": ["persist pending payment before external call", "reconciliation worker"],
+    "tests": ["DB failure after provider success", "provider succeeds then timeout"]
+  },
+  {
+    "id": "missing_retry_logic",
+    "dimension": "retry_safety",
+    "severity": "MEDIUM",
+    "title": "No retry handling for transient failures",
+    "detects": "external call without retry/backoff",
+    "why": "Transient failures become permanent without retry.",
+    "required": ["exponential backoff with jitter", "retry only idempotent operations"],
+    "tests": ["dependency returns 503 then succeeds"]
+  },
+  {
+    "id": "unsafe_retry",
+    "dimension": "retry_safety",
+    "severity": "HIGH",
+    "title": "Unsafe retry on non-idempotent operation",
+    "detects": "retry loop wrapping non-idempotent operation without key",
+    "why": "Retry amplifies duplicate side effects.",
+    "required": ["make operation idempotent before adding retry"],
+    "tests": ["retry doubles side effect"]
+  },
+  {
+    "id": "no_timeout",
+    "dimension": "timeout",
+    "severity": "HIGH",
+    "title": "External call without timeout",
+    "detects": "requests/http call without timeout parameter",
+    "why": "Hung dependency exhausts workers; timeout outcome ambiguous.",
+    "required": ["explicit timeout", "handle TimeoutError as ambiguous"],
+    "tests": ["dependency hangs 5s", "timeout then retry"]
+  },
+  {
+    "id": "race_condition_read_modify_write",
+    "dimension": "concurrency",
+    "severity": "HIGH",
+    "title": "Read-modify-write without locking",
+    "detects": "SELECT then UPDATE on same record without FOR UPDATE/version",
+    "why": "Lost update under concurrency.",
+    "required": ["SELECT FOR UPDATE or optimistic locking version check"],
+    "tests": ["concurrent requests modifying same record"]
+  },
+  {
+    "id": "queue_no_ack_handling",
+    "dimension": "recovery",
+    "severity": "HIGH",
+    "title": "Queue processing without ack/idempotency handling",
+    "detects": "queue/worker/consumer without ack or idempotent processing",
+    "why": "Crash before ack causes redelivery and duplicate processing.",
+    "required": ["ack after processing", "idempotent consumer + dedup"],
+    "tests": ["worker crashes before ack", "message delivered twice"]
+  },
+  {
+    "id": "no_rate_limit",
+    "dimension": "resource_exhaustion",
+    "severity": "MEDIUM",
+    "title": "Mutating endpoint without rate limiting",
+    "detects": "POST/PUT without rate limiting marker",
+    "why": "Unbounded load exhausts DB/pool.",
+    "required": ["token bucket rate limiter", "bounded pool"],
+    "tests": ["burst 100 req/s"]
+  },
+  {
+    "id": "missing_observability",
+    "dimension": "observability",
+    "severity": "LOW",
+    "title": "No operation ID / logging for traceability",
+    "detects": "handler without request ID or structured log",
+    "why": "Cannot reconstruct what happened after failure.",
+    "required": ["operation/request ID in logs", "metrics for outcome"],
+    "tests": ["trigger failure then search logs by ID"]
+  }
+]

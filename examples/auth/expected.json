@@ -1,0 +1,4 @@
+{
+  "naive": {"expected_findings": ["race_condition_read_modify_write", "no_rate_limit"]},
+  "improved": {"notes": "Improved adds TokenBucket, FOR UPDATE, version check and operation ID. Some transaction heuristic false positives remain but no_rate_limit should be absent."}
+}

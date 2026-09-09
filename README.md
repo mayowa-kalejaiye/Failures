@@ -1,6 +1,39 @@
+# Failures — Build for failure, not just success.
+
+Engineering principles for AI-built software — plus a back-to-basics learning path for backend development.
+
+> **New:** Failures MCP — make your coding agent think about what happens when things go wrong. See [mcp/README.md](mcp/README.md).
+
+## Failures MCP (for vibe coding agents)
+
+Install the MCP and your agent starts asking:
+
+- What happens if the provider succeeds but the response is lost?
+- Can this be retried safely? What if it happens twice?
+- What if two requests modify this record concurrently?
+
+```json
+{
+  "mcpServers": {
+    "failures": {
+      "command": "C:/Users/kalej/Documents/Failures/.venv/Scripts/python.exe",
+      "args": ["C:/Users/kalej/Documents/Failures/mcp_server/server.py"]
+    }
+  }
+}
+```
+
+Tools: `get_principles`, `review_architecture`, `analyze_component`, `generate_failure_cases`, `review_code`, `generate_failure_tests`, `check_idempotency`, `check_retry_safety`, `check_transaction_safety`.
+
+Principles cover: atomicity, idempotency, timeout/ambiguous outcome, concurrency, ordering, consistency, availability, resource exhaustion, recovery, observability, retry safety.
+
+Knowledge base: [principles/](principles/) · [patterns/](patterns/) · [failures/](failures/) · [mcp/README.md](mcp/README.md)
+
+---
+
 # Backend Failure Simulations
 
-This repository is a back-to-basics learning path for backend development.
+This repository is also a back-to-basics learning path for backend development.
 
 It is designed for two groups of people:
 
@@ -42,6 +75,10 @@ Then move in this order:
 - [components/](components/) contains the system-building phase.
 - [reference/](reference/) contains finished examples.
 - [tools/](tools/) contains scripts for running and testing the project.
+- [principles/](principles/) failure dimensions (human docs)
+- [patterns/](patterns/) engineering patterns (idempotency-key, outbox, circuit breaker)
+- [failures/](failures/) concrete failure scenarios
+- [mcp/](mcp/) and [mcp_server/](mcp_server/) MCP server for coding agents
 
 ## The learning path
 

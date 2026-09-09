@@ -1,0 +1,1 @@
+{"naive": {"expected_findings": ["no_rate_limit"]}, "improved": {"notes": "dedup by hash + idempotency key + streaming + transaction reduces atomicity/idempotency issues"}}

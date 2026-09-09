@@ -1,0 +1,12 @@
+{
+  "agent": "claude",
+  "scenario": "payment",
+  "mode": "failures-enabled",
+  "model": "claude",
+  "timestamp": "2026-08-26T00:12:31.982071Z",
+  "prompt_hash": "0d915b563622",
+  "prompt_source": "evaluation/scenarios/payment.md",
+  "failures_mcp_enabled": true,
+  "commit": "ab18bb4870e9",
+  "output_path": "evaluation/runs/claude/failures-enabled/payment.py"
+}

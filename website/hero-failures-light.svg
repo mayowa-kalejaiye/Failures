@@ -1,0 +1,9 @@
+<svg width="518" height="667" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 3D F Failures logo - single, like top left but large -->
+  <g opacity="0.95">
+    <rect x="22" y="22" width="56" height="56" rx="12" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-width="1.8"/>
+    <path d="M36 32 H70 M36 50 H58 M36 32 V74" stroke="currentColor" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="74" cy="74" r="13" fill="#ef4444" stroke="white" stroke-width="1.5"/>
+    <path d="M68 68 L80 80 M80 68 L68 80" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,8 @@
+<svg width="518" height="667" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left part of 3D F: vertical stem -->
+  <path d="M28 18 L28 82 L38 88 L38 24 L68 24 L68 18 L28 18 Z" fill="currentColor" fill-opacity="0.48" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M38 88 L68 88 L68 24 L38 24 Z" fill="currentColor" fill-opacity="0.92" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M28 18 L38 24 L68 24 L58 18 Z" fill="currentColor" fill-opacity="0.92" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Depth shading -->
+  <path d="M28 82 L38 88 L38 24 L28 18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-opacity="0.5"/>
+</svg>

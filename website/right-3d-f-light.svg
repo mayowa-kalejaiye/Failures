@@ -1,0 +1,11 @@
+<svg width="518" height="667" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Right part of 3D F: top bar + middle bar -->
+  <path d="M42 18 L42 32 L72 32 L72 18 L42 18 Z" fill="currentColor" fill-opacity="0.48" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+  <path d="M42 44 L42 58 L68 58 L68 44 L42 44 Z" fill="currentColor" fill-opacity="0.48" stroke="currentColor" stroke-width="2.8" stroke-linejoin="round"/>
+  <!-- 3D depth for top bar -->
+  <path d="M42 32 L52 38 L72 38 L72 32" fill="currentColor" fill-opacity="0.92" stroke="currentColor" stroke-width="2.5"/>
+  <path d="M42 58 L52 64 L68 64 L68 58" fill="currentColor" fill-opacity="0.92" stroke="currentColor" stroke-width="2.5"/>
+  <!-- side depth -->
+  <path d="M72 18 L72 32 L82 26 L82 12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-opacity="0.5"/>
+  <path d="M68 44 L68 58 L78 52 L78 38" fill="none" stroke="currentColor" stroke-width="2.5" stroke-opacity="0.5"/>
+</svg>

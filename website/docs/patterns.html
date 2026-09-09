@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patterns Catalog | Failures Docs</title>
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Critical nav overrides must load after Tailwind CDN utilities */
+    #mobile-nav-drawer {
+      display: none !important;
+    }
+    #mobile-nav-drawer.open {
+      display: flex !important;
+      flex-direction: column;
+    }
+    .ba-desktop-tabs {
+      display: none !important;
+    }
+    @media (min-width: 1024px) {
+      #mobile-nav-drawer,
+      #mobile-nav-drawer.open {
+        display: none !important;
+      }
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {
+        display: none !important;
+      }
+      .ba-desktop-tabs {
+        display: flex !important;
+      }
+    }
+    @media (max-width: 1023px) {
+      .ba-desktop-tabs {
+        display: none !important;
+      }
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {
+        display: flex !important;
+      }
+    }
+    .ba-landing .lg\:w-\[60\%] {
+      scroll-margin-top: 80px;
+    }
+    @media (min-width: 1024px) {
+      .ba-landing .lg\:w-\[60\%] {
+        padding-top: 40px;
+      }
+    }
+    .ba-readme-header {
+      padding-top: 32px;
+      scroll-margin-top: 80px;
+    }
+  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            background: 'hsl(var(--background-hsl, 0 0% 100%) / <alpha-value>)',
+            foreground: 'hsl(var(--foreground-hsl, 240 10% 3.9%) / <alpha-value>)',
+          },
+          fontFamily: {
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  <script>
+    (function() {
+      const t = localStorage.getItem('failures-theme') || 'system';
+      const isDark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    })();
+  </script>
+</head>
+<body>
+  <header class="fixed top-0 left-0 right-0 z-50 flex items-stretch gap-0 h-[45px] bg-background/95 backdrop-blur-sm">
+  <!-- Left brand (40%) — logo + search + theme + mobile toggle -->
+  <div class="w-full lg:w-[40%] flex items-center justify-between px-5 sm:px-6 lg:px-7 lg:border-r border-foreground/[0.06] shrink-0">
+    <a href="../index.html" class="flex items-center gap-2.5 text-foreground hover:opacity-85 transition-opacity">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="7" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M10 8 H22 M10 15 H18 M10 8 V24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
+  <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+      <span class="font-semibold text-[14px] tracking-tight" style="font-family: var(--font-geist-sans); letter-spacing: -0.02em;">Failures</span>
+    </a>
+    <div class="flex items-center gap-0.5">
+      <!-- Hamburger — mobile ONLY, hidden on lg+ via CSS -->
+      <button type="button" class="ba-mobile-nav-btn lg:hidden flex items-center justify-center size-8 text-foreground/60 hover:text-foreground transition-colors" data-mobile-toggle aria-label="Open menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Right navigation tabs (60%) — desktop only, shown via CSS ba-desktop-tabs -->
+  <div class="ba-desktop-tabs hidden lg:flex flex-1 items-stretch min-w-0">
+    <nav class="flex-1 flex items-stretch">
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../index.html">readme</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/index.html">docs</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/tools.html">tools</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap border-b-2 border-b-foreground text-foreground font-semibold bg-foreground/[0.02]" href="../docs/patterns.html">patterns</a>
+      <a class="relative flex-1 flex items-center justify-center gap-1.5 px-2 xl:px-4 h-full border-r border-foreground/[0.06] transition-colors duration-150 font-mono text-xs uppercase tracking-wider whitespace-nowrap text-foreground/65 dark:text-foreground/50 hover:bg-foreground/[0.03] hover:text-foreground/80" href="../docs/examples.html">benchmark</a>
+    </nav>
+    <!-- Rightmost GitHub CTA -->
+    <a href="https://github.com/mayowa-kalejaiye/Failures" target="_blank" class="flex items-center gap-2 px-5 bg-foreground text-background hover:opacity-90 transition-opacity shrink-0">
+      <span class="font-mono text-xs uppercase tracking-wider font-semibold">GitHub</span>
+      <svg class="h-2.5 w-2.5 opacity-60" viewBox="0 0 10 10" fill="none"><path d="M1 9L9 1M9 1H3M9 1V7" stroke="currentColor" stroke-width="1.3"></path></svg>
+    </a>
+  </div>
+</header>
+
+<!-- Mobile Navigation Slideout — CSS controls display via #mobile-nav-drawer / #mobile-nav-drawer.open -->
+<div id="mobile-nav-drawer" class="fixed inset-0 z-[100] bg-background/95 backdrop-blur-md flex-col p-6 pointer-events-auto">
+  <div class="flex items-center justify-between pb-4 border-b border-foreground/[0.08]">
+    <div class="flex items-center gap-2 font-mono font-bold text-sm">
+      <svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="32" height="32" rx="7" fill="currentColor" fill-opacity="0.12"/>
+  <path d="M10 8 H22 M10 15 H18 M10 8 V24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
+  <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
+      <span>Failures</span>
+    </div>
+    <button type="button" data-mobile-close class="flex items-center justify-center size-8 text-foreground/60 hover:text-foreground" aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav class="flex flex-col gap-4 py-6 font-mono text-sm uppercase tracking-wider">
+    <a href="../index.html" class="py-2 border-b border-foreground/[0.04]">readme</a>
+    <a href="../docs/index.html" class="py-2 border-b border-foreground/[0.04]">docs</a>
+    <a href="../docs/tools.html" class="py-2 border-b border-foreground/[0.04]">tools</a>
+    <a href="../docs/patterns.html" class="py-2 border-b border-foreground/[0.04]">patterns</a>
+    <a href="../docs/examples.html" class="py-2 border-b border-foreground/[0.04]">benchmark</a>
+  </nav>
+  <a href="https://github.com/mayowa-kalejaiye/Failures" target="_blank" class="mt-auto flex items-center justify-center gap-2 py-3 bg-foreground text-background font-mono text-xs uppercase tracking-wider font-semibold">
+    <span>GitHub</span>
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+  </a>
+</div>
+
+  <div class="ba-docs-layout" style="padding-top:45px;">
+    <aside class="ba-docs-sidebar">
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Getting Started</div>
+    <a href="../docs/index.html" class="ba-sidebar-link">
+      <span>Introduction</span>
+    </a>
+  </div>
+
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Principles (11)</div>
+      <a href="../docs/principles/atomicity.html" class="ba-sidebar-link">
+        <span>Atomicity</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/idempotency.html" class="ba-sidebar-link">
+        <span>Idempotency</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/timeout.html" class="ba-sidebar-link">
+        <span>Timeout / Ambiguous Outcome</span>
+        <span class="ba-dot critical"></span>
+      </a>
+      <a href="../docs/principles/concurrency.html" class="ba-sidebar-link">
+        <span>Concurrency</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/retry-safety.html" class="ba-sidebar-link">
+        <span>Retry Safety</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/availability.html" class="ba-sidebar-link">
+        <span>Availability</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/ordering.html" class="ba-sidebar-link">
+        <span>Ordering</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/consistency.html" class="ba-sidebar-link">
+        <span>Consistency</span>
+        <span class="ba-dot medium"></span>
+      </a>
+      <a href="../docs/principles/resource-exhaustion.html" class="ba-sidebar-link">
+        <span>Resource Exhaustion</span>
+        <span class="ba-dot high"></span>
+      </a>
+      <a href="../docs/principles/recovery.html" class="ba-sidebar-link">
+        <span>Recovery</span>
+        <span class="ba-dot medium"></span>
+      </a>
+      <a href="../docs/principles/observability.html" class="ba-sidebar-link">
+        <span>Observability</span>
+        <span class="ba-dot medium"></span>
+      </a>
+  </div>
+
+  <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Reference</div>
+    <a href="../docs/tools.html" class="ba-sidebar-link">
+      <span>Tools Reference</span>
+    </a>
+    <a href="../docs/patterns.html" class="ba-sidebar-link active">
+      <span>Patterns Catalog</span>
+    </a>
+    <a href="../docs/examples.html" class="ba-sidebar-link">
+      <span>Benchmark &amp; Examples</span>
+    </a>
+  </div>
+</aside>
+
+    <main class="ba-docs-content ba-prose">
+      <div class="ba-doc-meta-row">
+        <div class="ba-breadcrumb">
+          <a href="../index.html">Home</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <a href="index.html">Docs</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span>Patterns</span>
+        </div>
+      </div>
+
+      <h1>Engineering Patterns Catalog</h1>
+      <p class="ba-lead">Architectural design patterns for surviving distributed network and state failures.</p>
+
+      <div style="margin-bottom: 48px;" id="idempotency-key">
+  <h2>Idempotency Key Pattern <span class="ba-pill-btn">CRITICAL MITIGATION</span></h2>
+  <p><strong>Mitigates:</strong> Idempotency, Timeout, Retry Safety</p>
+  <p>Client-generated unique token attached to mutating requests. The server checks the key, executes, and saves response for immediate deduplication on retries.</p>
+  
+  <div class="ba-code-block">
+    <div class="ba-code-header">
+      <span class="ba-code-title">Python Implementation</span>
+      <button class="ba-pill-btn copy-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+    </div>
+    <pre><code>@app.post("/api/v1/payments")
+async def create_payment(payload: PaymentRequest, key: str = Header(..., alias="Idempotency-Key"), db: AsyncSession = Depends(get_db)):
+    existing = await db.fetch_one("SELECT * FROM idempotency_keys WHERE key = :key", {"key": key})
+    if existing and existing.status == "completed": return json.loads(existing.response_body)
+    await db.execute("INSERT INTO idempotency_keys (key, status) VALUES (:key, 'pending')", {"key": key})
+    charge = await stripe.charge(payload.amount, idempotency_key=key)
+    await db.execute("UPDATE idempotency_keys SET status = 'completed', response_body = :resp WHERE key = :key", {"key": key, "resp": json.dumps(charge)})
+    return charge</code></pre>
+  </div>
+</div><div style="margin-bottom: 48px;" id="transactional-outbox">
+  <h2>Transactional Outbox Pattern <span class="ba-pill-btn">ATOMICITY & EVENTS</span></h2>
+  <p><strong>Mitigates:</strong> Atomicity, Consistency, Recovery</p>
+  <p>Solves Dual-Write bugs by persisting outgoing events into an 'outbox' table in the exact same DB transaction as domain mutations. A background relay dispatches them.</p>
+  
+  <div class="ba-code-block">
+    <div class="ba-code-header">
+      <span class="ba-code-title">Python Implementation</span>
+      <button class="ba-pill-btn copy-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+    </div>
+    <pre><code>async def complete_order(order_id: str, db: AsyncSession):
+    async with db.begin():
+        await db.execute("UPDATE orders SET status = 'paid' WHERE id = :id", {"id": order_id})
+        await db.execute("INSERT INTO outbox_events (id, payload, status) VALUES (:id, :payload, 'pending')", {"id": str(uuid4()), "payload": json.dumps({"order_id": order_id})})</code></pre>
+  </div>
+</div><div style="margin-bottom: 48px;" id="circuit-breaker">
+  <h2>Circuit Breaker Pattern <span class="ba-pill-btn">AVAILABILITY & RESILIENCE</span></h2>
+  <p><strong>Mitigates:</strong> Availability, Resource Exhaustion</p>
+  <p>Wraps fragile dependencies. Trips to OPEN state on repeated failures to fail fast without locking up worker threads.</p>
+  
+  <div class="ba-code-block">
+    <div class="ba-code-header">
+      <span class="ba-code-title">Python Implementation</span>
+      <button class="ba-pill-btn copy-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+    </div>
+    <pre><code>class CircuitBreaker:
+    def __init__(self, failure_threshold=5, recovery_timeout=30.0):
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.state = "CLOSED"
+        self.failures = 0
+    def allow_request(self):
+        if self.state == "OPEN": return False
+        return True</code></pre>
+  </div>
+</div><div style="margin-bottom: 48px;" id="optimistic-locking">
+  <h2>Optimistic Locking Pattern <span class="ba-pill-btn">CONCURRENCY CONTROL</span></h2>
+  <p><strong>Mitigates:</strong> Concurrency, Consistency</p>
+  <p>Records include numeric version columns. Updates include WHERE id = :id AND version = :expected. If another worker updated first, 0 rows are updated.</p>
+  
+  <div class="ba-code-block">
+    <div class="ba-code-header">
+      <span class="ba-code-title">Python Implementation</span>
+      <button class="ba-pill-btn copy-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+    </div>
+    <pre><code>async def update_inventory(item_id: str, delta: int):
+    item = await db.fetch_one("SELECT stock, version FROM inventory WHERE id = %s", item_id)
+    res = await db.execute("UPDATE inventory SET stock = stock + %s, version = version + 1 WHERE id = %s AND version = %s", delta, item_id, item['version'])
+    if res.rows_affected == 0: raise ConcurrencyConflictException()</code></pre>
+  </div>
+</div>
+    </main>
+
+    <aside class="ba-docs-toc">
+      <div class="ba-toc-title">On this page</div>
+      <a href="#idempotency-key" class="ba-toc-link">Idempotency Key Pattern</a>
+<a href="#transactional-outbox" class="ba-toc-link">Transactional Outbox Pattern</a>
+<a href="#circuit-breaker" class="ba-toc-link">Circuit Breaker Pattern</a>
+<a href="#optimistic-locking" class="ba-toc-link">Optimistic Locking Pattern</a>
+    </aside>
+  </div>
+
+  <div id="search-overlay" class="ba-search-overlay" role="dialog" aria-modal="true">
+  <div class="ba-search-dialog">
+    <div class="ba-search-input-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="search-input" class="ba-search-input" placeholder="Search principles, tools, patterns..." autocomplete="off">
+    </div>
+    <div id="search-results" class="ba-search-results"></div>
+    <div class="ba-search-footer">
+      <span><kbd>Esc</kbd> to close</span>
+      <span><kbd>↵</kbd> to navigate</span>
+    </div>
+  </div>
+</div>
+  <script src="../js/main.js"></script>
+</body>
+</html>

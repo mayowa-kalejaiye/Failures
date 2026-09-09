@@ -1,0 +1,382 @@
+{
+  "payment": {
+    "scenario": "payment",
+    "baseline": {
+      "code_metrics": {
+        "critical": 0,
+        "high": 1,
+        "total": 3,
+        "ids": [
+          "missing_observability",
+          "no_rate_limit",
+          "race_condition_read_modify_write"
+        ],
+        "idempotency_pass": true,
+        "transaction_safe": true,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": true,
+        "observability_ok": false,
+        "tests_generated": 5,
+        "architectural_quality": {
+          "score": 1.0,
+          "proportional": true,
+          "rationale": "Resilience proportional to failure boundaries (e.g., pending + idempotency + webhook dedup + reconciliation)",
+          "hits": []
+        }
+      },
+      "plan_critical": 3,
+      "invariant": {
+        "violatable": 0,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 0,
+        "high": 0,
+        "total": 2,
+        "ids": [
+          "missing_observability",
+          "no_rate_limit"
+        ],
+        "idempotency_pass": true,
+        "transaction_safe": true,
+        "retry_safe": true,
+        "concurrency_safe": true,
+        "recovery_safe": true,
+        "observability_ok": false,
+        "tests_generated": 5,
+        "architectural_quality": {
+          "score": 1.0,
+          "proportional": true,
+          "rationale": "Resilience proportional to failure boundaries (e.g., pending + idempotency + webhook dedup + reconciliation)",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 0,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 0,
+      "high_delta": 1,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0.0
+    }
+  },
+  "queue": {
+    "scenario": "queue",
+    "baseline": {
+      "code_metrics": {
+        "critical": 1,
+        "high": 2,
+        "total": 4,
+        "ids": [
+          "external_call_without_idempotency",
+          "no_rate_limit",
+          "no_timeout",
+          "queue_no_ack_handling"
+        ],
+        "idempotency_pass": true,
+        "transaction_safe": true,
+        "retry_safe": true,
+        "concurrency_safe": true,
+        "recovery_safe": false,
+        "observability_ok": true,
+        "tests_generated": 3,
+        "architectural_quality": {
+          "score": 1.0,
+          "proportional": true,
+          "rationale": "Queue infra proportional",
+          "hits": []
+        }
+      },
+      "plan_critical": 2,
+      "invariant": {
+        "violatable": 1,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 0,
+        "high": 0,
+        "total": 1,
+        "ids": [
+          "no_rate_limit"
+        ],
+        "idempotency_pass": true,
+        "transaction_safe": true,
+        "retry_safe": true,
+        "concurrency_safe": true,
+        "recovery_safe": true,
+        "observability_ok": true,
+        "tests_generated": 3,
+        "architectural_quality": {
+          "score": 1.0,
+          "proportional": true,
+          "rationale": "Queue infra proportional",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 1,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 1,
+      "high_delta": 2,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0.0
+    }
+  },
+  "authentication": {
+    "scenario": "authentication",
+    "baseline": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 0,
+      "high_delta": 0,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0
+    }
+  },
+  "file-upload": {
+    "scenario": "file-upload",
+    "baseline": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 0,
+      "high_delta": 0,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0
+    }
+  },
+  "inventory": {
+    "scenario": "inventory",
+    "baseline": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 0,
+      "high_delta": 0,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0
+    }
+  },
+  "webhook": {
+    "scenario": "webhook",
+    "baseline": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 2,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "failures_enabled": {
+      "code_metrics": {
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
+        "idempotency_pass": false,
+        "transaction_safe": false,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
+        "architectural_quality": {
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
+          "hits": []
+        }
+      },
+      "plan_critical": 0,
+      "invariant": {
+        "violatable": 2,
+        "total": 2
+      }
+    },
+    "improvement": {
+      "critical_delta": 0,
+      "high_delta": 0,
+      "invariant_delta": 0,
+      "arch_quality_delta": 0
+    }
+  }
+}

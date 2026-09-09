@@ -1,0 +1,12 @@
+{
+  "agent": "claude",
+  "scenario": "payment",
+  "mode": "baseline",
+  "model": "claude",
+  "timestamp": "2026-08-25T18:11:51.969192Z",
+  "prompt_hash": "0d915b563622",
+  "prompt_source": "evaluation/scenarios/payment.md",
+  "failures_mcp_enabled": false,
+  "commit": "ab18bb4870e9",
+  "output_path": "evaluation/runs/claude/baseline/payment.py"
+}

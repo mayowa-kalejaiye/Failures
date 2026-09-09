@@ -1,0 +1,22 @@
+{
+  "description": "Payment golden benchmark — naive should fail CRITICAL, improved should PASS or have <=1 MEDIUM",
+  "naive": {
+    "expected_findings": ["external_call_without_idempotency", "charge_then_db_update", "db_writes_not_transactional", "no_timeout"],
+    "min_critical": 2,
+    "should_contain_severities": ["CRITICAL"]
+  },
+  "improved": {
+    "max_critical": 0,
+    "max_high": 0,
+    "expected_findings_absent": ["external_call_without_idempotency", "charge_then_db_update", "no_timeout"],
+    "notes": "Improved establishes pending + idempotency before external call, uses timeout, transaction, and idempotent webhook — only no_rate_limit may remain"
+  },
+  "review_plan": {
+    "naive_plan": ["Create payment", "Call Paystack", "Save transaction", "Enroll student", "Send email"],
+    "expected_plan_findings": ["External side-effect before durable local state", "Enrollment not gated on verified payment"]
+  },
+  "invariants": [
+    "A student must never be enrolled without a successful payment",
+    "A payment must never be charged twice"
+  ]
+}

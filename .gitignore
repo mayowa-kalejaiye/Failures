@@ -57,3 +57,10 @@ htmlcov/
 
 # Documentation builds
 docs/_build/
+# --- Failures public/private segregation ---
+.mcp-private/
+hosted/
+infra/
+private/
+evaluation/private-runs/
+scratch/

@@ -1,0 +1,12 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Outer rounded square -->
+  <rect width="32" height="32" rx="7" fill="#0a0a0a"/>
+  <!-- F letterform lines -->
+  <path d="M9 8h14" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M9 16h9" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M9 8v16" stroke="white" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Red failure indicator dot -->
+  <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
+  <!-- X mark in dot -->
+  <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

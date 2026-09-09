@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(python -m pip install --disable-pip-version-check \"pytest-asyncio>=0.23\" \"aiosqlite>=0.19\" 2>&1 | Select-Object -Last 15)",
+      "mcp__failures__check_invariant",
+      "mcp__failures__review_code",
+      "mcp__failures__get_principles",
+      "mcp__failures__review_architecture",
+      "mcp__failures__check_idempotency",
+      "mcp__failures__check_transaction_safety",
+      "mcp__failures__check_retry_safety",
+      "mcp__failures__generate_failure_cases",
+      "Bash(git *)"
+    ]
+  }
+}
