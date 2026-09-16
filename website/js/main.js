@@ -60,12 +60,17 @@ function highlightPythonSource(source) {
   html = html.replace(/\b(True|False|None)\b/g, '<span class="py-builtin">$1</span>');
   html = html.replace(/\b([A-Za-z_][A-Za-z0-9_]*)\s*(?=\()/g, '<span class="py-fn">$1</span>');
   html = html.replace(/\b\d+(?:\.\d+)?\b/g, '<span class="py-num">$&</span>');
-  html = html.replace(/@@S(\d+)@@/g, (_, idx) => {
-    const slot = slots[Number(idx)];
-    if (!slot) return '';
-    const cls = slot.type === 'comment' ? 'py-comment' : 'py-str';
-    return `<span class="${cls}">${escapeHtml(slot.value)}</span>`;
-  });
+  // Restore in a loop: a comment slot can itself contain a string slot
+  // (e.g. # ... as 'pending' ...), and a single pass leaves the inner
+  // token visible as literal @@S0@@. Bounded at 5 — nesting is finite.
+  for (let i = 0; i < 5 && /@@S\d+@@/.test(html); i++) {
+    html = html.replace(/@@S(\d+)@@/g, (_, idx) => {
+      const slot = slots[Number(idx)];
+      if (!slot) return '';
+      const cls = slot.type === 'comment' ? 'py-comment' : 'py-str';
+      return `<span class="${cls}">${escapeHtml(slot.value)}</span>`;
+    });
+  }
 
   return html;
 }
