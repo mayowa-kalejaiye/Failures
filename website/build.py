@@ -24,7 +24,7 @@ FAILURES_LOGO = """<svg width="20" height="20" viewBox="0 0 32 32" fill="none" x
 COMPANY_LOGOS = {
     "openai": """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M22.282 9.821a6 6 0 0 0-.516-4.91a6.05 6.05 0 0 0-6.51-2.9A6.065 6.065 0 0 0 4.981 4.18a6 6 0 0 0-3.998 2.9a6.05 6.05 0 0 0 .743 7.097a5.98 5.98 0 0 0 .51 4.911a6.05 6.05 0 0 0 6.515 2.9A6 6 0 0 0 13.26 24a6.06 6.06 0 0 0 5.772-4.206a6 6 0 0 0 3.997-2.9a6.06 6.06 0 0 0-.747-7.073M13.26 22.43a4.48 4.48 0 0 1-2.876-1.04l.141-.081l4.779-2.758a.8.8 0 0 0 .392-.681v-6.737l2.02 1.168a.07.07 0 0 1 .038.052v5.583a4.504 4.504 0 0 1-4.494 4.494M3.6 18.304a4.47 4.47 0 0 1-.535-3.014l.142.085l4.783 2.759a.77.77 0 0 0 .78 0l5.843-3.369v2.332a.08.08 0 0 1-.033.062L9.74 19.95a4.5 4.5 0 0 1-6.14-1.646M2.34 7.896a4.5 4.5 0 0 1 2.366-1.973V11.6a.77.77 0 0 0 .388.677l5.815 3.354l-2.02 1.168a.08.08 0 0 1-.071 0l-4.83-2.786A4.504 4.504 0 0 1 2.34 7.872zm16.597 3.855l-5.833-3.387L15.119 7.2a.08.08 0 0 1 .071 0l4.83 2.791a4.494 4.494 0 0 1-.676 8.105v-5.678a.79.79 0 0 0-.407-.667m2.01-3.023l-.141-.085l-4.774-2.782a.78.78 0 0 0-.785 0L9.409 9.23V6.897a.07.07 0 0 1 .028-.061l4.83-2.787a4.5 4.5 0 0 1 6.68 4.66zm-12.64 4.135l-2.02-1.164a.08.08 0 0 1-.038-.057V6.075a4.5 4.5 0 0 1 7.375-3.453l-.142.08L8.704 5.46a.8.8 0 0 0-.393.681zm1.097-2.365l2.602-1.5l2.607 1.5v2.999l-2.597 1.5l-2.607-1.5Z"/></svg>""",
     # Anthropic Claude — real starburst mark from Simple Icons
-    "claude": """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.827 3.087a1.822 1.822 0 0 0-3.654 0L6.642 13.347H3.19a1.822 1.822 0 0 0 0 3.645h2.097l-.84 2.81a1.823 1.823 0 0 0 3.493 1.044l1.133-3.854h5.863l1.133 3.854a1.822 1.822 0 0 0 3.492-1.043l-.84-2.811h2.097a1.822 1.822 0 0 0 0-3.645h-3.451zm-1.827 3.89 1.97 6.37H10.03z"/></svg>""",
+    "claude": """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>""",
     # Cursor — angled cursor pointer with secondary sparkle stroke
     "cursor": """<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 2.5a.75.75 0 0 0-1.05 1.02l9 9-3.5 1.45a.75.75 0 0 0 .3 1.42l10 4a.75.75 0 0 0 .95-.96V4.75a.75.75 0 0 0-.95-.72L4.5 2.5z"/></svg>""",
     # Cline — terminal bracket style (real Cline icon approach)
@@ -879,7 +879,7 @@ def render_features_bento():
       <div class="flex items-center gap-3 mt-auto">
         <!-- Claude Code — Anthropic starburst -->
         <div class="text-neutral-700 dark:text-neutral-300 opacity-80 transition-all duration-300 group-hover/card:opacity-100 group-hover/card:animate-[icon-bounce_0.4s_ease-out_0s]" title="Claude Code">
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M13.827 3.087a1.822 1.822 0 0 0-3.654 0L6.642 13.347H3.19a1.822 1.822 0 0 0 0 3.645h2.097l-.84 2.81a1.823 1.823 0 0 0 3.493 1.044l1.133-3.854h5.863l1.133 3.854a1.822 1.822 0 0 0 3.492-1.043l-.84-2.811h2.097a1.822 1.822 0 0 0 0-3.645h-3.451zm-1.827 3.89 1.97 6.37H10.03z"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="m4.7144 15.9555 4.7174-2.6471.079-.2307-.079-.1275h-.2307l-.7893-.0486-2.6956-.0729-2.3375-.0971-2.2646-.1214-.5707-.1215-.5343-.7042.0546-.3522.4797-.3218.686.0608 1.5179.1032 2.2767.1578 1.6514.0972 2.4468.255h.3886l.0546-.1579-.1336-.0971-.1032-.0972L6.973 9.8356l-2.55-1.6879-1.3356-.9714-.7225-.4918-.3643-.4614-.1578-1.0078.6557-.7225.8803.0607.2246.0607.8925.686 1.9064 1.4754 2.4893 1.8336.3643.3035.1457-.1032.0182-.0728-.164-.2733-1.3539-2.4467-1.445-2.4893-.6435-1.032-.17-.6194c-.0607-.255-.1032-.4674-.1032-.7285L6.287.1335 6.6997 0l.9957.1336.419.3642.6192 1.4147 1.0018 2.2282 1.5543 3.0296.4553.8985.2429.8318.091.255h.1579v-.1457l.1275-1.706.2368-2.0947.2307-2.6957.0789-.7589.3764-.9107.7468-.4918.5828.2793.4797.686-.0668.4433-.2853 1.8517-.5586 2.9021-.3643 1.9429h.2125l.2429-.2429.9835-1.3053 1.6514-2.0643.7286-.8196.85-.9046.5464-.4311h1.0321l.759 1.1293-.34 1.1657-1.0625 1.3478-.8804 1.1414-1.2628 1.7-.7893 1.36.0729.1093.1882-.0183 2.8535-.607 1.5421-.2794 1.8396-.3157.8318.3886.091.3946-.3278.8075-1.967.4857-2.3072.4614-3.4364.8136-.0425.0304.0486.0607 1.5482.1457.6618.0364h1.621l3.0175.2247.7892.522.4736.6376-.079.4857-1.2142.6193-1.6393-.3886-3.825-.9107-1.3113-.3279h-.1822v.1093l1.0929 1.0686 2.0035 1.8092 2.5075 2.3314.1275.5768-.3218.4554-.34-.0486-2.2039-1.6575-.85-.7468-1.9246-1.621h-.1275v.17l.4432.6496 2.3436 3.5214.1214 1.0807-.17.3521-.6071.2125-.6679-.1214-1.3721-1.9246L14.38 17.959l-1.1414-1.9428-.1397.079-.674 7.2552-.3156.3703-.7286.2793-.6071-.4614-.3218-.7468.3218-1.4753.3886-1.9246.3157-1.53.2853-1.9004.17-.6314-.0121-.0425-.1397.0182-1.4328 1.9672-2.1796 2.9446-1.7243 1.8456-.4128.164-.7164-.3704.0667-.6618.4008-.5889 2.386-3.0357 1.4389-1.882.929-1.0868-.0062-.1579h-.0546l-6.3385 4.1164-1.1293.1457-.4857-.4554.0608-.7467.2307-.2429 1.9064-1.3114Z"/></svg>
         </div>
         <!-- Cursor — pointer cursor shape -->
         <div class="text-neutral-700 dark:text-neutral-300 opacity-80 transition-all duration-300 group-hover/card:opacity-100 group-hover/card:animate-[icon-bounce_0.4s_ease-out_0.06s]" title="Cursor">
@@ -1142,7 +1142,7 @@ def build_landing_page():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Failures — The Most Comprehensive Engineering Failure Framework</title>
+  <title>Failures — Engineering failure invariants for AI-built software</title>
   <meta name="description" content="Engineering constraints for AI-built software. Make your coding agent reason about failure modes.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1286,11 +1286,11 @@ def build_landing_page():
                   <circle cx="23" cy="23" r="6.5" fill="#ef4444"/>
                   <path d="M20.5 20.5l5 5M25.5 20.5l-5 5" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
                 </svg>
-                <span class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-100 font-light">Announcement <span class="font-medium">| Failures MCP v0.2.0 is Live</span></span>
+                <span class="text-xs sm:text-sm text-neutral-600 dark:text-neutral-100 font-light">Announcement <span class="font-medium">| Failures MCP v0.3.1 is Live</span></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="0.85em" height="0.85em" viewBox="0 0 24 24" class="text-neutral-500 dark:text-neutral-400 transition-transform group-hover/badge:translate-x-0.5" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-6-6l6 6l-6 6"></path></svg>
               </a>
               <h1 class="pt-3 sm:pt-4 text-2xl md:text-3xl xl:text-4xl text-neutral-800 dark:text-neutral-200 tracking-tight leading-tight text-balance">
-                The most comprehensive engineering failure framework
+                Engineering failure invariants for AI-built software
               </h1>
               <div class="flex flex-wrap items-center gap-2 sm:gap-3 pt-4 sm:pt-5 pointer-events-auto">
                 <a class="inline-flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-neutral-900 text-neutral-100 dark:bg-neutral-100 dark:text-neutral-900 text-xs sm:text-sm font-medium hover:opacity-90 transition-colors" href="docs/index.html">Get Started</a>
@@ -1337,7 +1337,7 @@ def build_landing_page():
           </div>
 
           <p class="ba-readme-lead">
-            Engineering invariants that live <strong>inside your coding agent</strong>. Composable, deterministic, and built to scale — protecting everything from weekend hobby projects to the largest <strong>consumer and enterprise backends</strong> on the planet.
+            Engineering invariants that live <strong>inside your coding agent</strong>. 11 failure dimensions, 50+ cataloged modes, AST-verified with zero tokens — deterministic checks, not prompts.
           </p>
 
           <!-- Multi-tab Command Box (CLI / Prompt / MCP / Skills) -->
@@ -1372,7 +1372,7 @@ def build_landing_page():
           </div>
 
           <!-- "Trusted By" Marquee with Agent Ecosystem Logos -->
-          <div class="ba-trusted-label">Trusted Across Autonomous Agent Ecosystems</div>
+          <div class="ba-trusted-label">Works with your agent stack</div>
           <div class="ba-marquee-wrap">
             <div class="ba-marquee">
               <div class="ba-marquee-item">{COMPANY_LOGOS['claude']}<span>Claude Code</span></div>
@@ -1703,17 +1703,18 @@ async def handle_sub(e: Event):
             <div class="relative p-4 sm:p-5 border-b border-dashed border-foreground/[0.08]">
               <div class="flex flex-wrap items-center justify-between gap-3">
                 <p class="text-[13px] text-foreground/70 leading-snug">Deterministic AST engine — tested against <span class="text-foreground font-medium">24</span> adversarial scenarios across <span class="text-foreground">payments, inventory, webhooks, uploads, queues</span> + <span class="text-foreground">6</span> live agent evaluations.</p>
-                <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-1 border border-foreground/[0.08] bg-background">24 adv • 11 dims • 12 tools</span>
+                <span class="inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-1 border border-foreground/[0.08] bg-background">24 adv • 11 dims • 13 tools</span>
               </div>
               <svg viewBox="0 0 640 48" class="w-full h-[48px] mt-3 overflow-visible" preserveAspectRatio="none" aria-hidden="true">
                 <g stroke="currentColor" stroke-opacity="0.06" stroke-width="0.7"><line x1="0" y1="12" x2="640" y2="12"/><line x1="0" y1="24" x2="640" y2="24"/><line x1="0" y1="36" x2="640" y2="36"/></g>
                 <path d="M 0 32 L 40 30 L 80 28 L 120 18 L 160 14 L 200 10 L 240 10 L 320 8 L 480 8 L 640 8" fill="none" stroke="#10b981" stroke-width="1.6" stroke-linecap="round" opacity="0.9"/>
                 <path d="M 0 32 L 40 30 L 80 34 L 120 28 L 160 30 L 200 26 L 280 22 L 360 18 L 480 14 L 640 10" fill="none" stroke="#ef4444" stroke-width="1.3" stroke-linecap="round" opacity="0.32" stroke-dasharray="3 4"/>
               </svg>
-              <div class="flex items-center gap-3 text-[10px] font-mono text-foreground/40 mt-1">
+              <div class="flex flex-wrap items-center gap-3 text-[10px] font-mono text-foreground/40 mt-1">
                 <span class="flex items-center gap-1"><span class="size-1.5 rounded-full bg-red-400"></span> naive</span>
                 <span class="flex items-center gap-1"><span class="size-1.5 rounded-full bg-emerald-400"></span> with MCP</span>
-                <span class="ml-auto hidden sm:inline">payment 3 CRITICAL → 0 • queue +DLQ</span>
+                <span class="hidden sm:inline">payment 3 CRITICAL → 0 • queue +DLQ</span>
+                <span class="ml-auto">reproduce: <code>python examples/run_benchmark.py</code> · <a class="underline decoration-dotted underline-offset-2 hover:text-foreground" href="docs/examples.html">harness</a> · <a class="underline decoration-dotted underline-offset-2 hover:text-foreground" href="https://github.com/mayowa-kalejaiye/Failures/tree/main/evaluation/adversarial">cases</a></span>
               </div>
             </div>
             <div class="relative grid grid-cols-2 sm:grid-cols-4 gap-px bg-foreground/[0.08]">
@@ -1725,7 +1726,7 @@ async def handle_sub(e: Event):
               </div>
               <div class="bg-background p-4">
                 <div class="flex items-center gap-1.5 text-[10px] font-mono text-foreground/40 tracking-wide">TOOLS <span class="size-1 rounded-full bg-purple-400"></span></div>
-                <div class="text-2xl font-bold font-mono text-foreground">12</div>
+                <div class="text-2xl font-bold font-mono text-foreground">13</div>
                 <div class="text-[11px] text-foreground/50 font-mono mt-0.5">review_code • check_invariant …</div>
                 <div class="mt-2 flex items-center gap-1 text-[10px] font-mono text-foreground/35"><span class="px-1.5 py-0.5 border border-foreground/10 bg-foreground/[0.02]">MCP</span><span class="px-1.5 py-0.5 border border-foreground/10 bg-foreground/[0.02]">STDIO</span></div>
               </div>
@@ -1739,7 +1740,7 @@ async def handle_sub(e: Event):
                 <div class="flex items-center gap-1.5 text-[10px] font-mono text-foreground/40 tracking-wide">DIMENSIONS <span class="size-1 rounded-full bg-amber-400"></span></div>
                 <div class="text-2xl font-bold font-mono text-amber-400">11 / 11</div>
                 <div class="text-[11px] text-foreground/50 font-mono mt-0.5">atomicity → observability</div>
-                <div class="mt-2 flex flex-wrap gap-1"><span class="text-[8px] font-mono px-1 py-0.5 bg-red-500/5/10 text-red-400">CRIT 3</span><span class="text-[8px] font-mono px-1 py-0.5 bg-amber-500/5 border border-amber-500/10 text-amber-400">HIGH 5</span><span class="text-[8px] font-mono px-1 py-0.5 bg-blue-500/5/10 text-blue-400">MED 3</span></div>
+                <div class="mt-2 flex flex-wrap gap-1"><span class="text-[8px] font-mono px-1 py-0.5 bg-red-500/5 border border-red-500/10 text-red-400">CRIT 3</span><span class="text-[8px] font-mono px-1 py-0.5 bg-amber-500/5 border border-amber-500/10 text-amber-400">HIGH 5</span><span class="text-[8px] font-mono px-1 py-0.5 bg-blue-500/5 border border-blue-500/10 text-blue-400">MED 3</span></div>
               </div>
             </div>
             <div class="relative grid grid-cols-1 sm:grid-cols-3 gap-px bg-foreground/[0.08] border-t border-foreground/[0.08]">

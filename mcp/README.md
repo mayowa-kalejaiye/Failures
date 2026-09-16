@@ -48,15 +48,14 @@ Claude Code / Cursor (`mcp.json` or `~/.config/...`):
 {
   "mcpServers": {
     "failures": {
-      "command": "C:/Users/kalej/Documents/Failures/.venv/Scripts/python.exe",
-      "args": ["C:/Users/kalej/Documents/Failures/mcp_server/server.py"],
-      "env": {}
+      "command": "failures-mcp",
+      "args": []
     }
   }
 }
 ```
 
-For `mcp/server.py` shim use path `mcp/server.py` instead.
+Install via `pipx install failures-mcp` (see [INSTALL.md](../INSTALL.md)). From a checkout, use `python -m mcp_server.server` instead.
 
 Alternative (npx style after packaging):
 ```json

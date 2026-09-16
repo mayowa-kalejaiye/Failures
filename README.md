@@ -1,86 +1,70 @@
 # Failures — Build for failure, not just success.
 
-Engineering principles for AI-built software — plus a back-to-basics learning path for backend development.
+A deterministic MCP server that makes coding agents reason about failure modes — via AST checks with line evidence and confidence scores, not prompts. Zero tokens, zero hallucination.
 
-> **New:** Failures MCP — make your coding agent think about what happens when things go wrong. See [mcp/README.md](mcp/README.md).
+Coding agents write happy-path code because their training data is happy-path tutorials. Failures gives them 11 engineering invariants (atomicity, idempotency, timeout/ambiguous outcome, concurrency, ordering, consistency, availability, resource exhaustion, recovery, observability, retry safety) checked deterministically before code ships.
 
-## Failures MCP (for vibe coding agents)
+Live on PyPI: `pipx install failures-mcp` — see [INSTALL.md](INSTALL.md).
 
-Install the MCP and your agent starts asking:
+## Failures MCP
+
+Install it and your agent starts asking:
 
 - What happens if the provider succeeds but the response is lost?
 - Can this be retried safely? What if it happens twice?
 - What if two requests modify this record concurrently?
 
+```bash
+pipx install failures-mcp
+failures-mcp
+```
+
 ```json
 {
   "mcpServers": {
     "failures": {
-      "command": "C:/Users/kalej/Documents/Failures/.venv/Scripts/python.exe",
-      "args": ["C:/Users/kalej/Documents/Failures/mcp_server/server.py"]
+      "command": "failures-mcp",
+      "args": []
     }
   }
 }
 ```
 
-Tools: `get_principles`, `review_architecture`, `analyze_component`, `generate_failure_cases`, `review_code`, `generate_failure_tests`, `check_idempotency`, `check_retry_safety`, `check_transaction_safety`.
+13 tools: `get_principles`, `review_architecture`, `analyze_component`, `generate_failure_cases`, `review_code`, `generate_failure_tests`, `check_idempotency`, `check_retry_safety`, `check_transaction_safety`, `review_plan`, `check_invariant`, `review_code_semantic`, `list_failures`.
 
-Principles cover: atomicity, idempotency, timeout/ambiguous outcome, concurrency, ordering, consistency, availability, resource exhaustion, recovery, observability, retry safety.
+Knowledge base: [principles/](principles/) · [patterns/](patterns/) · [failures/](failures/) · [FAILURES_SPEC.md](FAILURES_SPEC.md) · [mcp/README.md](mcp/README.md)
 
-Knowledge base: [principles/](principles/) · [patterns/](patterns/) · [failures/](failures/) · [mcp/README.md](mcp/README.md)
+## Benchmark (reproducible)
 
----
+24 adversarial scenarios + 6 blind agent evaluations. Reproduce:
 
-# Backend Failure Simulations
+```bash
+python examples/run_benchmark.py          # naive vs improved, ALL PASS
+python evaluation/run_evaluation.py --mode proxy
+```
 
-This repository is also a back-to-basics learning path for backend development.
-
-It is designed for two groups of people:
-
-1. Beginners who want a gentle introduction to backend concepts.
-2. Rusty developers who want a calm way to get back into practice.
-
-The project starts small and stays practical. You learn one idea at a time, then use those ideas to build a simple system.
-
-## What this repo is for
-
-This repo is not a large framework and not a production template. It is a teaching project.
-
-You will use it to:
-
-- learn the basics of backend behavior
-- see how common failures happen
-- practice fixing one problem at a time
-- build confidence by making small working things
-
-## How to use it
-
-Start here:
-
-1. [docs/START_HERE.md](docs/START_HERE.md)
-2. [docs/LEARNING_GUIDE.md](docs/LEARNING_GUIDE.md)
-3. [exercises/README.md](exercises/README.md)
-
-Then move in this order:
-
-1. Complete the exercises.
-2. Read the system-building guide.
-3. Build the authentication component.
-4. Use the reference files only when you want to compare your work.
+- Harness: [examples/run_benchmark.py](examples/run_benchmark.py), [evaluation/run_evaluation.py](evaluation/run_evaluation.py)
+- Adversarial cases: [evaluation/adversarial/](evaluation/adversarial/)
+- Results + methodology: [evaluation/README.md](evaluation/README.md)
 
 ## Main folders
 
-- [docs/](docs/) contains the guides, roadmap, and progress notes.
-- [exercises/](exercises/) contains the beginner practice files.
-- [components/](components/) contains the system-building phase.
-- [reference/](reference/) contains finished examples.
-- [tools/](tools/) contains scripts for running and testing the project.
+- [mcp_server/](mcp_server/) + [mcp/](mcp/) MCP server for coding agents
 - [principles/](principles/) failure dimensions (human docs)
 - [patterns/](patterns/) engineering patterns (idempotency-key, outbox, circuit breaker)
 - [failures/](failures/) concrete failure scenarios
-- [mcp/](mcp/) and [mcp_server/](mcp_server/) MCP server for coding agents
+- [evaluation/](evaluation/) blind evaluation harness (baseline vs Failures-enabled)
+- [examples/](examples/) golden benchmark (naive vs improved)
+- [website/](website/) docs site + interactive labs
+- [docs/](docs/) guides, roadmap, and progress notes
+- [exercises/](exercises/) the original hands-on learning path these principles were distilled from
+- [components/](components/) system-building phase
+- [reference/](reference/) finished examples
+- [tools/](tools/) scripts for running and testing the project
 
-## The learning path
+## The learning path (where the principles came from)
+
+The exercises below are the original hands-on path — kept because the MCP's principles were distilled from them, not as the product itself:
 
 Phase 1: learn the basics
 
@@ -101,6 +85,12 @@ code exercises/ex1_db_starter.py
 ```
 
 Work through the TODOs, one method at a time, and run the file often.
+
+Start here:
+
+1. [docs/START_HERE.md](docs/START_HERE.md)
+2. [docs/LEARNING_GUIDE.md](docs/LEARNING_GUIDE.md)
+3. [exercises/README.md](exercises/README.md)
 
 ## Helpful commands
 
