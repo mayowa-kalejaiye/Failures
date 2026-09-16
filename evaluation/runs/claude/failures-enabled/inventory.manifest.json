@@ -1,0 +1,12 @@
+{
+  "agent": "claude",
+  "scenario": "inventory",
+  "mode": "failures-enabled",
+  "model": "claude",
+  "timestamp": "2026-09-16T09:39:27.565971Z",
+  "prompt_hash": "916ca23a7019",
+  "prompt_source": "evaluation/scenarios/inventory.md",
+  "failures_mcp_enabled": true,
+  "commit": "55c7924a6738",
+  "output_path": "evaluation/runs/claude/failures-enabled/inventory.py"
+}

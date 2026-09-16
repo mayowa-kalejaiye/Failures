@@ -1,0 +1,12 @@
+{
+  "agent": "claude",
+  "scenario": "webhook",
+  "mode": "baseline",
+  "model": "claude",
+  "timestamp": "2026-09-16T09:39:27.742206Z",
+  "prompt_hash": "d2a1fefde642",
+  "prompt_source": "evaluation/scenarios/webhook.md",
+  "failures_mcp_enabled": false,
+  "commit": "55c7924a6738",
+  "output_path": "evaluation/runs/claude/baseline/webhook.py"
+}
