@@ -354,26 +354,21 @@
     },
     "failures_enabled": {
       "code_metrics": {
-        "critical": 2,
-        "high": 1,
-        "total": 4,
-        "ids": [
-          "charge_then_db_update",
-          "db_writes_not_transactional",
-          "no_rate_limit",
-          "no_timeout"
-        ],
+        "critical": 99,
+        "high": 99,
+        "total": 99,
+        "ids": [],
         "idempotency_pass": false,
         "transaction_safe": false,
-        "retry_safe": true,
-        "concurrency_safe": true,
-        "recovery_safe": true,
-        "observability_ok": true,
-        "tests_generated": 12,
+        "retry_safe": false,
+        "concurrency_safe": false,
+        "recovery_safe": false,
+        "observability_ok": false,
+        "tests_generated": 0,
         "architectural_quality": {
-          "score": 1.0,
-          "proportional": true,
-          "rationale": "Resilience proportional to failure boundaries (e.g., pending + idempotency + webhook dedup + reconciliation)",
+          "score": 0,
+          "proportional": false,
+          "rationale": "missing code",
           "hits": []
         }
       },
@@ -384,10 +379,10 @@
       }
     },
     "improvement": {
-      "critical_delta": -1,
-      "high_delta": 0,
+      "critical_delta": -98,
+      "high_delta": -98,
       "invariant_delta": 0,
-      "arch_quality_delta": 0.0
+      "arch_quality_delta": -1.0
     }
   }
 }

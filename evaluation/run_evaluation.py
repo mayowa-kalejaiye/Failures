@@ -134,14 +134,17 @@ def load_code(scenario: str, mode: str, variant: str, agent: str = "") -> str:
             return path.read_text(encoding="utf-8")
         return ""
     else:
-        # manual: check runs/<agent>/<variant>/<scenario>.py first, then legacy evaluation/<variant>/
-        candidates = []
+        # manual: strict per-agent when agent specified (no cross-agent fallback —
+        # falling back to claude/codex would silently score the wrong agent's code)
         if agent:
-            candidates.append(ROOT / "evaluation" / "runs" / agent / variant / f"{scenario}.py")
-        candidates.append(ROOT / "evaluation" / variant / f"{scenario}.py")
-        # also check runs/*/ variant
-        for ag in ["claude", "cursor", "codex"]:
-            candidates.append(ROOT / "evaluation" / "runs" / ag / variant / f"{scenario}.py")
+            candidates = [
+                ROOT / "evaluation" / "runs" / agent / variant / f"{scenario}.py",
+                ROOT / "evaluation" / variant / f"{scenario}.py",
+            ]
+        else:
+            candidates = [ROOT / "evaluation" / variant / f"{scenario}.py"]
+            for ag in ["claude", "cursor", "codex"]:
+                candidates.append(ROOT / "evaluation" / "runs" / ag / variant / f"{scenario}.py")
         for path in candidates:
             if path.exists():
                 return path.read_text(encoding="utf-8")
