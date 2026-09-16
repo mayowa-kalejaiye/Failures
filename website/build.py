@@ -1837,6 +1837,19 @@ def build_docs_pages():
   </div>
 
   <div class="ba-sidebar-group">
+    <div class="ba-sidebar-label">Labs</div>
+    <a href="{docs_rel}labs/index.html" class="ba-sidebar-link">
+      <span>Interactive Labs</span>
+    </a>
+    <a href="{docs_rel}labs/payment.html" class="ba-sidebar-link">
+      <span>Payment Lab</span>
+    </a>
+    <a href="{docs_rel}labs/queue.html" class="ba-sidebar-link">
+      <span>Queue Lab</span>
+    </a>
+  </div>
+
+  <div class="ba-sidebar-group">
     <div class="ba-sidebar-label">Reference</div>
     <a href="{docs_rel}tools.html" class="ba-sidebar-link{' active' if active_id == 'tools' else ''}">
       <span>Tools Reference</span>

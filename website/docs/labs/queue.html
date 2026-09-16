@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Lab: Queue — Failures</title><link rel="stylesheet" href="../../css/styles.css"><script src="https://cdn.tailwindcss.com"></script></head><body class="ba-prose" style="padding:40px;max-width:800px;margin:0 auto">
+<h1>Lab: Queue — Ack After + DLQ</h1>
+<p class="ba-lead">Make a worker survive redelivery and poison. Crash before ack and watch dedup save you.</p>
+<div class="my-4 border border-dashed border-foreground/[0.08] bg-foreground/[0.01] p-4">
+  <div class="text-[11px] font-mono text-foreground/50 mb-2">TRY IT</div>
+  <button onclick="document.getElementById('out').textContent='→ same msg_id=abc delivered twice → dedup table hit → ack without re-send'" class="px-3 py-1.5 bg-foreground text-background text-xs font-mono">Duplicate delivery</button>
+  <button onclick="document.getElementById('out').textContent='→ worker crash before ack → message redelivered → processed once via msg_id UNIQUE'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Crash before ack</button>
+  <button onclick="document.getElementById('out').textContent='→ poison JSON → 3 fails → moved to DLQ, queue keeps flowing'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Poison message</button>
+  <div id="out" class="mt-3 p-3 bg-background border border-foreground/[0.08] font-mono text-xs min-h-[48px]">Click a button</div>
+</div>
+<pre class="p-3 bg-foreground/[0.02] border border-foreground/[0.08] font-mono text-xs overflow-x-auto"><code>if (await isDuplicate(msg.id)) { ack(msg); return; }
+await process(msg); // idempotent
+ack(msg); // AFTER durable work
+// on fail: if (attempts>3) dlq.push(msg)</code></pre>
+<p><a href="./">← Labs</a></p>
+</body></html>

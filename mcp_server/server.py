@@ -9,6 +9,7 @@ from mcp.types import TextContent
 from engine.loader import load_principles, load_dimensions
 from engine.analyzer import review_architecture, analyze_component, generate_failure_cases, generate_failure_tests, review_plan, check_invariant
 from engine.code_review import review_code, check_idempotency, check_retry_safety, check_transaction_safety
+from engine.semantic import semantic_review
 
 mcp = MCPServer(
     name="failures",
@@ -266,6 +267,35 @@ def check_invariant_tool(invariants: list, architecture: str = "", plan: list = 
         lines.append("")
     lines.append("--- JSON ---")
     lines.append(_json(result))
+    return "\n".join(lines)
+
+@mcp.tool(name="review_code_semantic", description="Semantic review — deterministic checks plus low-confidence heuristic for hard cases (ack ordering, lock scope, memory dedup). Deterministic findings are authoritative (0.68-0.96); semantic are 0.58-0.65 and require human review. No LLM by default.")
+def review_code_semantic_tool(code: str, language: str = "python") -> str:
+    if not code or not code.strip():
+        return _json({"error": "code is required"})
+    det = review_code(code, language)
+    sem = semantic_review(code, det)
+    lines = ["STATIC + SEMANTIC REVIEW", ""]
+    lines.append(f"Deterministic: {len(det)} findings (authoritative)")
+    lines.append(f"Semantic: {len(sem['semantic_findings'])} additional low-confidence (heuristic, requires human review)")
+    lines.append("")
+    for f in det:
+        ev = f.get("evidence", {})
+        ev_str = ev.get("excerpt", "") if isinstance(ev, dict) else str(ev)
+        lines.append(f"[{f['severity']}] {f['title']} ({f['dimension']}) Confidence: {f.get('confidence',0):.2f} [{f.get('mode','')}]")
+        lines.append(f"  Evidence: {ev_str}")
+        lines.append("")
+    if sem["semantic_findings"]:
+        lines.append("--- SEMANTIC (low confidence, heuristic) ---")
+        for f in sem["semantic_findings"]:
+            lines.append(f"[{f['severity']}] {f['title']} ({f['dimension']}) Confidence: {f.get('confidence',0):.2f} [{f.get('mode','')}] provenance={f.get('provenance')}")
+            lines.append(f"  Why: {f['why']}")
+            lines.append(f"  Evidence: {f.get('evidence',{}).get('excerpt','')}")
+            lines.append("")
+        lines.append(sem["note"])
+        lines.append("")
+    lines.append("--- JSON ---")
+    lines.append(_json({"deterministic": det, "semantic": sem["semantic_findings"], "meta": {"deterministic_count": sem["deterministic_count"], "llm_enabled": sem["llm_enabled"]}}))
     return "\n".join(lines)
 
 @mcp.tool(name="list_failures", description="List known failure scenarios from the knowledge base.")
