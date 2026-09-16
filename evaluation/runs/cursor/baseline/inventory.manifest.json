@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "inventory",
+  "mode": "baseline",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:28.428637Z",
+  "prompt_hash": "916ca23a7019",
+  "prompt_source": "evaluation/scenarios/inventory.md",
+  "failures_mcp_enabled": false,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/baseline/inventory.py"
+}

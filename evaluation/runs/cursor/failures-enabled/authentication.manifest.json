@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "authentication",
+  "mode": "failures-enabled",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:27.865351Z",
+  "prompt_hash": "70284eb66dcd",
+  "prompt_source": "evaluation/scenarios/authentication.md",
+  "failures_mcp_enabled": true,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/failures-enabled/authentication.py"
+}

@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "queue",
+  "mode": "failures-enabled",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:27.512632Z",
+  "prompt_hash": "0176ff6de044",
+  "prompt_source": "evaluation/scenarios/queue.md",
+  "failures_mcp_enabled": true,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/failures-enabled/queue.py"
+}

@@ -1,0 +1,12 @@
+{
+  "agent": "codex",
+  "scenario": "file-upload",
+  "mode": "failures-enabled",
+  "model": "codex",
+  "timestamp": "2026-09-16T09:50:42.570783Z",
+  "prompt_hash": "341486d26e2d",
+  "prompt_source": "evaluation/scenarios/file-upload.md",
+  "failures_mcp_enabled": true,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/codex/failures-enabled/file-upload.py"
+}

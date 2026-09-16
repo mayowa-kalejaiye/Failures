@@ -1,0 +1,12 @@
+{
+  "agent": "codex",
+  "scenario": "inventory",
+  "mode": "baseline",
+  "model": "codex",
+  "timestamp": "2026-09-16T09:50:42.742927Z",
+  "prompt_hash": "916ca23a7019",
+  "prompt_source": "evaluation/scenarios/inventory.md",
+  "failures_mcp_enabled": false,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/codex/baseline/inventory.py"
+}

@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "authentication",
+  "mode": "baseline",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:27.686927Z",
+  "prompt_hash": "70284eb66dcd",
+  "prompt_source": "evaluation/scenarios/authentication.md",
+  "failures_mcp_enabled": false,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/baseline/authentication.py"
+}

@@ -1,0 +1,12 @@
+{
+  "agent": "codex",
+  "scenario": "webhook",
+  "mode": "baseline",
+  "model": "codex",
+  "timestamp": "2026-09-16T09:50:43.141019Z",
+  "prompt_hash": "d2a1fefde642",
+  "prompt_source": "evaluation/scenarios/webhook.md",
+  "failures_mcp_enabled": false,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/codex/baseline/webhook.py"
+}

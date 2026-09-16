@@ -1,0 +1,12 @@
+{
+  "agent": "codex",
+  "scenario": "inventory",
+  "mode": "failures-enabled",
+  "model": "codex",
+  "timestamp": "2026-09-16T09:50:42.933955Z",
+  "prompt_hash": "916ca23a7019",
+  "prompt_source": "evaluation/scenarios/inventory.md",
+  "failures_mcp_enabled": true,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/codex/failures-enabled/inventory.py"
+}

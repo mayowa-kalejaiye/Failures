@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "payment",
+  "mode": "failures-enabled",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:27.114448Z",
+  "prompt_hash": "0d915b563622",
+  "prompt_source": "evaluation/scenarios/payment.md",
+  "failures_mcp_enabled": true,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/failures-enabled/payment.py"
+}

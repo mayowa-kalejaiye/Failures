@@ -1,0 +1,12 @@
+{
+  "agent": "cursor",
+  "scenario": "file-upload",
+  "mode": "baseline",
+  "model": "cursor-small",
+  "timestamp": "2026-09-16T09:50:28.056225Z",
+  "prompt_hash": "341486d26e2d",
+  "prompt_source": "evaluation/scenarios/file-upload.md",
+  "failures_mcp_enabled": false,
+  "commit": "83743fe743d2",
+  "output_path": "evaluation/runs/cursor/baseline/file-upload.py"
+}
