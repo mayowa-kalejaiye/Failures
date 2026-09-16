@@ -46,9 +46,10 @@ def review_code(code: str, language: str = "python") -> List[Dict[str, Any]]:
             "tests": ["retry_after_provider_success", "duplicate_idempotency_key"],
         })
 
-    db_writes = len(re.findall(r"execute\(|update |insert into|db\.execute|session\.commit|cursor\.execute", code, re.IGNORECASE))
+    db_writes = len(re.findall(r"execute\(|update |insert into|db\.execute|session\.commit|cursor\.execute|db\.query\(|db\.add\(|session\.add\(|\.commit\(\)", code, re.IGNORECASE))
     # avoid false positive from comment "no transaction" — require code-like transaction token
-    has_tx_code = _has(code, r"db\.transaction|\.transaction\(|\bBEGIN\b|\bCOMMIT\b|\.commit\(|atomic")
+    # includes SQLAlchemy (session.begin/db.commit) so ORM code isn't silently skipped
+    has_tx_code = _has(code, r"db\.transaction|\.transaction\(|\bBEGIN\b|\bCOMMIT\b|\.commit\(|atomic|session\.begin|with_for_update")
     has_tx_word = _has(code, r"\btransaction\b")
     has_tx = has_tx_code
     if has_tx_word and not has_tx_code:

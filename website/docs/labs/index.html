@@ -13,11 +13,11 @@
 <body>
   <div style="padding:40px;font-family:Geist Mono, monospace">
     <h1 style="font-size:24px;font-weight:600">Labs — Interactive Failure Sandboxes</h1>
-    <p style="margin-top:12px;color:#666">Run each lab: trigger a failure, watch the invariant, fix with the pattern.</p>
+    <p style="margin-top:12px;color:#666">Run each lab: trigger a failure, watch the invariant, fix with the pattern. Each lab mirrors a runnable pair in <code>examples/</code> — run <code>python examples/run_benchmark.py</code> to see naive vs improved scored by the same MCP checks.</p>
     <ul style="margin-top:20px;list-style:disc;padding-left:20px">
-      <li><a href="payment.html">Payment — idempotency + reconciliation</a></li>
-      <li><a href="queue.html">Queue — ack after + DLQ</a></li>
-      <li><a href="retry.html">Retry — backoff + jitter</a></li>
+      <li><a href="payment.html">Payment — idempotency + reconciliation</a> <span style="color:#888">(see <code>examples/payment/naive.py</code> vs <code>improved.py</code>)</span></li>
+      <li><a href="queue.html">Queue — ack after + DLQ</a> <span style="color:#888">(see <code>examples/queue/</code>)</span></li>
+      <li><a href="retry.html">Retry — backoff + jitter</a> <span style="color:#888">(see <code>examples/auth/</code> retry + rate-limit)</span></li>
     </ul>
     <p style="margin-top:24px"><a href="../examples.html">← Back to Benchmark</a></p>
   </div>
