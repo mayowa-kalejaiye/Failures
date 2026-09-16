@@ -928,7 +928,7 @@ def render_features_bento():
     </div>
   </a>
 
-  <!-- Card 03: 12 Core MCP Tools -->
+  <!-- Card 03: 13 Core MCP Tools -->
   <a class="contents" href="docs/tools.html">
     <div class="group/card relative p-4 lg:p-5 min-h-[100px] transition-all duration-200 hover:bg-foreground/[0.02] hover:shadow-[inset_0_1px_0_0_rgba(128,128,128,0.1)] hover:z-10 bg-background">
       <span class="absolute top-3 right-3 lg:top-4 lg:right-4 opacity-0 -translate-y-0.5 group-hover/card:opacity-100 group-hover/card:translate-y-0 transition-all duration-200">
@@ -936,7 +936,7 @@ def render_features_bento():
       </span>
       <div class="mb-1">
         <div class="text-[11px] font-mono text-foreground/45 dark:text-foreground/30 tracking-wider transition-colors duration-200 group-hover/card:text-foreground/60">03</div>
-        <div class="text-[13px] font-medium text-foreground/80 dark:text-neutral-100 transition-colors duration-200">12 Core MCP Tools.</div>
+        <div class="text-[13px] font-medium text-foreground/80 dark:text-neutral-100 transition-colors duration-200">13 Core MCP Tools.</div>
       </div>
       <div class="text-[13px] text-neutral-500 dark:text-neutral-400 leading-relaxed transition-colors duration-200 group-hover/card:text-neutral-300">review_code, review_plan, check_invariant, and test generation.</div>
       <div class="mt-3 relative overflow-hidden">
@@ -1351,11 +1351,11 @@ def build_landing_page():
             <div class="ba-cmd-content">
               <div id="tab-cli" class="ba-cmd-snippet active">
                 <span style="color:#a855f7; font-weight:600;">pip</span>
-                <span>install -r requirements.txt &amp;&amp; python mcp_server/server.py</span>
+                <span>install failures-mcp &amp;&amp; failures-mcp</span>
               </div>
               <div id="tab-mcp" class="ba-cmd-snippet">
                 <span style="color:#f97316; font-weight:600;">mcp</span>
-                <span>{{"failures": {{"command": "python", "args": ["mcp_server/server.py"]}}}}</span>
+                <span>{{"failures": {{"command": "failures-mcp", "args": []}}}}</span>
               </div>
               <div id="tab-prompt" class="ba-cmd-snippet">
                 <span style="color:#eab308; font-weight:600;">ask</span>
@@ -1790,7 +1790,7 @@ async def handle_sub(e: Event):
                 <span class="ba-faq-icon flex size-6 items-center justify-center border border-foreground/10 bg-background text-foreground/40 transition-transform transition-transform">+</span>
               </button>
               <div class="ba-faq-content px-4 pb-4 pt-0">
-                <p class="text-[13px] leading-relaxed text-foreground/70 border-t border-dashed border-foreground/[0.06] pt-3">Add to <code>claude_desktop_config.json</code> or Cursor MCP: <code>{{"failures": {{"command": "python", "args": ["mcp_server/server.py"]}}}}</code>. Your agent gets 12 tools: <code>review_plan</code>, <code>check_invariant</code>, <code>generate_failure_tests</code> and 9 more — all deterministic.</p>
+                <p class="text-[13px] leading-relaxed text-foreground/70 border-t border-dashed border-foreground/[0.06] pt-3">Add to <code>claude_desktop_config.json</code> or Cursor MCP: <code>{{"failures": {{"command": "failures-mcp", "args": []}}}}</code> (after <code>pipx install failures-mcp</code>). Your agent gets 13 tools: <code>review_plan</code>, <code>check_invariant</code>, <code>generate_failure_tests</code> and 10 more — all deterministic.</p>
               </div>
             </div>
           </div>
