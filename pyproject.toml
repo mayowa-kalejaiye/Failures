@@ -1,5 +1,5 @@
 [project]
-name = "failures"
+name = "failures-mcp"
 version = "0.3.1"
 description = "Failures — deterministic MCP for AI-built software. 12 tools that make coding agents handle failure modes via AST checks."
 readme = "README.md"
