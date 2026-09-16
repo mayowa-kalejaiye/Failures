@@ -20,10 +20,8 @@ pip install failures-mcp
 failures-mcp
 ```
 
-## npx (Node wrapper, requires Python + `failures-mcp` installed)
-```bash
-npx failures-mcp
-```
+## npx (not published yet)
+`failures-mcp` is not on the npm registry, so `npx failures-mcp` will 404. A `bin/failures-mcp.js` wrapper exists in this repo for after publishing — until then, use pipx/pip/uvx above.
 
 ## Claude Code / Cursor config
 ```json

@@ -57,7 +57,7 @@ Claude Code / Cursor (`mcp.json` or `~/.config/...`):
 
 Install via `pipx install failures-mcp` (see [INSTALL.md](../INSTALL.md)). From a checkout, use `python -m mcp_server.server` instead.
 
-Alternative (npx style after packaging):
+Alternative (same binary):
 ```json
 {
   "mcpServers": {
