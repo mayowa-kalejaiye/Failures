@@ -254,7 +254,7 @@
       <p>Failures includes a regression benchmark in <code>examples/run_benchmark.py</code>. Naive implementations trigger multiple CRITICAL findings, while improved code reduces findings to zero.</p>
 
       <h2 id="before-and-after">Before &amp; After Refactor</h2>
-      <p><strong>Naive Payment Handler (3 CRITICAL, 1 HIGH):</strong></p>
+      <p><strong>Naive Payment Handler (2 CRITICAL, 2 HIGH):</strong></p>
       <div class="ba-code-block">
         <pre><code>@app.post("/payments")
 async def pay(p: Payment):
