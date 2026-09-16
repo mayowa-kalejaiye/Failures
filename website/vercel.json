@@ -1,5 +1,5 @@
 {
-  "buildCommand": "python build.py",
+  "buildCommand": "python3 build.py",
   "outputDirectory": ".",
   "installCommand": "",
   "framework": null
