@@ -11,6 +11,7 @@ DOCS_DIR = BASE_DIR / "docs"
 PRINCIPLES_DIR = DOCS_DIR / "principles"
 
 PRINCIPLES_DIR.mkdir(parents=True, exist_ok=True)
+LABS_DIR = DOCS_DIR / "labs"
 
 # Authentic Failures SVG Logo (with prominent red failure badge)
 FAILURES_LOGO = """<svg width="20" height="20" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1839,14 +1840,17 @@ def build_docs_pages():
 
   <div class="ba-sidebar-group">
     <div class="ba-sidebar-label">Labs</div>
-    <a href="{docs_rel}labs/index.html" class="ba-sidebar-link">
+    <a href="{docs_rel}labs/index.html" class="ba-sidebar-link{' active' if active_id == 'lab-index' else ''}">
       <span>Interactive Labs</span>
     </a>
-    <a href="{docs_rel}labs/payment.html" class="ba-sidebar-link">
+    <a href="{docs_rel}labs/payment.html" class="ba-sidebar-link{' active' if active_id == 'lab-payment' else ''}">
       <span>Payment Lab</span>
     </a>
-    <a href="{docs_rel}labs/queue.html" class="ba-sidebar-link">
+    <a href="{docs_rel}labs/queue.html" class="ba-sidebar-link{' active' if active_id == 'lab-queue' else ''}">
       <span>Queue Lab</span>
+    </a>
+    <a href="{docs_rel}labs/retry.html" class="ba-sidebar-link{' active' if active_id == 'lab-retry' else ''}">
+      <span>Retry Lab</span>
     </a>
   </div>
 
@@ -2709,11 +2713,228 @@ async def pay(p: Payment, key: str = Header(...)):
 </html>"""
     (DOCS_DIR / "examples.html").write_text(examples_html, encoding="utf-8")
 
+    # 6. Interactive Labs — same docs shell as every other page
+    LABS_DIR.mkdir(parents=True, exist_ok=True)
+
+    def render_labs_page(lab_id, title, lead, toc_items, body_html):
+        toc_html = chr(10).join([f'<a href="#{tid}" class="ba-toc-link">{tlabel}</a>' for tid, tlabel in toc_items])
+        return f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title} | Failures Docs</title>
+  <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../css/styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Critical nav overrides must load after Tailwind CDN utilities */
+    #mobile-nav-drawer {{
+      display: none !important;
+    }}
+    #mobile-nav-drawer.open {{
+      display: flex !important;
+      flex-direction: column;
+    }}
+    .ba-desktop-tabs {{
+      display: none !important;
+    }}
+    @media (min-width: 1024px) {{
+      #mobile-nav-drawer,
+      #mobile-nav-drawer.open {{
+        display: none !important;
+      }}
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {{
+        display: none !important;
+      }}
+      .ba-desktop-tabs {{
+        display: flex !important;
+      }}
+    }}
+    @media (max-width: 1023px) {{
+      .ba-desktop-tabs {{
+        display: none !important;
+      }}
+      .ba-mobile-nav-btn,
+      [data-mobile-toggle] {{
+        display: flex !important;
+      }}
+    }}
+  </style>
+  <script>
+    tailwind.config = {{
+      darkMode: 'class',
+      theme: {{
+        extend: {{
+          colors: {{
+            background: 'hsl(var(--background-hsl, 0 0% 100%) / <alpha-value>)',
+            foreground: 'hsl(var(--foreground-hsl, 240 10% 3.9%) / <alpha-value>)',
+          }},
+          fontFamily: {{
+            sans: ['Geist', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['Geist Mono', 'ui-monospace', 'monospace'],
+          }}
+        }}
+      }}
+    }}
+  </script>
+  <script>
+    (function() {{
+      const t = localStorage.getItem('failures-theme') || 'system';
+      const isDark = t === 'dark' || (t === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      if (isDark) document.documentElement.classList.add('dark');
+    }})();
+  </script>
+</head>
+<body>
+  {render_topbar(active_tab="docs", depth=2)}
+
+  <div class="ba-docs-layout" style="padding-top:45px;">
+    {make_sidebar(lab_id, depth=2)}
+
+    <main class="ba-docs-content ba-prose">
+      <div class="ba-doc-meta-row">
+        <div class="ba-breadcrumb">
+          <a href="../../index.html">Home</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <a href="../index.html">Docs</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <a href="index.html">Labs</a>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+          <span>{title}</span>
+        </div>
+      </div>
+
+      <h1>{title}</h1>
+      <p class="ba-lead">{lead}</p>
+
+      {body_html}
+    </main>
+
+    <aside class="ba-docs-toc">
+      <div class="ba-toc-title">On this page</div>
+      {toc_html}
+    </aside>
+  </div>
+
+  {render_search_dialog()}
+  <script src="../../js/main.js"></script>
+</body>
+</html>"""
+
+    LAB_TRY_IT_HINT = '<div class="my-4 border border-dashed border-foreground/[0.08] bg-foreground/[0.01] p-4"><div class="text-[11px] font-mono text-foreground/50 mb-2">TRY IT — click to inject failure</div>'
+
+    LABS = [
+        {
+            "id": "index",
+            "sidebar": "lab-index",
+            "title": "Interactive Labs",
+            "lead": "Trigger a failure, watch the invariant hold, then fix it with the pattern. Each lab mirrors a runnable pair in examples/ — run python examples/run_benchmark.py to see naive vs improved scored by the same MCP checks.",
+            "toc": [("labs", "The Labs"), ("run-locally", "Run Them Locally")],
+            "body": """<h2 id="labs">The Labs</h2>
+      <ul>
+        <li><a href="payment.html"><strong>Payment</strong></a> — idempotency + reconciliation (see <code>examples/payment/naive.py</code> vs <code>improved.py</code>)</li>
+        <li><a href="queue.html"><strong>Queue</strong></a> — ack after + DLQ (see <code>examples/queue/</code>)</li>
+        <li><a href="retry.html"><strong>Retry</strong></a> — backoff + jitter (see <code>examples/auth/</code> retry + rate-limit)</li>
+      </ul>
+      <h2 id="run-locally">Run Them Locally</h2>
+      <div class="ba-code-block">
+        <pre><code>python examples/run_benchmark.py
+# Output: 100% Benchmark Suite Passed. All failure modes correctly identified.</code></pre>
+      </div>""",
+        },
+        {
+            "id": "payment",
+            "sidebar": "lab-payment",
+            "title": "Payment Lab",
+            "lead": "Make a payment survive retry, timeout, and crash. Trigger each failure and watch the invariant hold.",
+            "toc": [("try-it", "Try It"), ("the-pattern", "The Pattern"), ("run-locally", "Run It Locally")],
+            "body": """<h2 id="try-it">Try It</h2>
+      """ + LAB_TRY_IT_HINT + """
+        <button onclick="document.getElementById('out').textContent='→ retry with same Idempotency-Key → 200 (cached, no second charge) — invariant holds ✓'" class="px-3 py-1.5 bg-foreground text-background text-xs font-mono">Retry after timeout</button>
+        <button onclick="document.getElementById('out').textContent='→ duplicate webhook event_id=evt_123 → dedup table hit → 200 already_processed'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Duplicate webhook</button>
+        <button onclick="document.getElementById('out').textContent='→ crash after Paystack success before DB commit → pending row remains → reconciler finds it → completes + enrolls'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Crash before persist</button>
+        <div id="out" class="mt-3 p-3 bg-background border border-foreground/[0.08] font-mono text-xs min-h-[48px]">Click a button above</div>
+      </div>
+      <h2 id="the-pattern">The Pattern</h2>
+      <p>Persist the idempotency key <em>before</em> the external call, reconcile on timeout instead of blindly retrying. See <a href="../principles/idempotency.html">Idempotency</a> and <a href="../principles/timeout.html">Timeout</a>.</p>
+      <div class="ba-code-block">
+        <pre><code>await db.execute("INSERT INTO idempotency_keys (key, status) VALUES ($1, 'pending')", [key]);
+charge = await paystack.charge({amount}, {idempotencyKey: key}); // timeout?
+await db.query("UPDATE idempotency_keys SET status='completed' WHERE key=$1", [key]);</code></pre>
+      </div>
+      <h2 id="run-locally">Run It Locally</h2>
+      <div class="ba-code-block">
+        <pre><code>python examples/run_benchmark.py
+# payment naive: 3 CRITICAL → improved: 0 CRITICAL</code></pre>
+      </div>""",
+        },
+        {
+            "id": "queue",
+            "sidebar": "lab-queue",
+            "title": "Queue Lab",
+            "lead": "Make a worker survive redelivery and poison. Crash before ack and watch dedup save you.",
+            "toc": [("try-it", "Try It"), ("the-pattern", "The Pattern"), ("run-locally", "Run It Locally")],
+            "body": """<h2 id="try-it">Try It</h2>
+      """ + LAB_TRY_IT_HINT + """
+        <button onclick="document.getElementById('out').textContent='→ same msg_id=abc delivered twice → dedup table hit → ack without re-send'" class="px-3 py-1.5 bg-foreground text-background text-xs font-mono">Duplicate delivery</button>
+        <button onclick="document.getElementById('out').textContent='→ worker crash before ack → message redelivered → processed once via msg_id UNIQUE'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Crash before ack</button>
+        <button onclick="document.getElementById('out').textContent='→ poison JSON → 3 fails → moved to DLQ, queue keeps flowing'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">Poison message</button>
+        <div id="out" class="mt-3 p-3 bg-background border border-foreground/[0.08] font-mono text-xs min-h-[48px]">Click a button above</div>
+      </div>
+      <h2 id="the-pattern">The Pattern</h2>
+      <p>Ack <em>after</em> durable processing, deduplicate on <code>msg_id UNIQUE</code>, route poison to a DLQ after N attempts. See <a href="../principles/recovery.html">Recovery</a>.</p>
+      <div class="ba-code-block">
+        <pre><code>if (await isDuplicate(msg.id)) { ack(msg); return; }
+await process(msg); // idempotent
+ack(msg); // AFTER durable work
+// on fail: if (attempts>3) dlq.push(msg)</code></pre>
+      </div>
+      <h2 id="run-locally">Run It Locally</h2>
+      <div class="ba-code-block">
+        <pre><code>python examples/run_benchmark.py
+# queue naive: redelivery duplicates → improved: processed once</code></pre>
+      </div>""",
+        },
+        {
+            "id": "retry",
+            "sidebar": "lab-retry",
+            "title": "Retry Lab",
+            "lead": "Turn a retry storm into scattered retries.",
+            "toc": [("try-it", "Try It"), ("the-pattern", "The Pattern"), ("run-locally", "Run It Locally")],
+            "body": """<h2 id="try-it">Try It</h2>
+      """ + LAB_TRY_IT_HINT + """
+        <button onclick="document.getElementById('out').textContent='→ 100 clients retry at 1s → thundering herd → downstream dies'" class="px-3 py-1.5 bg-foreground text-background text-xs font-mono">No jitter</button>
+        <button onclick="document.getElementById('out').textContent='→ same 100 with jitter 0-200ms → retries scatter → downstream survives'" class="ml-2 px-3 py-1.5 border border-foreground/15 bg-background text-xs font-mono">With jitter</button>
+        <div id="out" class="mt-3 p-3 bg-background border border-foreground/[0.08] font-mono text-xs min-h-[48px]">Click a button above</div>
+      </div>
+      <h2 id="the-pattern">The Pattern</h2>
+      <p>Exponential backoff with jitter, only on idempotent operations. See <a href="../principles/retry-safety.html">Retry Safety</a>.</p>
+      <div class="ba-code-block">
+        <pre><code>delay = Math.min(8000, 500 * (2 ** (attempt-1))) + Math.random()*200;
+await sleep(delay); // jitter scatters herd</code></pre>
+      </div>
+      <h2 id="run-locally">Run It Locally</h2>
+      <div class="ba-code-block">
+        <pre><code>python examples/run_benchmark.py
+# retry without idempotency duplicates → with key + backoff: safe</code></pre>
+      </div>""",
+        },
+    ]
+
+    for lab in LABS:
+        page = render_labs_page(lab["sidebar"], lab["title"], lab["lead"], lab["toc"], lab["body"])
+        (LABS_DIR / f"{lab['id']}.html").write_text(page, encoding="utf-8")
+
 def main():
     print("Compiling exact Better Auth replica with authentic Failures logo and 01-09 Features section...")
     build_landing_page()
     build_docs_pages()
-    print("Done! All 16 pages compiled.")
+    print("Done! All 20 pages compiled.")
 
 if __name__ == "__main__":
     main()
