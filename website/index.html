@@ -188,8 +188,8 @@
               <g font-family="Geist Mono, monospace" font-size="5.8"><rect x="264" y="118" rx="3" width="58" height="14" fill="#10b981" opacity="0.12" stroke="#10b981" stroke-opacity="0.18"/><text x="293" y="127.5" text-anchor="middle" fill="#059669" opacity="0.9">invariant ✓</text></g>
             </svg>
           </div>
-          <div class="flex justify-center h-full absolute items-center left-[18%] lg:left-[22%] w-full max-w-[400px] lg:max-w-[360px] pointer-events-auto select-none animate-logo-reveal z-[2] opacity-100">
-                      <div class="group relative max-w-[360px] w-full flex justify-center opacity-100 -mt-[28%] lg:-mt-[44%]">
+          <div class="flex justify-center h-full absolute items-center left-[26%] lg:left-[30%] w-full max-w-[400px] lg:max-w-[360px] pointer-events-auto select-none animate-logo-reveal z-[2] opacity-100">
+                      <div class="group relative max-w-[360px] w-full flex justify-center opacity-100 -mt-[38%] lg:-mt-[58%]">
             <div class="relative size-[160px] lg:size-[200px] rounded-full bg-[#ef4444]/[0.08] border border-[#ef4444]/[0.12] flex items-center justify-center backdrop-blur-[0.5px] transition-transform duration-300 ease-out group-hover:scale-[1.03] group-hover:rotate-1">
               <div class="size-[104px] lg:size-[128px] rounded-full bg-[#ef4444] flex items-center justify-center shadow-[0_8px_24px_rgba(239,68,68,0.22)]">
                 <svg width="52" height="52" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -377,14 +377,14 @@
         <div class="text-[13px] font-medium text-foreground/80 dark:text-neutral-100 transition-colors duration-200">Deterministic AST analysis.</div>
       </div>
       <div class="text-[13px] text-neutral-500 dark:text-neutral-400 leading-relaxed transition-colors duration-200 group-hover/card:text-neutral-300">AST evidence extraction and honest confidence scoring (0.0 to 1.0).</div>
-      <div class="mt-3 flex items-center gap-1.5">
-        <div class="flex items-center h-5 px-2 border border-foreground/[0.08] bg-foreground/[0.02] flex-1 min-w-0">
-          <span class="text-[9px] font-mono text-purple-400 mr-1.5">AST</span>
-          <span class="text-[9px] font-mono text-foreground/50 dark:text-foreground/35 truncate">ast.Call(stripe.charge)</span>
+      <div class="mt-3 flex items-center gap-1.5 min-w-0">
+        <div class="flex items-center h-5 px-2 border border-foreground/[0.08] bg-foreground/[0.02] flex-1 min-w-0 overflow-hidden">
+          <span class="text-[9px] font-mono text-purple-400 mr-1.5 shrink-0">AST</span>
+          <span class="text-[9px] font-mono text-foreground/50 dark:text-foreground/35 truncate min-w-0">ast.Call(stripe.charge)</span>
         </div>
-        <div class="flex items-center h-5 px-2 border border-foreground/[0.08] bg-foreground/[0.02] flex-1 min-w-0">
-          <span class="text-[9px] font-mono text-emerald-400 mr-1.5">CONF</span>
-          <span class="text-[9px] font-mono text-foreground/50 dark:text-foreground/35">0.91 [CRITICAL]</span>
+        <div class="flex items-center h-5 px-2 border border-foreground/[0.08] bg-foreground/[0.02] flex-1 min-w-0 overflow-hidden">
+          <span class="text-[9px] font-mono text-emerald-400 mr-1.5 shrink-0">CONF</span>
+          <span class="text-[9px] font-mono text-foreground/50 dark:text-foreground/35 truncate min-w-0">0.91 [CRITICAL]</span>
         </div>
       </div>
     </div>
@@ -424,15 +424,15 @@
       <div class="text-[13px] text-neutral-500 dark:text-neutral-400 leading-relaxed transition-colors duration-200 group-hover/card:text-neutral-300">Formal invariant contracts across distributed races, crashes, and timeouts.</div>
       <div class="mt-3 flex items-center gap-2.5">
         <div class="flex -space-x-1.5">
-          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-900 flex items-center justify-center text-[8px] font-mono z-[3]">A</div>
-          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-900 flex items-center justify-center text-[8px] font-mono z-[2]">I</div>
-          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-900 flex items-center justify-center text-[8px] font-mono z-[1]">T</div>
+          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 flex items-center justify-center text-[8px] font-mono z-[3]">A</div>
+          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 flex items-center justify-center text-[8px] font-mono z-[2]">I</div>
+          <div class="size-5 rounded-full border border-foreground/10 bg-neutral-200 dark:bg-neutral-800 text-neutral-800 dark:text-neutral-200 flex items-center justify-center text-[8px] font-mono z-[1]">T</div>
           <div class="size-5 rounded-full border border-dashed border-foreground/20 bg-background flex items-center justify-center text-[8px] font-mono">+8</div>
         </div>
-        <div class="flex items-center gap-1">
-          <span class="text-[8px] font-mono text-red-400 px-1.5 py-0.5/20 bg-red-500/5">CRITICAL</span>
-          <span class="text-[8px] font-mono text-orange-400 px-1.5 py-0.5 border border-orange-500/20 bg-orange-500/5">HIGH</span>
-          <span class="text-[8px] font-mono text-yellow-400 px-1.5 py-0.5 border border-yellow-500/20 bg-yellow-500/5">MEDIUM</span>
+        <div class="flex flex-wrap items-center gap-1">
+          <span class="text-[8px] font-mono text-red-400 px-1.5 py-0.5 border border-red-500/20 bg-red-500/5 shrink-0 whitespace-nowrap">CRITICAL</span>
+          <span class="text-[8px] font-mono text-orange-400 px-1.5 py-0.5 border border-orange-500/20 bg-orange-500/5 shrink-0 whitespace-nowrap">HIGH</span>
+          <span class="text-[8px] font-mono text-yellow-400 px-1.5 py-0.5 border border-yellow-500/20 bg-yellow-500/5 shrink-0 whitespace-nowrap">MEDIUM</span>
         </div>
       </div>
     </div>
@@ -500,12 +500,12 @@
         <div class="text-[13px] font-medium text-foreground/80 dark:text-neutral-100 transition-colors duration-200">Protocol for AI Agents.</div>
       </div>
       <div class="text-[13px] text-neutral-500 dark:text-neutral-400 leading-relaxed transition-colors duration-200 group-hover/card:text-neutral-300">Model Context Protocol interception for autonomous coding agents.</div>
-      <div class="mt-3 flex items-center h-5 px-2.5 border border-foreground/[0.06] bg-foreground/[0.015] font-mono text-[8px] gap-1">
-        <span class="text-foreground/30">$</span>
-        <span class="text-foreground/70">failures.audit(ast)</span>
-        <span class="text-foreground/30">→</span>
-        <span class="text-emerald-400"><span class="inline-flex items-center gap-1">0 findings <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></span>
-        <span class="inline-block w-px h-2.5 bg-foreground/30 animate-[blink_1s_steps(2)_infinite]"></span>
+      <div class="mt-3 flex items-center h-5 px-2.5 border border-foreground/[0.06] bg-foreground/[0.015] font-mono text-[8px] gap-1 overflow-hidden min-w-0">
+        <span class="text-foreground/30 shrink-0">$</span>
+        <span class="text-foreground/70 truncate min-w-0">failures.audit(ast)</span>
+        <span class="text-foreground/30 shrink-0">→</span>
+        <span class="text-emerald-400 shrink-0"><span class="inline-flex items-center gap-1 whitespace-nowrap">0 findings <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span></span>
+        <span class="inline-block w-px h-2.5 bg-foreground/30 animate-[blink_1s_steps(2)_infinite] shrink-0"></span>
       </div>
     </div>
   </a>
@@ -521,17 +521,17 @@
         <div class="text-[13px] font-medium text-foreground/80 dark:text-neutral-100 transition-colors duration-200">Automated Chaos Testing.</div>
       </div>
       <div class="text-[13px] text-neutral-500 dark:text-neutral-400 leading-relaxed transition-colors duration-200 group-hover/card:text-neutral-300">Pytest and Jest suite generation for timeouts and crash recovery.</div>
-      <div class="mt-3 flex items-center gap-1.5 font-mono text-[8px]">
-        <div class="flex items-center gap-1 px-1.5 py-0.5/20 bg-red-500/5">
-          <span class="size-1 rounded-full bg-red-400"></span>
+      <div class="mt-3 flex flex-wrap items-center gap-1.5 font-mono text-[8px]">
+        <div class="flex items-center gap-1 px-1.5 py-0.5 border border-red-500/20 bg-red-500/5 shrink-0 whitespace-nowrap">
+          <span class="size-1 rounded-full bg-red-400 shrink-0"></span>
           <span class="text-red-400">CRITICAL (0.91)</span>
         </div>
-        <div class="flex items-center gap-1 px-1.5 py-0.5 border border-amber-500/20 bg-amber-500/5">
-          <span class="size-1 rounded-full bg-amber-400"></span>
+        <div class="flex items-center gap-1 px-1.5 py-0.5 border border-amber-500/20 bg-amber-500/5 shrink-0 whitespace-nowrap">
+          <span class="size-1 rounded-full bg-amber-400 shrink-0"></span>
           <span class="text-amber-400">HIGH (0.84)</span>
         </div>
-        <div class="flex items-center gap-1 px-1.5 py-0.5 border border-emerald-500/20 bg-emerald-500/5">
-          <span class="size-1 rounded-full bg-emerald-400"></span>
+        <div class="flex items-center gap-1 px-1.5 py-0.5 border border-emerald-500/20 bg-emerald-500/5 shrink-0 whitespace-nowrap">
+          <span class="size-1 rounded-full bg-emerald-400 shrink-0"></span>
           <span class="text-emerald-400">VERIFIED (1.0)</span>
         </div>
       </div>
