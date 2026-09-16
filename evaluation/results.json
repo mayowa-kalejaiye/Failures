@@ -3,19 +3,20 @@
     "scenario": "payment",
     "baseline": {
       "code_metrics": {
-        "critical": 1,
-        "high": 0,
-        "total": 2,
+        "critical": 0,
+        "high": 1,
+        "total": 3,
         "ids": [
-          "external_call_without_idempotency",
-          "no_rate_limit"
+          "missing_observability",
+          "no_rate_limit",
+          "race_condition_read_modify_write"
         ],
-        "idempotency_pass": false,
+        "idempotency_pass": true,
         "transaction_safe": true,
-        "retry_safe": true,
-        "concurrency_safe": true,
+        "retry_safe": false,
+        "concurrency_safe": false,
         "recovery_safe": true,
-        "observability_ok": true,
+        "observability_ok": false,
         "tests_generated": 5,
         "architectural_quality": {
           "score": 1.0,
@@ -26,7 +27,7 @@
       },
       "plan_critical": 3,
       "invariant": {
-        "violatable": 1,
+        "violatable": 0,
         "total": 2
       }
     },
@@ -38,7 +39,7 @@
         "ids": [],
         "idempotency_pass": true,
         "transaction_safe": true,
-        "retry_safe": false,
+        "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": true,
@@ -57,9 +58,9 @@
       }
     },
     "improvement": {
-      "critical_delta": 1,
-      "high_delta": 0,
-      "invariant_delta": 1,
+      "critical_delta": 0,
+      "high_delta": 1,
+      "invariant_delta": 0,
       "arch_quality_delta": 0.0
     }
   },
@@ -67,20 +68,21 @@
     "scenario": "queue",
     "baseline": {
       "code_metrics": {
-        "critical": 0,
-        "high": 1,
-        "total": 3,
+        "critical": 1,
+        "high": 2,
+        "total": 4,
         "ids": [
-          "missing_observability",
+          "external_call_without_idempotency",
           "no_rate_limit",
+          "no_timeout",
           "queue_no_ack_handling"
         ],
-        "idempotency_pass": true,
+        "idempotency_pass": false,
         "transaction_safe": true,
         "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": false,
-        "observability_ok": false,
+        "observability_ok": true,
         "tests_generated": 3,
         "architectural_quality": {
           "score": 1.0,
@@ -91,7 +93,7 @@
       },
       "plan_critical": 2,
       "invariant": {
-        "violatable": 1,
+        "violatable": 2,
         "total": 2
       }
     },
@@ -103,7 +105,7 @@
         "ids": [],
         "idempotency_pass": true,
         "transaction_safe": true,
-        "retry_safe": false,
+        "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": true,
@@ -122,9 +124,9 @@
       }
     },
     "improvement": {
-      "critical_delta": 0,
-      "high_delta": 1,
-      "invariant_delta": 0,
+      "critical_delta": 1,
+      "high_delta": 2,
+      "invariant_delta": 1,
       "arch_quality_delta": 0.0
     }
   },
@@ -132,19 +134,17 @@
     "scenario": "authentication",
     "baseline": {
       "code_metrics": {
-        "critical": 1,
-        "high": 1,
-        "total": 4,
+        "critical": 0,
+        "high": 0,
+        "total": 2,
         "ids": [
-          "db_writes_not_transactional",
           "missing_observability",
-          "no_rate_limit",
-          "race_condition_read_modify_write"
+          "no_rate_limit"
         ],
         "idempotency_pass": false,
-        "transaction_safe": false,
+        "transaction_safe": true,
         "retry_safe": true,
-        "concurrency_safe": false,
+        "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": false,
         "tests_generated": 6,
@@ -163,14 +163,12 @@
     },
     "failures_enabled": {
       "code_metrics": {
-        "critical": 1,
+        "critical": 0,
         "high": 0,
-        "total": 1,
-        "ids": [
-          "db_writes_not_transactional"
-        ],
+        "total": 0,
+        "ids": [],
         "idempotency_pass": false,
-        "transaction_safe": false,
+        "transaction_safe": true,
         "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
@@ -191,7 +189,7 @@
     },
     "improvement": {
       "critical_delta": 0,
-      "high_delta": 1,
+      "high_delta": 0,
       "invariant_delta": 0,
       "arch_quality_delta": 0.0
     }
@@ -234,7 +232,7 @@
         "ids": [],
         "idempotency_pass": true,
         "transaction_safe": true,
-        "retry_safe": false,
+        "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": true,
@@ -264,17 +262,15 @@
     "baseline": {
       "code_metrics": {
         "critical": 0,
-        "high": 2,
-        "total": 3,
+        "high": 0,
+        "total": 1,
         "ids": [
-          "db_writes_not_transactional",
-          "no_rate_limit",
-          "race_condition_read_modify_write"
+          "no_rate_limit"
         ],
         "idempotency_pass": false,
-        "transaction_safe": false,
+        "transaction_safe": true,
         "retry_safe": true,
-        "concurrency_safe": false,
+        "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": true,
         "tests_generated": 12,
@@ -293,16 +289,13 @@
     },
     "failures_enabled": {
       "code_metrics": {
-        "critical": 1,
+        "critical": 0,
         "high": 0,
-        "total": 2,
-        "ids": [
-          "db_writes_not_transactional",
-          "no_rate_limit"
-        ],
+        "total": 0,
+        "ids": [],
         "idempotency_pass": true,
-        "transaction_safe": false,
-        "retry_safe": false,
+        "transaction_safe": true,
+        "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
         "observability_ok": true,
@@ -321,8 +314,8 @@
       }
     },
     "improvement": {
-      "critical_delta": -1,
-      "high_delta": 2,
+      "critical_delta": 0,
+      "high_delta": 0,
       "invariant_delta": 0,
       "arch_quality_delta": 0.0
     }
@@ -331,18 +324,16 @@
     "scenario": "webhook",
     "baseline": {
       "code_metrics": {
-        "critical": 3,
+        "critical": 1,
         "high": 1,
-        "total": 5,
+        "total": 3,
         "ids": [
-          "charge_then_db_update",
-          "db_writes_not_transactional",
           "external_call_without_idempotency",
           "no_rate_limit",
           "no_timeout"
         ],
-        "idempotency_pass": true,
-        "transaction_safe": false,
+        "idempotency_pass": false,
+        "transaction_safe": true,
         "retry_safe": true,
         "concurrency_safe": true,
         "recovery_safe": true,
@@ -393,7 +384,7 @@
       }
     },
     "improvement": {
-      "critical_delta": 1,
+      "critical_delta": -1,
       "high_delta": 0,
       "invariant_delta": 0,
       "arch_quality_delta": 0.0

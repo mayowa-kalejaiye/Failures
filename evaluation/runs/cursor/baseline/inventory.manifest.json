@@ -3,10 +3,10 @@
   "scenario": "inventory",
   "mode": "baseline",
   "model": "cursor-small",
-  "timestamp": "2026-09-16T09:50:28.428637Z",
+  "timestamp": "2026-09-16T15:56:56.611494Z",
   "prompt_hash": "916ca23a7019",
   "prompt_source": "evaluation/scenarios/inventory.md",
   "failures_mcp_enabled": false,
-  "commit": "83743fe743d2",
+  "commit": "6728c85bf8c2",
   "output_path": "evaluation/runs/cursor/baseline/inventory.py"
 }

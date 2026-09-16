@@ -3,10 +3,10 @@
   "scenario": "webhook",
   "mode": "baseline",
   "model": "codex",
-  "timestamp": "2026-09-16T09:50:43.141019Z",
+  "timestamp": "2026-09-16T16:20:51.306778Z",
   "prompt_hash": "d2a1fefde642",
   "prompt_source": "evaluation/scenarios/webhook.md",
   "failures_mcp_enabled": false,
-  "commit": "83743fe743d2",
+  "commit": "6728c85bf8c2",
   "output_path": "evaluation/runs/codex/baseline/webhook.py"
 }
