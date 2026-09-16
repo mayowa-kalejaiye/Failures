@@ -1,28 +1,28 @@
 # Install Failures MCP
 
+Live on PyPI: https://pypi.org/project/failures-mcp/
+
 ## pipx (recommended)
 ```bash
-pipx install failures
-pipx install failures-mcp  # alt name
-failures-mcp --help
+pipx install failures-mcp
+failures-mcp
 ```
 
 ## uvx (no install)
 ```bash
 uvx failures-mcp
-uvx --from failures failures-mcp
+uvx --from failures-mcp failures-mcp
 ```
 
 ## pip
 ```bash
-pip install failures
+pip install failures-mcp
 failures-mcp
 ```
 
-## npx (Node wrapper)
+## npx (Node wrapper, requires Python + `failures-mcp` installed)
 ```bash
 npx failures-mcp
-# requires Python with `failures` installed; wrapper spawns `python -m mcp_server.server`
 ```
 
 ## Claude Code / Cursor config
@@ -36,7 +36,7 @@ npx failures-mcp
   }
 }
 ```
-Or explicit:
+Or explicit (from a checkout):
 ```json
 {
   "mcpServers": {
@@ -48,4 +48,4 @@ Or explicit:
 }
 ```
 
-See `mcp/README.md` for 12 tools.
+See `mcp/README.md` for the 13 tools.
