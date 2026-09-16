@@ -3,10 +3,10 @@
   "scenario": "queue",
   "mode": "baseline",
   "model": "cursor-small",
-  "timestamp": "2026-09-16T09:50:27.317947Z",
+  "timestamp": "2026-09-16T14:43:45.089729Z",
   "prompt_hash": "0176ff6de044",
   "prompt_source": "evaluation/scenarios/queue.md",
   "failures_mcp_enabled": false,
-  "commit": "83743fe743d2",
+  "commit": "f011da8c3e33",
   "output_path": "evaluation/runs/cursor/baseline/queue.py"
 }

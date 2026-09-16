@@ -3,10 +3,10 @@
   "scenario": "queue",
   "mode": "failures-enabled",
   "model": "codex",
-  "timestamp": "2026-09-16T09:50:41.860507Z",
+  "timestamp": "2026-09-16T15:13:13.375343Z",
   "prompt_hash": "0176ff6de044",
   "prompt_source": "evaluation/scenarios/queue.md",
   "failures_mcp_enabled": true,
-  "commit": "83743fe743d2",
+  "commit": "f011da8c3e33",
   "output_path": "evaluation/runs/codex/failures-enabled/queue.py"
 }

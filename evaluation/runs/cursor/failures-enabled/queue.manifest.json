@@ -2,11 +2,11 @@
   "agent": "cursor",
   "scenario": "queue",
   "mode": "failures-enabled",
-  "model": "cursor-small",
-  "timestamp": "2026-09-16T09:50:27.512632Z",
+  "model": "grok-4.6",
+  "timestamp": "2026-09-16T14:50:04.817518Z",
   "prompt_hash": "0176ff6de044",
   "prompt_source": "evaluation/scenarios/queue.md",
   "failures_mcp_enabled": true,
-  "commit": "83743fe743d2",
+  "commit": "f011da8c3e33",
   "output_path": "evaluation/runs/cursor/failures-enabled/queue.py"
 }

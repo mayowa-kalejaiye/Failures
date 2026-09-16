@@ -2,11 +2,11 @@
   "agent": "cursor",
   "scenario": "payment",
   "mode": "baseline",
-  "model": "cursor-small",
-  "timestamp": "2026-09-16T09:50:26.911126Z",
+  "model": "grok-4.6",
+  "timestamp": "2026-09-16T13:17:02.200406Z",
   "prompt_hash": "0d915b563622",
   "prompt_source": "evaluation/scenarios/payment.md",
   "failures_mcp_enabled": false,
-  "commit": "83743fe743d2",
+  "commit": "f011da8c3e33",
   "output_path": "evaluation/runs/cursor/baseline/payment.py"
 }
