@@ -1,0 +1,6 @@
+{
+  "buildCommand": "python build.py",
+  "outputDirectory": ".",
+  "installCommand": "echo 'no install'",
+  "framework": null
+}
