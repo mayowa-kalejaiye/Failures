@@ -1,0 +1,31 @@
+{
+  "name": "failures-mcp",
+  "version": "0.3.1",
+  "description": "Failures \u2014 deterministic MCP for AI-built software. Makes coding agents handle idempotency, timeouts, retries via AST checks.",
+  "bin": {
+    "failures-mcp": "./bin/failures-mcp.js"
+  },
+  "files": [
+    "bin/",
+    "mcp_server/",
+    "mcp/",
+    "principles/",
+    "patterns/"
+  ],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "claude-code",
+    "cursor",
+    "ai-agents",
+    "resilience"
+  ],
+  "author": "Mayowa Kalejaiye",
+  "license": "MIT",
+  "repository": "mayowa-kalejaiye/Failures",
+  "engines": {
+    "node": ">=18"
+  },
+  "preferGlobal": true,
+  "type": "module"
+}
