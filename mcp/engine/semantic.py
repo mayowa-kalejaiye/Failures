@@ -35,8 +35,8 @@ def semantic_review(code: str, deterministic_findings: List[Dict[str, Any]] = No
     extra: List[Dict[str, Any]] = []
 
     # Heuristic semantic checks (no LLM) — low confidence, provenance marked
-    # 1. Ack ordering: has ack but ack appears BEFORE processing in file order
-    if "queue_no_ack_handling" not in ids and _has(code, r"\bqueue\b|\bworker\b") and _has(code, r"\back\b"):
+    # 1. Ack ordering: has ack but ack appears BEFORE processing in file order (even if deterministic already flagged, this is ordering nuance)
+    if _has(code, r"\bqueue\b|\bworker\b") and _has(code, r"\back\b"):
         # Find positions
         ack_pos = code.lower().find("ack")
         proc_pos = max(code.lower().find("process"), code.lower().find("handle"), 0)
@@ -58,8 +58,8 @@ def semantic_review(code: str, deterministic_findings: List[Dict[str, Any]] = No
                 "tests": ["crash before ack vs ack before processing"],
             })
 
-    # 2. Lock scope: has FOR UPDATE or version but not covering the write
-    if "race_condition_read_modify_write" not in ids and _has(code, r"for update|version"):
+    # 2. Lock scope: has FOR UPDATE or version but not covering the write (even if deterministic flagged race, this checks scope)
+    if _has(code, r"for update|version"):
         # Check if SELECT FOR UPDATE and UPDATE are in different blocks/scopes
         # Heuristic: if lock is in a different function than update
         has_select_for_update = bool(re.search(r"select.*for update", code, re.IGNORECASE))
