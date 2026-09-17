@@ -11,6 +11,44 @@
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Failures — Engineering failure invariants for AI-built software</title>
   <meta name="description" content="Engineering constraints for AI-built software. Make your coding agent reason about failure modes.">
+  <link rel="canonical" href="https://failures.pxxl.click/">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Failures",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "description": "Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.",
+    "url": "https://failures.pxxl.click/",
+    "downloadUrl": "https://pypi.org/project/failures-mcp/",
+    "softwareVersion": "0.3.1",
+    "offers": {"@type": "Offer", "price": "0"}
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why do AI coding agents need Failures MCP?",
+        "acceptedAnswer": {"@type": "Answer", "text": "LLMs learn from tutorials that only show the happy path. They charge Stripe before writing to Postgres, retry without idempotency, and read-modify-write without locks. Failures gives agents 11 deterministic invariants, checked via AST, so failures are caught before deploy."}
+      },
+      {
+        "@type": "Question",
+        "name": "Is Failures just another LLM prompt?",
+        "acceptedAnswer": {"@type": "Answer", "text": "No. review_code parses your file to an AST, extracts evidence, and returns Confidence 0.91 [CRITICAL] with line evidence. No tokens, no hallucination."}
+      },
+      {
+        "@type": "Question",
+        "name": "How do I install with Claude Code / Cursor?",
+        "acceptedAnswer": {"@type": "Answer", "text": "Run pipx install failures-mcp, then add failures-mcp as an MCP server in claude_desktop_config.json or Cursor MCP settings."}
+      }
+    ]
+  }
+  </script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

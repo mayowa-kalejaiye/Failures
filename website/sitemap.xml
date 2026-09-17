@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://failures.pxxl.click/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/tools.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/patterns.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/examples.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/atomicity.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/idempotency.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/timeout.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/concurrency.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/retry-safety.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/availability.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/ordering.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/consistency.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/resource-exhaustion.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/recovery.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/principles/observability.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/labs/index.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/labs/payment.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/labs/queue.html</loc><lastmod>2026-09-17</lastmod></url>
+  <url><loc>https://failures.pxxl.click/docs/labs/retry.html</loc><lastmod>2026-09-17</lastmod></url>
+</urlset>

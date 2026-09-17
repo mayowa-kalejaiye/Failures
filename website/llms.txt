@@ -1,0 +1,33 @@
+# Failures
+
+> Deterministic MCP checks that make coding agents handle failure modes. 11 failure dimensions, 50+ cataloged modes, AST-verified with zero tokens and zero hallucination.
+
+Failures is a Model Context Protocol (MCP) server (`pipx install failures-mcp`, then `failures-mcp`). Coding agents write happy-path code because their training data is happy-path tutorials; Failures gives them 11 engineering invariants — atomicity, idempotency, timeout/ambiguous outcome, concurrency, ordering, consistency, availability, resource exhaustion, recovery, observability, retry safety — checked deterministically via AST with line evidence and confidence scores (0.0–1.0).
+
+## Docs
+
+- [Introduction](https://failures.pxxl.click/docs/): What Failures is, why AI-generated code fails, how a deterministic check works.
+- [Tools Reference](https://failures.pxxl.click/docs/tools.html): All 13 MCP tools — review_code, review_plan, check_invariant, check_idempotency, check_retry_safety, check_transaction_safety, generate_failure_cases, generate_failure_tests.
+- [Patterns Catalog](https://failures.pxxl.click/docs/patterns.html): Idempotency keys, transactional outbox, circuit breakers, optimistic locking.
+- [Benchmark & Examples](https://failures.pxxl.click/docs/examples.html): Golden benchmark (naive vs improved), reproducible with `python examples/run_benchmark.py`.
+- [Interactive Labs](https://failures.pxxl.click/docs/labs/): Payment, queue, and retry failure sandboxes.
+
+## Principles
+
+- [Atomicity](https://failures.pxxl.click/docs/principles/atomicity.html): Can an operation partially succeed?
+- [Idempotency](https://failures.pxxl.click/docs/principles/idempotency.html): What happens if the same operation happens twice?
+- [Timeout](https://failures.pxxl.click/docs/principles/timeout.html): Timeout does not equal failure — ambiguous outcomes.
+- [Concurrency](https://failures.pxxl.click/docs/principles/concurrency.html): Two actors, same state.
+- [Retry Safety](https://failures.pxxl.click/docs/principles/retry-safety.html): Is it safe to retry?
+- [Availability](https://failures.pxxl.click/docs/principles/availability.html): What happens when a dependency disappears?
+- [Ordering](https://failures.pxxl.click/docs/principles/ordering.html): Events arriving out of order.
+- [Consistency](https://failures.pxxl.click/docs/principles/consistency.html): Replicas and caches disagreeing.
+- [Resource Exhaustion](https://failures.pxxl.click/docs/principles/resource-exhaustion.html): Capacity exceeded.
+- [Recovery](https://failures.pxxl.click/docs/principles/recovery.html): Returning to a valid state.
+- [Observability](https://failures.pxxl.click/docs/principles/observability.html): Knowing what actually happened.
+
+## Source
+
+- Repository: https://github.com/mayowa-kalejaiye/Failures
+- Spec: https://github.com/mayowa-kalejaiye/Failures/blob/main/FAILURES_SPEC.md
+- PyPI: https://pypi.org/project/failures-mcp/

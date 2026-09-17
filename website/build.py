@@ -1151,6 +1151,44 @@ def build_landing_page():
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Failures — Engineering failure invariants for AI-built software</title>
   <meta name="description" content="Engineering constraints for AI-built software. Make your coding agent reason about failure modes.">
+  <link rel="canonical" href="https://failures.pxxl.click/">
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Failures",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Any",
+    "description": "Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.",
+    "url": "https://failures.pxxl.click/",
+    "downloadUrl": "https://pypi.org/project/failures-mcp/",
+    "softwareVersion": "0.3.1",
+    "offers": {{"@type": "Offer", "price": "0"}}
+  }}
+  </script>
+  <script type="application/ld+json">
+  {{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {{
+        "@type": "Question",
+        "name": "Why do AI coding agents need Failures MCP?",
+        "acceptedAnswer": {{"@type": "Answer", "text": "LLMs learn from tutorials that only show the happy path. They charge Stripe before writing to Postgres, retry without idempotency, and read-modify-write without locks. Failures gives agents 11 deterministic invariants, checked via AST, so failures are caught before deploy."}}
+      }},
+      {{
+        "@type": "Question",
+        "name": "Is Failures just another LLM prompt?",
+        "acceptedAnswer": {{"@type": "Answer", "text": "No. review_code parses your file to an AST, extracts evidence, and returns Confidence 0.91 [CRITICAL] with line evidence. No tokens, no hallucination."}}
+      }},
+      {{
+        "@type": "Question",
+        "name": "How do I install with Claude Code / Cursor?",
+        "acceptedAnswer": {{"@type": "Answer", "text": "Run pipx install failures-mcp, then add failures-mcp as an MCP server in claude_desktop_config.json or Cursor MCP settings."}}
+      }}
+    ]
+  }}
+  </script>
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1896,6 +1934,8 @@ def build_docs_pages():
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Introduction | Failures Docs</title>
+  <meta name="description" content="What Failures is: deterministic MCP checks that make coding agents handle failure modes. 11 invariants, AST-verified, zero tokens.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2095,6 +2135,8 @@ def build_docs_pages():
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>{p['name']} Principle | Failures Docs</title>
+  <meta name="description" content="{p['name']} principle — {p['question']} Deterministic invariant, patterns, and code comparisons.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/principles/{p['id']}.html">
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2329,6 +2371,8 @@ def build_docs_pages():
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Tools Reference | Failures Docs</title>
+  <meta name="description" content="All 13 Failures MCP tools: review_code, review_plan, check_invariant — deterministic failure checks for coding agents.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/tools.html">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2475,6 +2519,8 @@ def build_docs_pages():
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Patterns Catalog | Failures Docs</title>
+  <meta name="description" content="Engineering patterns: idempotency keys, transactional outbox, circuit breakers, optimistic locking.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/patterns.html">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2609,6 +2655,8 @@ def build_docs_pages():
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Benchmark &amp; Examples | Failures Docs</title>
+  <meta name="description" content="Golden benchmark: naive vs improved implementations scored by deterministic checks. Reproduce with python examples/run_benchmark.py.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/examples.html">
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2772,6 +2820,8 @@ async def pay(p: Payment, key: str = Header(...)):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>{title} | Failures Docs</title>
+  <meta name="description" content="{title} — interactive Failures lab. Trigger the failure, watch the invariant hold.">
+  <link rel="canonical" href="https://failures.pxxl.click/docs/labs/{lab_id.replace("lab-", "")}.html">
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2979,10 +3029,27 @@ await sleep(delay); // jitter scatters herd</code></pre>
         page = render_labs_page(lab["sidebar"], lab["title"], lab["lead"], lab["toc"], lab["body"])
         (LABS_DIR / f"{lab['id']}.html").write_text(page, encoding="utf-8")
 
+def build_sitemap():
+    import datetime
+    base = "https://failures.pxxl.click"
+    paths = ["", "/docs/", "/docs/tools.html", "/docs/patterns.html", "/docs/examples.html"]
+    paths += [f"/docs/principles/{p['id']}.html" for p in PRINCIPLES]
+    paths += sorted(f"/docs/labs/{p.stem}.html" for p in LABS_DIR.glob("*.html"))
+    today = datetime.date.today().isoformat()
+    urls = "\n".join(
+        f"  <url><loc>{base}{path if path else '/'}</loc><lastmod>{today}</lastmod></url>"
+        for path in paths
+    )
+    (BASE_DIR / "sitemap.xml").write_text(
+        f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}\n</urlset>\n',
+        encoding="utf-8",
+    )
+
 def main():
     print("Compiling exact Better Auth replica with authentic Failures logo and 01-09 Features section...")
     build_landing_page()
     build_docs_pages()
+    build_sitemap()
     print("Done! All 20 pages compiled.")
 
 if __name__ == "__main__":
