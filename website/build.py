@@ -1151,6 +1151,7 @@ def build_landing_page():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -1889,6 +1890,7 @@ def build_docs_pages():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -2081,6 +2083,7 @@ def build_docs_pages():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -2308,6 +2311,7 @@ def build_docs_pages():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -2447,6 +2451,7 @@ def build_docs_pages():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -2574,6 +2579,7 @@ def build_docs_pages():
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
@@ -2730,6 +2736,7 @@ async def pay(p: Payment, key: str = Header(...)):
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../../css/styles.css">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script async src="https://www.sabilytics.com/script.js" data-site="6quxsajftis9" data-domain="failures.pxxl.click"></script>
   <style>
     /* Critical nav overrides must load after Tailwind CDN utilities */
     #mobile-nav-drawer {{
