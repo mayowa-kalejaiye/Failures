@@ -1143,6 +1143,12 @@ def build_landing_page():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Failures — Engineering failure invariants for AI-built software</title>
   <meta name="description" content="Engineering constraints for AI-built software. Make your coding agent reason about failure modes.">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
@@ -1883,6 +1889,12 @@ def build_docs_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Introduction | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2076,6 +2088,12 @@ def build_docs_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>{p['name']} Principle | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2304,6 +2322,12 @@ def build_docs_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Tools Reference | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2444,6 +2468,12 @@ def build_docs_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Patterns Catalog | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2572,6 +2602,12 @@ def build_docs_pages():
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>Benchmark &amp; Examples | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2729,6 +2765,12 @@ async def pay(p: Payment, key: str = Header(...)):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Failures — Engineering failure invariants for AI-built software">
+  <meta property="og:description" content="Deterministic MCP checks that make coding agents handle failure modes. 11 dimensions, zero tokens, zero hallucination.">
+  <meta property="og:image" content="https://failures.pxxl.click/og-image.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://failures.pxxl.click/og-image.png">
   <title>{title} | Failures Docs</title>
   <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
