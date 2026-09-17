@@ -1277,7 +1277,7 @@ def build_landing_page():
             </div>
           </div>
           </div>
-          <div class="relative z-[3] w-full py-12 lg:py-0 flex flex-col justify-center h-full pointer-events-none">
+          <div class="relative z-[3] w-full py-6 lg:py-0 flex flex-col justify-center h-full pointer-events-none">
             <div>
               <a class="relative inline-flex items-center gap-1.5 px-2.5 py-1 pointer-events-auto group/badge rounded-full bg-neutral-200/80 dark:bg-neutral-800/80 hover:bg-neutral-200/70 dark:hover:bg-neutral-700/50 transition-colors" href="docs/index.html">
                 <svg width="14" height="14" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="shrink-0">
