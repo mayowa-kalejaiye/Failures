@@ -310,6 +310,14 @@
             Engineering invariants that live <strong>inside your coding agent</strong>. 11 failure dimensions, 50+ cataloged modes, AST-verified with zero tokens — deterministic checks, not prompts.
           </p>
 
+          <nav class="ba-story-nav" aria-label="Homepage sections">
+            <span class="ba-story-nav-label">Explore</span>
+            <a href="#framework">01 <span>Framework</span></a>
+            <a href="#proof">02 <span>Proof</span></a>
+            <a href="#infrastructure">03 <span>Infrastructure</span></a>
+            <a href="#benchmark">04 <span>Benchmark</span></a>
+          </nav>
+
           <!-- Multi-tab Command Box (CLI / Prompt / MCP / Skills) -->
           <div class="ba-cmd-box">
             <div class="ba-cmd-tabs">
@@ -644,7 +652,7 @@
 </div>
 
           <!-- 1. FRAMEWORK SECTION (Interactive Code & Invariant Proofs) -->
-          <div class="flex items-center gap-4 my-8">
+          <div id="framework" class="flex items-center gap-4 my-8">
             <span class="text-lg font-medium text-foreground/90 dark:text-foreground/80 tracking-tight shrink-0">Framework</span>
             <div class="flex-1 border-t border-foreground/10"></div>
           </div>
@@ -838,7 +846,7 @@ async def handle_sub(e: Event):
           </div>
 
           <!-- 1.5 KNOWLEDGE GRAPH — Principles → Failure Modes → Patterns → Tests -->
-          <div class="flex items-center gap-4 my-8">
+          <div id="proof" class="flex items-center gap-4 my-8">
             <span class="text-lg font-medium text-foreground/90 dark:text-foreground/80 tracking-tight shrink-0">Knowledge Graph</span>
             <div class="flex-1 border-t border-foreground/10"></div>
             <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono text-foreground/40"><span class="size-1.5 rounded-full bg-emerald-500"></span> 50+ failure modes → 11 invariants</span>
@@ -882,7 +890,7 @@ async def handle_sub(e: Event):
           </div>
 
           <!-- 2. INFRASTRUCTURE SECTION (Authentic Dashed Cards & Radial Gradients) -->
-          <div class="flex items-center gap-4 my-8">
+          <div id="infrastructure" class="flex items-center gap-4 my-8">
             <span class="text-lg font-medium text-foreground/90 dark:text-foreground/80 tracking-tight shrink-0">Infrastructure</span>
             <div class="flex-1 border-t border-foreground/10"></div>
           </div>
@@ -890,7 +898,7 @@ async def handle_sub(e: Event):
             Connect to Failures MCP and power your autonomous development workflows with deterministic AST verification, chaos simulations, and benchmark metrics.
           </p>
 
-          <div class="relative z-10 grid grid-cols-3 gap-px bg-foreground/[0.08] border border-dashed border-foreground/[0.08] overflow-x-auto mt-4 mb-8">
+          <div class="ba-infrastructure-grid relative z-10 grid gap-px bg-foreground/[0.08] border border-dashed border-foreground/[0.08] mt-4 mb-8">
             <!-- Card 1 -->
             <div class="relative overflow-hidden p-4 bg-background min-w-0">
               <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image:radial-gradient(circle, currentColor 1px, transparent 1px);background-size:8px 8px;"></div>
@@ -938,7 +946,7 @@ async def handle_sub(e: Event):
           </div>
 
           <!-- 3. BENCHMARK — Better Auth Dashed + Trend (real project data) -->
-          <div class="flex items-center gap-4 my-8">
+          <div id="benchmark" class="flex items-center gap-4 my-8">
             <span class="text-lg font-medium text-foreground/90 dark:text-foreground/80 tracking-tight shrink-0">Benchmark</span>
             <div class="flex-1 border-t border-foreground/10"></div>
             <span class="hidden sm:inline-flex items-center gap-1.5 text-[10px] font-mono px-2 py-1 border border-emerald-500/15 bg-emerald-500/5 text-emerald-400"><span class="size-1.5 rounded-full bg-emerald-400 animate-pulse"></span> 100% deterministic</span>

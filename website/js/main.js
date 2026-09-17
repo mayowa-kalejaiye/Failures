@@ -257,6 +257,37 @@ document.addEventListener('DOMContentLoaded', () => {
   applyDocsHighlighting();
   applyDocsHugeIcons();
 
+  // Landing page: reveal the right-column product story as it enters view.
+  if (document.body.classList.contains('ba-landing') && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const landingRight = document.querySelector('#hero .ba-sticky-left + div');
+    const storyItems = landingRight ? Array.from(landingRight.querySelectorAll(
+      ':scope > .ba-cmd-box, ' +
+      ':scope > .ba-trusted-label, ' +
+      ':scope > .ba-marquee-wrap, ' +
+      ':scope > [id="framework"], ' +
+      ':scope > [id="proof"], ' +
+      ':scope > [id="infrastructure"], ' +
+      ':scope > [id="benchmark"]'
+    )) : [];
+
+    const revealObserver = 'IntersectionObserver' in window
+      ? new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            revealObserver.unobserve(entry.target);
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 })
+      : null;
+
+    storyItems.forEach((item, index) => {
+      item.classList.add('ba-reveal');
+      item.style.transitionDelay = `${Math.min(index * 45, 180)}ms`;
+      if (revealObserver) revealObserver.observe(item);
+      else item.classList.add('is-visible');
+    });
+  }
+
   // FAQ Accordion
   document.querySelectorAll('.ba-faq-trigger').forEach(trigger => {
     trigger.addEventListener('click', () => {
