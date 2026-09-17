@@ -106,19 +106,20 @@ html {
 
 html {
   overflow-x: clip;
+  overflow-y: visible;
 }
 
 body {
   min-height: 100vh;
   background-color: var(--background);
   color: var(--foreground);
-  overflow-x: hidden;
   overflow-x: clip;
+  overflow-y: visible;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
 }
 
 #hero {
-  overflow-x: clip;
+  overflow: visible !important;
 }
 
 a {
@@ -137,12 +138,13 @@ button {
 /* ============================================================
    TOPBAR NAVIGATION (Exact 45px Better Auth Header)
    ============================================================ */
+header,
 .ba-topbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 45px;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 45px !important;
   background: var(--background);
   border-bottom: 1px solid var(--foreground-08);
   z-index: 50;
@@ -150,6 +152,23 @@ button {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
+}
+
+/* On landing page: Left 40% section has NO bottom border; only right 60% tabs have bottom border */
+.ba-landing header {
+  border-bottom: none !important;
+}
+
+@media (min-width: 1024px) {
+  .ba-landing header .ba-desktop-tabs {
+    border-bottom: 1px solid var(--foreground-08) !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .ba-landing header > div:first-child {
+    border-bottom: 1px solid var(--foreground-08) !important;
+  }
 }
 
 .ba-topbar-brand {
@@ -1092,21 +1111,26 @@ html.dark .ba-hero-title-backdrop {
    ============================================================ */
 .ba-docs-layout {
   display: flex;
-  margin-top: 45px;
+  margin-top: 45px !important;
+  padding-top: 0 !important;
   min-height: calc(100vh - 45px);
   max-width: 1480px;
   margin-left: auto;
   margin-right: auto;
-  padding: 0 12px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 0;
+  overflow: visible !important;
 }
 
 /* Left Sidebar (240px) */
 .ba-docs-sidebar {
   width: 240px;
-  position: sticky;
-  top: 45px;
-  height: calc(100vh - 45px);
-  overflow-y: auto;
+  position: sticky !important;
+  top: 45px !important;
+  height: calc(100vh - 45px) !important;
+  height: calc(100dvh - 45px) !important;
+  overflow-y: auto !important;
   padding: 20px 14px;
   border-right: 1px solid var(--foreground-08);
   background: linear-gradient(180deg, var(--foreground-02), transparent 40%);
@@ -1210,10 +1234,11 @@ html.dark .ba-hero-title-backdrop {
 /* Right TOC (268px) */
 .ba-docs-toc {
   width: 268px;
-  position: sticky;
-  top: 45px;
-  height: calc(100vh - 45px);
-  overflow-y: auto;
+  position: sticky !important;
+  top: 45px !important;
+  height: calc(100vh - 45px) !important;
+  height: calc(100dvh - 45px) !important;
+  overflow-y: auto !important;
   padding: 24px 18px;
   border-left: 1px solid var(--foreground-08);
   background: linear-gradient(180deg, var(--foreground-02), transparent 40%);
@@ -1863,11 +1888,16 @@ html,
 body {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
 }
 
 #hero,
-.ba-docs-layout,
+.ba-docs-layout {
+  max-width: 100%;
+  overflow: visible !important;
+}
+
 .ba-docs-content {
   max-width: 100%;
   overflow-x: clip;

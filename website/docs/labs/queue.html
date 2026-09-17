@@ -53,6 +53,34 @@
         display: flex !important;
       }
     }
+  
+    header {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 45px !important;
+      z-index: 50 !important;
+    }
+    .ba-docs-layout {
+      margin-top: 45px !important;
+      padding-top: 0 !important;
+      overflow: visible !important;
+    }
+    .ba-docs-sidebar {
+      position: sticky !important;
+      top: 45px !important;
+      height: calc(100vh - 45px) !important;
+      height: calc(100dvh - 45px) !important;
+      overflow-y: auto !important;
+    }
+    .ba-docs-toc {
+      position: sticky !important;
+      top: 45px !important;
+      height: calc(100vh - 45px) !important;
+      height: calc(100dvh - 45px) !important;
+      overflow-y: auto !important;
+    }
   </style>
   <script>
     tailwind.config = {
@@ -146,7 +174,7 @@
   </a>
 </div>
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     <aside class="ba-docs-sidebar">
   <div class="ba-sidebar-group">
     <div class="ba-sidebar-label">Getting Started</div>

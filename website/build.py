@@ -1242,6 +1242,19 @@ def build_landing_page():
       padding-top: 32px;
       scroll-margin-top: 80px;
     }}
+    .ba-landing header {{
+      border-bottom: none !important;
+    }}
+    @media (min-width: 1024px) {{
+      .ba-landing header .ba-desktop-tabs {{
+        border-bottom: 1px solid var(--foreground-08) !important;
+      }}
+    }}
+    @media (max-width: 1023px) {{
+      .ba-landing header > div:first-child {{
+        border-bottom: 1px solid var(--foreground-08) !important;
+      }}
+    }}
   </style>
   <script>
     tailwind.config = {{
@@ -2018,7 +2031,7 @@ def build_docs_pages():
 <body>
   {render_topbar(active_tab="docs", depth=1)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar("intro", depth=1)}
 
     <main class="ba-docs-content ba-prose">
@@ -2219,7 +2232,7 @@ def build_docs_pages():
 <body>
   {render_topbar(active_tab="docs", depth=2)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar(p['id'], depth=2)}
 
     <main class="ba-docs-content ba-prose">
@@ -2455,7 +2468,7 @@ def build_docs_pages():
 <body>
   {render_topbar(active_tab="tools", depth=1)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar("tools", depth=1)}
 
     <main class="ba-docs-content ba-prose">
@@ -2603,7 +2616,7 @@ def build_docs_pages():
 <body>
   {render_topbar(active_tab="patterns", depth=1)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar("patterns", depth=1)}
 
     <main class="ba-docs-content ba-prose">
@@ -2739,7 +2752,7 @@ def build_docs_pages():
 <body>
   {render_topbar(active_tab="examples", depth=1)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar("examples", depth=1)}
 
     <main class="ba-docs-content ba-prose">
@@ -2892,7 +2905,7 @@ async def pay(p: Payment, key: str = Header(...)):
 <body>
   {render_topbar(active_tab="docs", depth=2)}
 
-  <div class="ba-docs-layout" style="padding-top:45px;">
+  <div class="ba-docs-layout">
     {make_sidebar(lab_id, depth=2)}
 
     <main class="ba-docs-content ba-prose">

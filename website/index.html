@@ -102,6 +102,39 @@
       padding-top: 32px;
       scroll-margin-top: 80px;
     }
+    header {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      height: 45px !important;
+      z-index: 50 !important;
+    }
+    .ba-landing header {
+      border-bottom: none !important;
+    }
+    @media (min-width: 1024px) {
+      .ba-landing header .ba-desktop-tabs {
+        border-bottom: 1px solid var(--foreground-08) !important;
+      }
+    }
+    @media (max-width: 1023px) {
+      .ba-landing header > div:first-child {
+        border-bottom: 1px solid var(--foreground-08) !important;
+      }
+    }
+    #hero {
+      overflow: visible !important;
+    }
+    @media (min-width: 1024px) {
+      .ba-sticky-left {
+        position: sticky !important;
+        top: 45px !important;
+        height: calc(100vh - 45px) !important;
+        height: calc(100dvh - 45px) !important;
+        z-index: 20 !important;
+      }
+    }
   </style>
   <script>
     tailwind.config = {
