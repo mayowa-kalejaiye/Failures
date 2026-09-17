@@ -1309,8 +1309,8 @@ def build_landing_page():
               <g font-family="Geist Mono, monospace" font-size="5.8"><rect x="264" y="118" rx="3" width="58" height="14" fill="#10b981" opacity="0.12" stroke="#10b981" stroke-opacity="0.18"/><text x="293" y="127.5" text-anchor="middle" fill="#059669" opacity="0.9">invariant ✓</text></g>
             </svg>
           </div>
-          <div class="ba-hero-x flex justify-center h-full absolute items-center left-[26%] lg:left-[30%] w-full max-w-[400px] lg:max-w-[360px] pointer-events-auto select-none animate-logo-reveal z-[2] opacity-100">
-                      <div class="group relative max-w-[360px] w-full flex justify-center opacity-100 -mt-[38%] lg:-mt-[58%]">
+          <div class="ba-hero-x flex justify-center h-full absolute items-center left-[26%] lg:left-[30%] w-full max-w-[400px] lg:max-w-[360px] max-lg:relative max-lg:left-auto max-lg:h-auto max-lg:w-full max-lg:max-w-none pointer-events-auto select-none animate-logo-reveal z-[2] opacity-100">
+                      <div class="group relative max-w-[360px] w-full flex justify-center opacity-100 -mt-[38%] lg:-mt-[58%] max-lg:mt-0">
             <div class="relative size-[160px] lg:size-[200px] rounded-full bg-[#ef4444]/[0.08] border border-[#ef4444]/[0.12] flex items-center justify-center backdrop-blur-[0.5px] transition-transform duration-300 ease-out group-hover:scale-[1.03] group-hover:rotate-1">
               <div class="size-[104px] lg:size-[128px] rounded-full bg-[#ef4444] flex items-center justify-center shadow-[0_8px_24px_rgba(239,68,68,0.22)]">
                 <svg width="52" height="52" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
