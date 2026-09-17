@@ -104,12 +104,21 @@ html {
   scroll-behavior: smooth;
 }
 
+html {
+  overflow-x: clip;
+}
+
 body {
   min-height: 100vh;
   background-color: var(--background);
   color: var(--foreground);
   overflow-x: hidden;
+  overflow-x: clip;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+#hero {
+  overflow-x: clip;
 }
 
 a {
@@ -782,6 +791,13 @@ html.dark .ba-hero-title-backdrop {
 
 .ba-cmd-snippet.active {
   display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.ba-cmd-snippet span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 /* Marquee Ticker */
@@ -1179,6 +1195,7 @@ html.dark .ba-hero-title-backdrop {
 /* Center Content (max-w-[900px]) */
 .ba-docs-content {
   flex: 1;
+  min-width: 0;
   max-width: 920px;
   padding: 28px 40px 88px 40px;
   margin: 0 8px;
@@ -1295,6 +1312,8 @@ html.dark .ba-hero-title-backdrop {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-bottom: 16px;
 }
 
