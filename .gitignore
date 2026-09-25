@@ -68,3 +68,9 @@ scratch/
 # Release artifacts (published to Zenodo, not tracked in git)
 *.zip
 !evaluation/runs/**/*.zip
+
+# LaTeX build intermediates
+docs/paper/*.aux
+docs/paper/*.log
+docs/paper/*.out
+docs/paper/*.toc

@@ -1,4 +1,249 @@
-\documentclass[conference]{IEEEtran}
+"""Emit a self-contained IEEEtran LaTeX version of the Failures paper.
+
+Prose is kept in sync with tools/build_paper_pdf.py; every table is generated
+from the same evaluation artifacts, so neither renderer can drift from the data.
+"""
+import json
+import pathlib
+import sys
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+OUT = ROOT / "docs" / "paper" / "main.tex"
+
+sys.path.insert(0, str(ROOT / "mcp_server"))
+sys.path.insert(0, str(ROOT / "evaluation"))
+import run_evaluation as R  # noqa: E402
+
+AGENTS = ["claude", "cursor", "codex"]
+SCEN = ["payment", "queue", "authentication", "file-upload", "inventory", "webhook"]
+
+PROXY = json.loads((ROOT / "evaluation" / "results.json").read_text(encoding="utf-8"))
+ADV = json.loads((ROOT / "evaluation" / "adversarial_results.json").read_text(encoding="utf-8"))
+PRINCIPLES = json.loads((ROOT / "mcp_server" / "knowledge" / "principles.json").read_text(encoding="utf-8"))
+RULES = json.loads((ROOT / "mcp_server" / "knowledge" / "rules.json").read_text(encoding="utf-8"))
+
+
+def boolv(x):
+    return "yes" if x else "no"
+
+
+# ---------------------------------------------------------------- agent study
+def collect():
+    rows = []
+    for ag in AGENTS:
+        for sc in SCEN:
+            b = R.load_code(sc, "manual", "baseline", ag)
+            f = R.load_code(sc, "manual", "failures-enabled", ag)
+            if not b or not f:
+                continue
+            eb, ef = R.evaluate_code(b, sc), R.evaluate_code(f, sc)
+            crit_names = ["critical", "high"]
+            imp = reg = 0
+            for n in crit_names:
+                if ef[n] < eb[n]:
+                    imp += 1
+                if ef[n] > eb[n]:
+                    reg += 1
+            for n, k in [("idempotency", "idempotency_pass"), ("transaction", "transaction_safe"),
+                         ("retry", "retry_safe"), ("concurrency", "concurrency_safe"),
+                         ("recovery", "recovery_safe"), ("observability", "observability_ok")]:
+                if ef[k] and not eb[k]:
+                    imp += 1
+                if eb[k] and not ef[k]:
+                    reg += 1
+            if ef["architectural_quality"]["score"] > eb["architectural_quality"]["score"]:
+                imp += 1
+            if ef["architectural_quality"]["score"] < eb["architectural_quality"]["score"]:
+                reg += 1
+            rows.append(dict(agent=ag, scenario=sc, eb=eb, ef=ef, imp=imp, reg=reg,
+                             bl=len(b.splitlines()), fl=len(f.splitlines())))
+    return rows
+
+
+AG = collect()
+N = len(AG)
+N_IMP = sum(1 for r in AG if r["imp"] >= 1)
+N_REG = sum(1 for r in AG if r["reg"] >= 1)
+HIGH_FELL = sum(1 for r in AG if r["ef"]["high"] < r["eb"]["high"])
+CRIT_FELL = sum(1 for r in AG if r["ef"]["critical"] < r["eb"]["critical"])
+CRIT_SAME = sum(1 for r in AG if r["ef"]["critical"] == r["eb"]["critical"])
+CRIT_UP = sum(1 for r in AG if r["ef"]["critical"] > r["eb"]["critical"])
+HIGH_UP = sum(1 for r in AG if r["ef"]["high"] > r["eb"]["high"])
+OBS_UP = sum(1 for r in AG if r["ef"]["observability_ok"] and not r["eb"]["observability_ok"])
+GROW = sum(1 for r in AG if r["fl"] > r["bl"])
+TB = sum(r["bl"] for r in AG)
+TF = sum(r["fl"] for r in AG)
+PCT = (TF - TB) / TB * 100
+import statistics  # noqa: E402
+MED = statistics.median([(r["fl"] - r["bl"]) / r["bl"] * 100 for r in AG])
+
+
+def per_agent(ag):
+    rs = [r for r in AG if r["agent"] == ag]
+    return len(rs), sum(1 for r in rs if r["imp"] >= 1)
+
+
+# ------------------------------------------------------------------ fragments
+def t_dimensions():
+    rows = ["\\toprule",
+            "Dimension & Question the builder must answer & Max. sev.\\\\",
+            "\\midrule"]
+    for p in PRINCIPLES:
+        q = p["question"].replace("_", "\\_")
+        rows.append(f"{p['name']} & \\emph{{{q}}} & {p['severity']} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_tools():
+    data = [
+        ("get\\_principles", "returns principles, dimensions, and their failure modes"),
+        ("review\\_architecture", "findings from a system description, components, flows, dependencies"),
+        ("analyze\\_component", "findings for a single component type and its dependencies"),
+        ("review\\_plan", "findings on plan steps, plus suggested reordering"),
+        ("check\\_invariant", "whether an invariant is violatable, with a counter-scenario"),
+        ("generate\\_failure\\_cases", "concrete failure cases for a system, optionally focused"),
+        ("review\\_code", "findings with line evidence and confidence (labelled STATIC FAILURE CHECK)"),
+        ("generate\\_failure\\_tests", "the tests that would catch each failure mode"),
+        ("check\\_idempotency", "idempotency decision, checks performed, required controls"),
+        ("check\\_retry\\_safety", "whether a retry is safe, and under which conditions"),
+        ("check\\_transaction\\_safety", "transaction boundary adequacy for a sequence of steps"),
+        ("list\\_failures", "rule catalog and failure documentation"),
+    ]
+    rows = ["\\toprule", "Tool & What the agent gets\\\\", "\\midrule"]
+    for t, d in data:
+        rows.append(f"\\texttt{{{t}}} & {d} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_rules():
+    rows = ["\\toprule", "Rule & Dim. & Sev. & Required control / detection\\\\", "\\midrule"]
+    for r in RULES:
+        req = "; ".join(r.get("required", [])) or r.get("detects", "")
+        req = req[:88].replace("_", "\\_")
+        rows.append(f"\\texttt{{{r['id'].replace('_', chr(92) + '_')}}} & "
+                    f"{r['dimension'].replace('_', chr(92) + '_')} & "
+                    f"{r['severity']} & {req} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_proxy():
+    rows = ["\\toprule",
+            "Scenario & Crit & High & Idemp & Tx & Conc & Recov & V.I. & Arch\\\\",
+            "\\midrule"]
+    for k in SCEN:
+        v = PROXY[k]
+        b, f = v["baseline"]["code_metrics"], v["failures_enabled"]["code_metrics"]
+        iv = v["baseline"]["invariant"]["violatable"]
+        fv = v["failures_enabled"]["invariant"]["violatable"]
+        rows.append(
+            f"{k} & {b['critical']}$\\to$\\textbf{{{f['critical']}}} & "
+            f"{b['high']}$\\to$\\textbf{{{f['high']}}} & "
+            f"{boolv(b['idempotency_pass'])[0]}$\\to$\\textbf{{{boolv(f['idempotency_pass'])[0]}}} & "
+            f"{boolv(b['transaction_safe'])[0]}$\\to$\\textbf{{{boolv(f['transaction_safe'])[0]}}} & "
+            f"{boolv(b['concurrency_safe'])[0]}$\\to$\\textbf{{{boolv(f['concurrency_safe'])[0]}}} & "
+            f"{boolv(b['recovery_safe'])[0]}$\\to$\\textbf{{{boolv(f['recovery_safe'])[0]}}} & "
+            f"{iv}$\\to$\\textbf{{{fv}}} & "
+            f"{b['architectural_quality']['score']:.1f}$\\to$\\textbf{{{f['architectural_quality']['score']:.1f}}} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_agents():
+    rows = ["\\toprule",
+            "Agent & Scenario & Crit & High & Lines & Impr. & Regr. & Verdict\\\\",
+            "\\midrule"]
+    for r in AG:
+        v = "improved" if (r["imp"] >= 1 and r["reg"] == 0) else (
+            "improved, one regression" if r["imp"] >= 1 else "no change")
+        rows.append(
+            f"{r['agent']} & {r['scenario']} & "
+            f"{r['eb']['critical']}$\\to$\\textbf{{{r['ef']['critical']}}} & "
+            f"{r['eb']['high']}$\\to$\\textbf{{{r['ef']['high']}}} & "
+            f"{r['bl']}$\\to${r['fl']} & {r['imp']} & {r['reg']} & {v} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_adv():
+    rows = ["\\toprule", "Adversarial case & Crit & Findings raised\\\\", "\\midrule"]
+    for k, v in ADV.items():
+        ids = ", ".join(x.replace("_", "\\_") for x in v["ids"][:3])
+        if len(v["ids"]) > 3:
+            ids += r" \ldots"
+        rows.append(f"{k.replace('-', ' ')} & {v['critical']} & \\tiny {ids} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_scen():
+    data = [
+        ("payment", "Course payment via Paystack; auto-enroll after payment",
+         "No enrollment without verified payment; no double charge"),
+        ("queue", "Certificate generation on course completion",
+         "Certificate sent at most once; poison message must not stall"),
+        ("authentication", "Login and JWT refresh under load",
+         "No lost update on refresh; brute force throttled"),
+        ("file-upload", "500 MB uploads to object storage",
+         "Bytes and metadata stay consistent; no duplicate files"),
+        ("inventory", "Limited seats, concurrent enrollment",
+         "Seats never negative; no lost update under concurrency"),
+        ("webhook", "Paystack webhook ingestion with resends",
+         "Exactly-once effect per logical event; ordering safe"),
+    ]
+    rows = ["\\toprule", "Scenario & Prompt (abridged) & Invariants preserved\\\\", "\\midrule"]
+    for a, b, c in data:
+        rows.append(f"{a} & {b} & {c} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_crit():
+    data = [
+        ("failure\\_coverage", "CRITICAL/HIGH findings on the final code", "lower is better"),
+        ("invariant\\_preservation", "invariants with a viable counter-scenario", "lower is better"),
+        ("idempotency", "idempotency key present, persisted before the call", "pass/fail"),
+        ("transaction\\_safety", "writes and state transitions atomic", "pass/fail"),
+        ("retry\\_safety", "retry cannot duplicate a side effect", "pass/fail"),
+        ("concurrency\\_safety", "no read-modify-write race", "pass/fail"),
+        ("recovery\\_behavior", "ack after durable processing, poison handling", "pass/fail"),
+        ("observability", "operation ids, structured logging", "pass/fail"),
+        ("test\\_coverage", "failure tests generated for the scenario", "count"),
+        ("architectural\\_change\\_quality", "is the resilience proportional to the failure boundary?", "0.5--1.0"),
+    ]
+    rows = ["\\toprule", "Criterion & What is measured & Direction\\\\", "\\midrule"]
+    for a, b, c in data:
+        rows.append(f"{a} & {b} & {c} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+def t_art():
+    data = [
+        ("FAILURES\\_SPEC.md", "the model contract; the specification wins over the implementation"),
+        ("mcp\\_server/knowledge/", "principles, rules, dimensions (data, versioned)"),
+        ("mcp\\_server/engine/", "deterministic analyzers: code review, plan, invariants, tests"),
+        ("mcp\\_server/server.py", "the MCP surface, 13 tools"),
+        ("evaluation/scenarios/", "the six prompts, hashed into every manifest"),
+        ("evaluation/adversarial/", "the six looks-safe cases of Table~\\ref{tab:advdesc}"),
+        ("evaluation/runs/\\{agent\\}/\\{mode\\}/", "raw agent outputs plus manifest (model, hash, commit)"),
+        ("evaluation/results*.json", "machine-readable results; the source of Tables~\\ref{tab:proxy}--\\ref{tab:adv}"),
+    ]
+    rows = ["\\toprule", "Path & Contents\\\\", "\\midrule"]
+    for a, b in data:
+        rows.append(f"\\texttt{{{a}}} & {b} \\\\")
+    rows.append("\\bottomrule")
+    return "\n".join(rows)
+
+
+# ----------------------------------------------------------------------- build
+c_claude, i_claude = per_agent("claude")
+c_cursor, i_cursor = per_agent("cursor")
+c_codex, i_codex = per_agent("codex")
+
+tex = r"""\documentclass[conference]{IEEEtran}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{booktabs,amsmath,amssymb,graphicx,multirow,url,listings}
@@ -35,8 +280,8 @@ study over six realistic scenarios (payment via Paystack, certificate queue, JWT
 500~MB file upload, limited-seat inventory, webhook ingestion) improves at least one of ten resilience
 criteria in 6/6 cases, taking payment and webhook from three CRITICAL findings to zero. A blind agent
 study over the same six prompts, run with three commercial agents (Claude, Cursor, Codex) with and
-without the server connected, produces 17 matched output pairs; 16 of 17 improve on at least one
-criterion and 5 regress on any, with no agent trading correctness for infrastructure. A six-case
+without the server connected, produces @N@ matched output pairs; @NIMP@ of @N@ improve on at least one
+criterion and @NREG@ regress on any, with no agent trading correctness for infrastructure. A six-case
 adversarial set probes the engine itself, exposing precisely where regex heuristics stop and where AST
 analysis must take over. Everything---prompts, hashes, manifests, commits, raw outputs---is frozen and
 reproducible from two commands.
@@ -243,21 +488,7 @@ question, not a rule: the rule encodes when the question has been answered badly
 \toprule
 Dimension & Question the builder must answer & Max. sev.\\
 \midrule
-\toprule
-Dimension & Question the builder must answer & Max. sev.\\
-\midrule
-Atomicity & \emph{Can an operation partially succeed?} & CRITICAL \\
-Idempotency & \emph{What happens if the same operation happens twice?} & CRITICAL \\
-Timeout / Ambiguous Outcome & \emph{Timeout does not equal failure. Did it succeed?} & CRITICAL \\
-Concurrency & \emph{What if two actors modify the same state?} & HIGH \\
-Retry Safety & \emph{Is it safe to retry? What retries are allowed?} & HIGH \\
-Availability & \emph{What happens when a dependency disappears?} & HIGH \\
-Ordering & \emph{What if events arrive out of order?} & HIGH \\
-Consistency & \emph{What happens when replicas/caches disagree?} & MEDIUM \\
-Resource Exhaustion & \emph{What happens when capacity is exceeded?} & HIGH \\
-Recovery & \emph{How does system return to valid state?} & MEDIUM \\
-Observability & \emph{How do we know what actually happened?} & MEDIUM \\
-\bottomrule
+@DIMENSIONS@
 \bottomrule
 \end{tabular}
 }
@@ -389,22 +620,7 @@ symptoms.}
 \toprule
 Tool & What the agent gets\\
 \midrule
-\toprule
-Tool & What the agent gets\\
-\midrule
-\texttt{get\_principles} & returns principles, dimensions, and their failure modes \\
-\texttt{review\_architecture} & findings from a system description, components, flows, dependencies \\
-\texttt{analyze\_component} & findings for a single component type and its dependencies \\
-\texttt{review\_plan} & findings on plan steps, plus suggested reordering \\
-\texttt{check\_invariant} & whether an invariant is violatable, with a counter-scenario \\
-\texttt{generate\_failure\_cases} & concrete failure cases for a system, optionally focused \\
-\texttt{review\_code} & findings with line evidence and confidence (labelled STATIC FAILURE CHECK) \\
-\texttt{generate\_failure\_tests} & the tests that would catch each failure mode \\
-\texttt{check\_idempotency} & idempotency decision, checks performed, required controls \\
-\texttt{check\_retry\_safety} & whether a retry is safe, and under which conditions \\
-\texttt{check\_transaction\_safety} & transaction boundary adequacy for a sequence of steps \\
-\texttt{list\_failures} & rule catalog and failure documentation \\
-\bottomrule
+@TOOLS@
 \bottomrule
 \end{tabular}
 }
@@ -425,20 +641,7 @@ count.}
 \toprule
 Rule & Dim. & Sev. & Required control / detection\\
 \midrule
-\toprule
-Rule & Dim. & Sev. & Required control / detection\\
-\midrule
-\texttt{external\_call\_without\_idempotency} & idempotency & CRITICAL & idempotency key persisted before external call; dedup check on retry \\
-\texttt{db\_writes\_not\_transactional} & atomicity & CRITICAL & wrap in transaction; or transactional outbox \\
-\texttt{charge\_then\_db\_update} & atomicity & CRITICAL & persist pending payment before external call; reconciliation worker \\
-\texttt{missing\_retry\_logic} & retry\_safety & MEDIUM & exponential backoff with jitter; retry only idempotent operations \\
-\texttt{unsafe\_retry} & retry\_safety & HIGH & make operation idempotent before adding retry \\
-\texttt{no\_timeout} & timeout & HIGH & explicit timeout; handle TimeoutError as ambiguous \\
-\texttt{race\_condition\_read\_modify\_write} & concurrency & HIGH & SELECT FOR UPDATE or optimistic locking version check \\
-\texttt{queue\_no\_ack\_handling} & recovery & HIGH & ack after processing; idempotent consumer + dedup \\
-\texttt{no\_rate\_limit} & resource\_exhaustion & MEDIUM & token bucket rate limiter; bounded pool \\
-\texttt{missing\_observability} & observability & LOW & operation/request ID in logs; metrics for outcome \\
-\bottomrule
+@RULES@
 \bottomrule
 \end{tabular}
 }
@@ -523,16 +726,7 @@ preserve (Table~\ref{tab:scen}).
 \toprule
 Scenario & Prompt (abridged) & Invariants the system must preserve\\
 \midrule
-\toprule
-Scenario & Prompt (abridged) & Invariants preserved\\
-\midrule
-payment & Course payment via Paystack; auto-enroll after payment & No enrollment without verified payment; no double charge \\
-queue & Certificate generation on course completion & Certificate sent at most once; poison message must not stall \\
-authentication & Login and JWT refresh under load & No lost update on refresh; brute force throttled \\
-file-upload & 500 MB uploads to object storage & Bytes and metadata stay consistent; no duplicate files \\
-inventory & Limited seats, concurrent enrollment & Seats never negative; no lost update under concurrency \\
-webhook & Paystack webhook ingestion with resends & Exactly-once effect per logical event; ordering safe \\
-\bottomrule
+@SCEN@
 \bottomrule
 \end{tabular}
 }
@@ -577,20 +771,7 @@ at least one criterion moves without another moving the wrong way.}
 \toprule
 Criterion & What is measured & Direction\\
 \midrule
-\toprule
-Criterion & What is measured & Direction\\
-\midrule
-failure\_coverage & CRITICAL/HIGH findings on the final code & lower is better \\
-invariant\_preservation & invariants with a viable counter-scenario & lower is better \\
-idempotency & idempotency key present, persisted before the call & pass/fail \\
-transaction\_safety & writes and state transitions atomic & pass/fail \\
-retry\_safety & retry cannot duplicate a side effect & pass/fail \\
-concurrency\_safety & no read-modify-write race & pass/fail \\
-recovery\_behavior & ack after durable processing, poison handling & pass/fail \\
-observability & operation ids, structured logging & pass/fail \\
-test\_coverage & failure tests generated for the scenario & count \\
-architectural\_change\_quality & is the resilience proportional to the failure boundary? & 0.5--1.0 \\
-\bottomrule
+@CRIT@
 \bottomrule
 \end{tabular}
 }
@@ -658,16 +839,7 @@ criterion. Queue and inventory retain one CRITICAL finding that is a heuristic f
 \toprule
 Scenario & Crit & High & Idemp & Tx & Conc & Recov & V.I. & Arch\\
 \midrule
-\toprule
-Scenario & Crit & High & Idemp & Tx & Conc & Recov & V.I. & Arch\\
-\midrule
-payment & 3$\to$\textbf{0} & 1$\to$\textbf{0} & n$\to$\textbf{y} & n$\to$\textbf{y} & y$\to$\textbf{y} & y$\to$\textbf{y} & 1$\to$\textbf{0} & 1.0$\to$\textbf{1.0} \\
-queue & 0$\to$\textbf{1} & 2$\to$\textbf{0} & y$\to$\textbf{n} & n$\to$\textbf{n} & y$\to$\textbf{y} & n$\to$\textbf{y} & 1$\to$\textbf{1} & 1.0$\to$\textbf{1.0} \\
-authentication & 1$\to$\textbf{1} & 1$\to$\textbf{0} & n$\to$\textbf{n} & n$\to$\textbf{n} & n$\to$\textbf{y} & y$\to$\textbf{y} & 2$\to$\textbf{2} & 1.0$\to$\textbf{1.0} \\
-file-upload & 0$\to$\textbf{0} & 0$\to$\textbf{0} & n$\to$\textbf{y} & y$\to$\textbf{y} & y$\to$\textbf{y} & y$\to$\textbf{y} & 2$\to$\textbf{2} & 1.0$\to$\textbf{1.0} \\
-inventory & 0$\to$\textbf{1} & 2$\to$\textbf{0} & n$\to$\textbf{y} & n$\to$\textbf{n} & n$\to$\textbf{y} & y$\to$\textbf{y} & 2$\to$\textbf{2} & 1.0$\to$\textbf{1.0} \\
-webhook & 3$\to$\textbf{0} & 1$\to$\textbf{0} & n$\to$\textbf{y} & n$\to$\textbf{y} & y$\to$\textbf{y} & y$\to$\textbf{y} & 2$\to$\textbf{2} & 1.0$\to$\textbf{1.0} \\
-\bottomrule
+@PROXY@
 \bottomrule
 \end{tabular}
 }
@@ -682,47 +854,27 @@ everywhere in both arms: the Failures arm does not reach for a broker, and the b
 
 \subsection{Blind agent study (RQ1--RQ3)}
 \label{sec:agentstudy}
-The main study scores the real agent outputs. Across three agents and six scenarios we obtained 17 matched
+The main study scores the real agent outputs. Across three agents and six scenarios we obtained @N@ matched
 baseline/enabled pairs; the remaining cell (Cursor $\times$ webhook) has a baseline but no completed
 Failures-enabled run and is excluded rather than imputed. Table~\ref{tab:agents} reports every pair.
 
 \begin{table*}[t]
 \caption{Blind agent study. ``Impr.'' counts criteria that moved in the right direction; ``Regr.'' counts
-those that moved the wrong way. 16 of 17 pairs improve on at least one criterion.}
+those that moved the wrong way. @NIMP@ of @N@ pairs improve on at least one criterion.}
 \label{tab:agents}
 \centering\footnotesize
 \begin{tabular}{llllllll}
 \toprule
 Agent & Scenario & Crit & High & Lines & Impr. & Regr. & Verdict\\
 \midrule
-\toprule
-Agent & Scenario & Crit & High & Lines & Impr. & Regr. & Verdict\\
-\midrule
-claude & payment & 0$\to$\textbf{0} & 1$\to$\textbf{0} & 1111$\to$2339 & 3 & 0 & improved \\
-claude & queue & 1$\to$\textbf{0} & 2$\to$\textbf{0} & 38$\to$93 & 3 & 0 & improved \\
-claude & authentication & 1$\to$\textbf{1} & 1$\to$\textbf{0} & 20$\to$27 & 3 & 0 & improved \\
-claude & file-upload & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 10$\to$19 & 1 & 0 & improved \\
-claude & inventory & 0$\to$\textbf{1} & 2$\to$\textbf{0} & 10$\to$20 & 3 & 2 & improved, one regression \\
-claude & webhook & 3$\to$\textbf{2} & 1$\to$\textbf{1} & 9$\to$16 & 1 & 1 & improved, one regression \\
-cursor & payment & 0$\to$\textbf{0} & 1$\to$\textbf{0} & 1450$\to$503 & 4 & 0 & improved \\
-cursor & queue & 1$\to$\textbf{0} & 2$\to$\textbf{0} & 103$\to$420 & 4 & 0 & improved \\
-cursor & authentication & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 162$\to$362 & 1 & 0 & improved \\
-cursor & file-upload & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 166$\to$392 & 1 & 0 & improved \\
-cursor & inventory & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 131$\to$328 & 1 & 0 & improved \\
-codex & payment & 1$\to$\textbf{0} & 0$\to$\textbf{0} & 265$\to$321 & 2 & 1 & improved, one regression \\
-codex & queue & 0$\to$\textbf{0} & 1$\to$\textbf{0} & 229$\to$298 & 3 & 1 & improved, one regression \\
-codex & authentication & 1$\to$\textbf{1} & 1$\to$\textbf{0} & 20$\to$27 & 3 & 0 & improved \\
-codex & file-upload & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 179$\to$253 & 1 & 1 & improved, one regression \\
-codex & inventory & 0$\to$\textbf{0} & 0$\to$\textbf{0} & 124$\to$158 & 0 & 0 & no change \\
-codex & webhook & 1$\to$\textbf{1} & 1$\to$\textbf{0} & 113$\to$173 & 1 & 0 & improved \\
-\bottomrule
+@AGENTS@
 \bottomrule
 \end{tabular}
 \end{table*}
 
 The result is a consistent direction rather than a dramatic one, which is the more credible shape for this
-kind of intervention. 16 of 17 pairs improve on at least one criterion, and HIGH findings never rise in
-any pair. 5 pairs show a regression on at least one criterion, and the regressions are more informative
+kind of intervention. @NIMP@ of @N@ pairs improve on at least one criterion, and HIGH findings never rise in
+any pair. @NREG@ pairs show a regression on at least one criterion, and the regressions are more informative
 than the improvements.
 
 The regressions cluster into two kinds, and neither is a secret. The first is the transaction heuristic we
@@ -740,17 +892,17 @@ introduced while trying to satisfy the tool. It is also an argument that \emph{r
 is doing useful work, since a retry that duplicates a charge is precisely the failure this paper is about.
 We report the measurement rather than the charitable reading.
 
-The aggregate picture: CRITICAL findings fall in 4 of 17 pairs, hold in 12, and rise in exactly
-1---the documented heuristic false positive. HIGH findings never rise and fall in 9 of 17;
-observability improves in 5 of 17; and the total volume of generated code grows 39\%
-(median 78\% per pair, growing in 16 of 17). That last number is worth stating plainly, because it is
+The aggregate picture: CRITICAL findings fall in @CFELL@ of @N@ pairs, hold in @CSAME@, and rise in exactly
+@CUP@---the documented heuristic false positive. HIGH findings never rise and fall in @HFELL@ of @N@;
+observability improves in @OBSUP@ of @N@; and the total volume of generated code grows @PCTNUM@\%
+(median @MEDNUM@\% per pair, growing in @GROW@ of @N@). That last number is worth stating plainly, because it is
 the mechanism. The added lines are not incidental: they are pending records, unique constraints, timeout
 handling, and reconciliation paths. An agent that has been made to account for failure modes writes more
 code, and the extra code is the resilience.
 
 Per-agent consistency matters more than the pooled number, since one model could carry a result. The
-direction holds for all three agents: Claude improves on 6 of 6 pairs, Cursor on 5
-of 5, and Codex on 5 of 6. Cursor's webhook run was left incomplete and is reported as
+direction holds for all three agents: Claude improves on @ICLAUDE@ of @CCLAUDE@ pairs, Cursor on @ICURSOR@
+of @CCURSOR@, and Codex on @ICODEX@ of @CCODEX@. Cursor's webhook run was left incomplete and is reported as
 missing rather than imputed.
 
 \subsection{Does the checker itself hold up? (RQ4)}
@@ -765,16 +917,7 @@ plausible-looking code---and four of the six are raised at CRITICAL.}
 \toprule
 Adversarial case & Crit & Findings raised\\
 \midrule
-\toprule
-Adversarial case & Crit & Findings raised\\
-\midrule
-ack before processing & 0 & \tiny queue\_no\_ack\_handling \\
-idempotency not persisted & 1 & \tiny charge\_then\_db\_update, db\_writes\_not\_transactional, no\_timeout \\
-lock wrong section & 0 & \tiny db\_writes\_not\_transactional, race\_condition\_read\_modify\_write \\
-retry non idempotent & 1 & \tiny external\_call\_without\_idempotency, no\_timeout \\
-transaction wrong boundary & 1 & \tiny external\_call\_without\_idempotency, no\_timeout \\
-webhook memory dedup & 2 & \tiny external\_call\_without\_idempotency, charge\_then\_db\_update, db\_writes\_not\_transactional \ldots \\
-\bottomrule
+@ADV@
 \bottomrule
 \end{tabular}
 }
@@ -824,10 +967,10 @@ enrollment; the archived run report records 36 passing tests.
 
 The scored outcome across the three agents is a mixture worth reporting rather than smoothing. Claude's
 baseline already had 0 CRITICAL, and the Failures arm clears its remaining HIGH ($1 \rightarrow 0$) while
-roughly doubling the code (1111 $\rightarrow$ 2339 lines). Codex's baseline had 1 CRITICAL from an external
+roughly doubling the code (@CBL@ $\rightarrow$ @CFL@ lines). Codex's baseline had 1 CRITICAL from an external
 call without idempotency, and the Failures arm removes it entirely ($1 \rightarrow 0$ CRITICAL, 0 HIGH in
-both arms, 265 $\rightarrow$ 321 lines). Cursor's baseline had 0 CRITICAL and 1 HIGH; the Failures arm
-reaches 0 findings of either severity while writing less code than its baseline (1450 $\rightarrow$ 503
+both arms, @XBL@ $\rightarrow$ @XFL@ lines). Cursor's baseline had 0 CRITICAL and 1 HIGH; the Failures arm
+reaches 0 findings of either severity while writing less code than its baseline (@UBL@ $\rightarrow$ @UFL@
 lines), which is the one case in the study where the intervention reduced volume, and it is the clearest
 single illustration that the extra code is not what makes the improvement.
 
@@ -838,7 +981,7 @@ eventually reconcile the difference, and the agent designs one.
 
 We also note what did not happen, because the proportionality metric exists to catch it. No
 Failures-enabled run introduced a message broker, an event bus, or a distributed lock; architecture quality
-is 1.0 in all 17 pairs of both arms, so nothing in the study was bought with infrastructure. The agent
+is 1.0 in all @N@ pairs of both arms, so nothing in the study was bought with infrastructure. The agent
 added the complexity the failure boundary justified, which is the outcome we were trying to reward.
 
 % ===================================================================== 7
@@ -902,8 +1045,8 @@ transaction boundary and the pending record. The same engine run after the code 
 problem, but the fix now costs a rewrite. If teams adopt tools like this, the plan-review step is where the
 return is highest.
 
-\textbf{Failure reasoning adds code, and that is the honest cost.} The Failures arm writes 39\% more code
-in aggregate, and grows in 16 of 17 pairs. Anyone evaluating this class of intervention should expect
+\textbf{Failure reasoning adds code, and that is the honest cost.} The Failures arm writes @PCTNUM@\% more code
+in aggregate, and grows in @GROW@ of @N@ pairs. Anyone evaluating this class of intervention should expect
 that and should not treat it as a defect: the additional lines are the resilience, and a system that is 40
 percent larger and cannot double-charge a customer is a better system. What must be policed is the other
 direction---infrastructure added without a failure boundary behind it---which is why proportionality is a
@@ -916,7 +1059,7 @@ Coding agents write code that works on the path they were shown. We presented a 
 that makes them account for the paths they were not: eleven failure dimensions as a knowledge graph,
 thirteen tools that expose it, findings that always carry evidence and calibrated confidence, and an
 evaluation that measures the final system rather than the finding log. Across six scenarios and three
-agents, the Failures-enabled condition improves failure resilience on 16 of 17 matched agent pairs and
+agents, the Failures-enabled condition improves failure resilience on @NIMP@ of @N@ matched agent pairs and
 on 6 of 6 proxy scenarios, with architectural quality held proportional throughout. The adversarial set
 shows the checker is not a rubber stamp: it catches what is missing, and it is honest about the order and
 scope reasoning it cannot yet perform.
@@ -955,18 +1098,7 @@ transcribed, so a reviewer can regenerate them and diff.
 \toprule
 Path & Contents\\
 \midrule
-\toprule
-Path & Contents\\
-\midrule
-\texttt{FAILURES\_SPEC.md} & the model contract; the specification wins over the implementation \\
-\texttt{mcp\_server/knowledge/} & principles, rules, dimensions (data, versioned) \\
-\texttt{mcp\_server/engine/} & deterministic analyzers: code review, plan, invariants, tests \\
-\texttt{mcp\_server/server.py} & the MCP surface, 13 tools \\
-\texttt{evaluation/scenarios/} & the six prompts, hashed into every manifest \\
-\texttt{evaluation/adversarial/} & the six looks-safe cases of Table~\ref{tab:advdesc} \\
-\texttt{evaluation/runs/\{agent\}/\{mode\}/} & raw agent outputs plus manifest (model, hash, commit) \\
-\texttt{evaluation/results*.json} & machine-readable results; the source of Tables~\ref{tab:proxy}--\ref{tab:adv} \\
-\bottomrule
+@ART@
 \bottomrule
 \end{tabular}
 }
@@ -1015,3 +1147,33 @@ Addison-Wesley, 2002.
 \end{thebibliography}
 
 \end{document}
+"""
+
+claude = next(r for r in AG if r["agent"] == "claude" and r["scenario"] == "payment")
+codex = next(r for r in AG if r["agent"] == "codex" and r["scenario"] == "payment")
+cursor = next(r for r in AG if r["agent"] == "cursor" and r["scenario"] == "payment")
+
+subs = {
+    "@N@": str(N), "@NIMP@": str(N_IMP), "@NREG@": str(N_REG),
+    "@HFELL@": str(HIGH_FELL), "@CFELL@": str(CRIT_FELL), "@CSAME@": str(CRIT_SAME),
+    "@CUP@": str(CRIT_UP), "@OBSUP@": str(OBS_UP), "@GROW@": str(GROW),
+    "@PCTNUM@": f"{PCT:.0f}", "@MEDNUM@": f"{MED:.0f}",
+    "@HIGH_UP@": str(HIGH_UP),
+    "@ICLAUDE@": str(i_claude), "@CCLAUDE@": str(c_claude),
+    "@ICURSOR@": str(i_cursor), "@CCURSOR@": str(c_cursor),
+    "@ICODEX@": str(i_codex), "@CCODEX@": str(c_codex),
+    "@CBL@": str(claude["bl"]), "@CFL@": str(claude["fl"]),
+    "@XBL@": str(codex["bl"]), "@XFL@": str(codex["fl"]),
+    "@UBL@": str(cursor["bl"]), "@UFL@": str(cursor["fl"]),
+    "@DIMENSIONS@": t_dimensions(), "@TOOLS@": t_tools(), "@RULES@": t_rules(),
+    "@PROXY@": t_proxy(), "@AGENTS@": t_agents(), "@ADV@": t_adv(),
+    "@SCEN@": t_scen(), "@CRIT@": t_crit(), "@ART@": t_art(),
+}
+for k, v in subs.items():
+    tex = tex.replace(k, v)
+
+leftover = [k for k in subs if k in tex]
+assert not leftover, f"unsubstituted: {leftover}"
+OUT.write_text(tex, encoding="utf-8")
+print(f"Wrote {OUT}  pairs={N} improved={N_IMP} regressed={N_REG} "
+      f"high_fell={HIGH_FELL} crit_fell={CRIT_FELL} crit_up={CRIT_UP} growth={PCT:.0f}%")
