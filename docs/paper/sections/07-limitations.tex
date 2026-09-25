@@ -1,0 +1,11 @@
+\section{Limitations and Threats}
+\textbf{Heuristic engine.} Regex, not data-flow/AST: e.g., \texttt{ON CONFLICT DO NOTHING} counted as ``writes without transaction'' (false positive for improved queue/inventory), ack ordering and lock scope need deeper analysis (see \texttt{evaluation/README.md} adversarial limitations). All findings are labeled with confidence.
+
+\textbf{Proxy vs.\ real.} Proxy uses hand-written naive/improved, necessary for CI but not sufficient; we mitigate with frozen blind runs and prompt\_hash validation, and we do not change harness after first real result (\texttt{runs/README.md}).
+
+\textbf{Scope.} Small apps: payment/auth may show invariant deltas only via idempotency/concurrency, not CRITICAL count alone---hence our 10-criterion score.
+
+\section{Conclusion}
+Failures shows that deterministic, evidence-backed guardrails---not more prompting---make agents build systems that survive the failures that matter: ambiguous outcomes, duplicates, and crashes. The MCP is live, the harness is reproducible, and the pattern generalizes beyond payments. Future work: AST-aware checks and broader agent coverage.
+
+\paragraph{Reproducibility.} \texttt{python examples/run\_benchmark.py}; \texttt{python evaluation/run\_evaluation.py --mode proxy}; \texttt{--mode manual} after placing \texttt{baseline/*.py} and \texttt{failures-enabled/*.py}. See \texttt{evaluation/README.md}, \texttt{FAILURES\_SPEC.md}, \texttt{mcp/README.md}, and frozen \texttt{prompt\_hash}/commit manifests.

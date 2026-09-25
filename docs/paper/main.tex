@@ -1,0 +1,37 @@
+\documentclass[conference]{IEEEtran}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx,amsmath,amssymb,booktabs,hyperref,url,xcolor,listings,enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,breaklinks=true}
+\lstset{basicstyle=\footnotesize\ttfamily,breaklines=true,frame=single,language=Python}
+% Fast fix for overflow without heavy microtype
+\sloppy
+\setlength{\emergencystretch}{2.5em}
+\title{Failures: Deterministic Failure-Mode Guardrails Make Coding Agents Build Resilient Systems}
+\author{\IEEEauthorblockN{Mayowa Kalejaiye}
+\IEEEauthorblockA{Failures MCP Project\\ \texttt{github.com/mayowa-kalejaiye/Failures}}}
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Coding agents write happy-path code because their training data is happy-path tutorials. We present \textbf{Failures}, a deterministic Model Context Protocol (MCP) server that forces agents to reason about failure modes \emph{before code ships}---via 11 engineering invariants (atomicity, idempotency, timeout/ambiguous outcome, concurrency, ordering, consistency, availability, resource exhaustion, recovery, observability, retry safety) checked by static rules with line evidence and calibrated confidence, not LLM prompts. Zero tokens, zero hallucination. Across 6 realistic scenarios (payment via Paystack, queue, authentication, file upload, inventory, webhook) with blind evaluation (same prompt without vs.\ with Failures, 3 agents: Claude, Cursor/Codex, scored by a deterministic harness on 10 resilience criteria), Failures-enabled agents eliminate CRITICAL findings (payment 3$\to$0, webhook 3$\to$0) and surface the correct state machine (\texttt{pending$\to$Paystack$\to$ambiguous$\to$reconciliation$\to$verified$\to$enrollment}) without being asked. We also contribute 6 adversarial \emph{looks-safe-but-isn't} cases and a proportional-architecture metric to penalize over-engineering. All artifacts, prompts, and manifests (\texttt{prompt\_hash}, commit) are frozen for reproducibility.
+\end{abstract}
+\begin{IEEEkeywords}AI-assisted programming, resilience, distributed systems, MCP, static analysis, empirical software engineering\end{IEEEkeywords}
+
+\input{sections/01-intro}
+\input{sections/02-related}
+\input{sections/03-model}
+\input{sections/04-approach}
+\input{sections/05-evaluation}
+\input{sections/06-results}
+\input{sections/07-limitations}
+\input{sections/08-conclusion}
+
+\bibliographystyle{IEEEtran}
+\begin{thebibliography}{9}
+\bibitem{releaseit} M. Nygard, \emph{Release It!}, 2nd ed. Pragmatic, 2018.
+\bibitem{ddia} M. Kleppmann, \emph{Designing Data-Intensive Applications}. O'Reilly, 2017.
+\bibitem{sre} B. Beyer et al., \emph{Site Reliability Engineering}. O'Reilly, 2016.
+\bibitem{mcp} Anthropic, ``Model Context Protocol,'' 2024. \url{https://www.anthropic.com/news/model-context-protocol}
+\bibitem{copilot-eval} Yetistiren et al., ``Evaluating Copilot...'' ICSE 2022.
+\end{thebibliography}
+\end{document}

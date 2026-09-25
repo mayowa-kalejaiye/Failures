@@ -6,6 +6,8 @@ Coding agents write happy-path code because their training data is happy-path tu
 
 Live on PyPI: `pipx install failures-mcp` — see [INSTALL.md](INSTALL.md).
 
+📄 **Published:** *"Failures: Deterministic Failure-Mode Guardrails Make Coding Agents Build Resilient Systems"* — <https://doi.org/10.5281/zenodo.22966362> ([record](https://zenodo.org/records/22966362) · [PDF](https://zenodo.org/records/22966362/files/Failures_MCP_Paper.pdf)). Empirical study across 6 scenarios and 3 coding agents. Paper source in [`docs/paper/`](docs/paper/); rebuild every table from the evaluation artifacts with `python tools/build_paper_pdf.py`.
+
 ## Failures MCP
 
 Install it and your agent starts asking:

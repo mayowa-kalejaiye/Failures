@@ -1,0 +1,38 @@
+% Auto-generated from evaluation/results.json and adversarial_results.json
+\begin{table*}[t]\centering\footnotesize
+\caption{Proxy evaluation: baseline (\texttt{examples/*/naive.py}) vs.\ Failures-enabled (\texttt{examples/*/improved.py}). Deterministic harness. Prompt hash frozen. 6/6 measurably better on at least one resilience criterion.}
+\label{tab:proxy}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lccccccc}
+\toprule
+Scenario & Crit B$\to$F & High B$\to$F & Idemp & Tx & Retry & Inv Viol & Arch \\
+\midrule
+payment & 3$\to$0 & 1$\to$0 & F$\to$T & F$\to$T & T$\to$T & 1$\to$0 & 1.0$\to$1.0 \\
+queue & 0$\to$1* & 2$\to$0 & T$\to$F* & F$\to$F & T$\to$T & 1$\to$1 & 1.0$\to$1.0 \\
+authentication & 1$\to$1 & 1$\to$0 & F$\to$F & F$\to$F & T$\to$T & 2$\to$2 & 1.0$\to$1.0 \\
+file-upload & 0$\to$0 & 0$\to$0 & F$\to$T & T$\to$T & T$\to$T & 2$\to$2 & 1.0$\to$1.0 \\
+inventory & 0$\to$1* & 2$\to$0 & F$\to$T & F$\to$F & T$\to$F & 2$\to$2 & 1.0$\to$1.0 \\
+webhook & 3$\to$0 & 1$\to$0 & F$\to$T & F$\to$T & T$\to$T & 2$\to$2 & 1.0$\to$1.0 \\
+\bottomrule
+\end{tabular}
+\\[2pt]{\scriptsize *Queue/inventory 1 CRITICAL from \texttt{db\_writes\_not\_transactional} on \texttt{ON CONFLICT} upsert --- heuristic false positive (see \S7), safe via upsert.}
+\end{table*}
+
+\begin{table}[h]\centering\footnotesize
+\caption{Adversarial ``looks-safe-but-isn't'' cases (6). Engine flags all; 4 correctly CRITICAL.}
+\label{tab:adv}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{3.2cm}p{4.2cm}c}
+\toprule
+Case & Engine ids & Crit \\
+\midrule
+idempotency-not-persisted & \scriptsize charge\_then\_db\_update & 1 \\
+transaction-wrong-boundary & \scriptsize external\_call\_without\_idempotency & 1 \\
+retry-non-idempotent & \scriptsize external\_call\_without\_idempotency & 1 \\
+webhook-memory-dedup & \scriptsize external\_call\_without\_idempotency & 2 \\
+lock-wrong-section & \scriptsize race\_condition* & 0 \\
+ack-before-processing & \scriptsize queue\_no\_ack\_handling* & 0 \\
+\bottomrule
+\end{tabular}
+\\[2pt]{\scriptsize *Needs AST ordering/scope --- tracked as HIGH.}
+\end{table}

@@ -1,0 +1,6 @@
+\section{Related Work}
+\paragraph{AI code generation evaluation.} Copilot and agent benchmarks focus on functional correctness (HumanEval, SWE-bench)~\cite{copilot-eval}. We shift the metric to \emph{final system resilience} under failures, not pass@k.
+
+\paragraph{Resilience patterns.} Nygard~\cite{releaseit}, Kleppmann~\cite{ddia}, and SRE~\cite{sre} catalog patterns (circuit breaker, outbox, idempotency-key). Failures makes them \emph{machine-checkable} via invariants and ties each finding to a required pattern and test.
+
+\paragraph{Static guards vs.\ LLM judges.} LLM-as-judge approaches hallucinate and cost tokens. Our checks are regex/AST heuristics labeled \texttt{STATIC FAILURE CHECK---Potential violation. Confidence: X}. High-confidence rules ($>$0.95) are syntactic proofs (e.g., two \texttt{execute} without \texttt{BEGIN}); weaker signals are surfaced as Medium with evidence, never as proven bugs.

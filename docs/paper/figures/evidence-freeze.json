@@ -1,0 +1,31 @@
+{
+  "scenarios": [
+    "payment",
+    "queue",
+    "authentication",
+    "file-upload",
+    "inventory",
+    "webhook"
+  ],
+  "adversarial": [
+    "ack-before-processing",
+    "idempotency-not-persisted",
+    "lock-wrong-section",
+    "retry-non-idempotent",
+    "transaction-wrong-boundary",
+    "webhook-memory-dedup"
+  ],
+  "manifest_sample": {
+    "agent": "claude",
+    "scenario": "payment",
+    "mode": "failures-enabled",
+    "model": "claude",
+    "timestamp": "2026-08-26T00:12:31.982071Z",
+    "prompt_hash": "0d915b563622",
+    "prompt_source": "evaluation/scenarios/payment.md",
+    "failures_mcp_enabled": true,
+    "commit": "ab18bb4870e9",
+    "output_path": "evaluation/runs/claude/failures-enabled/payment.py"
+  },
+  "spec_version": "# Failures Specification \u00e2\u20ac\u201d Engineering Model Contract"
+}
